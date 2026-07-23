@@ -1,0 +1,135 @@
+'use client'
+
+import { useState } from 'react'
+import { MessageCircle, Check } from 'lucide-react'
+import type { Product } from '@/lib/products'
+import { useQuote } from '@/context/quote-context'
+import { contactInfo } from '@/lib/products'
+
+function ShoppingBagIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+      <path d="M3 6h18" />
+      <path d="M16 10a4 4 0 0 1-8 0" />
+    </svg>
+  )
+}
+
+export function ProductDetailActions({ product }: { product: Product }) {
+  const { addItem } = useQuote()
+
+  // Extract size options from specs if available
+  const sizeRaw =
+    product.specs.Size ||
+    product.specs['Available Size'] ||
+    product.specs['Available Sizes'] ||
+    product.specs['Inner Diameter'] ||
+    ''
+
+  // Parse size options
+  const sizes = sizeRaw
+    ? sizeRaw
+        .split(/[,，]/)
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : []
+
+  const [selectedSize, setSelectedSize] = useState<string>(sizes[0] || '')
+  const [addedAnimation, setAddedAnimation] = useState(false)
+
+  function handleAddToCart() {
+    addItem({
+      productId: product.id,
+      productName: product.name,
+      category: product.category,
+      subcategory: product.subcategory,
+      brand: product.brand,
+      image: product.images[0],
+      selectedSize: selectedSize || undefined,
+      quantity: 1,
+    })
+
+    setAddedAnimation(true)
+    setTimeout(() => setAddedAnimation(false), 1200)
+  }
+
+  function handleDirectWhatsApp() {
+    let msg = `Hello Super Tech Kuwait,\n\nI would like a quote for:\nProduct: ${product.name}\n`
+    if (selectedSize) {
+      msg += `Selected Size: ${selectedSize}\n`
+    }
+    if (product.brand) {
+      msg += `Brand: ${product.brand}\n`
+    }
+    msg += `Please confirm stock availability and bulk pricing.`
+
+    const url = `${contactInfo.whatsappHref}?text=${encodeURIComponent(msg)}`
+    window.open(url, '_blank')
+  }
+
+  return (
+    <div className="mt-8 flex flex-col gap-6 border-t border-b border-border py-6">
+      {/* Size Selector (if sizes exist) */}
+      {sizes.length > 0 && (
+        <div>
+          <label className="text-xs font-bold uppercase tracking-wider text-foreground block mb-3">
+            Select Size / Specification Option:
+          </label>
+          <div className="flex flex-wrap gap-2.5">
+            {sizes.map((size) => {
+              const active = selectedSize === size
+              return (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => setSelectedSize(size)}
+                  className={`inline-flex items-center gap-1.5 rounded-lg border px-3.5 py-2 text-xs font-bold transition-all duration-200 ${
+                    active
+                      ? 'border-accent bg-accent/10 text-accent shadow-sm scale-102'
+                      : 'border-border bg-background text-foreground hover:bg-secondary'
+                  }`}
+                >
+                  {active && <Check className="size-3 text-accent" aria-hidden="true" />}
+                  {size}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Main Action Buttons */}
+      <div className="flex flex-col gap-3.5 sm:flex-row">
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          className={`flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg btn-primary text-sm font-bold shadow-md transition-all ${
+            addedAnimation ? 'scale-102 bg-green-600' : ''
+          }`}
+        >
+          <ShoppingBagIcon className="size-4" aria-hidden="true" />
+          {addedAnimation ? 'Added to Quote Basket!' : 'Add to Quote Basket'}
+        </button>
+
+        <button
+          type="button"
+          onClick={handleDirectWhatsApp}
+          className="flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg bg-[#25D366] text-sm font-bold text-white shadow-md shadow-[#25D366]/20 transition-all hover:opacity-95"
+        >
+          <MessageCircle className="size-4" aria-hidden="true" />
+          Request via WhatsApp
+        </button>
+      </div>
+    </div>
+  )
+}
