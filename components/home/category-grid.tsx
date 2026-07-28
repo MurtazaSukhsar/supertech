@@ -9,56 +9,86 @@ import { CategoryIcon } from '@/components/category-icon'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TiltCard } from '@/components/tilt-card'
 
+const catImagePool: Record<string, string[]> = {
+  'air-conditioning': [
+    '/images/products/copper-coil.jpeg',
+    '/images/products/copper-pipe.jpeg',
+    '/images/products/copper-fitting.jpeg',
+    '/images/products/filter-dryer.jpeg',
+  ],
+  'duct-accessories': [
+    '/images/products/insulated-flexible-duct.jpeg',
+    '/images/products/aeroduct-flexible-connector.jpeg',
+    '/images/products/duct-sealant.jpeg',
+    '/images/products/hvac-damper-fittings.jpeg',
+  ],
+  hardware: [
+    '/images/products/gi-universal-clamp.jpeg',
+    '/images/products/rubber-lined-clamp.jpeg',
+    '/images/products/galvanized-fasteners.jpeg',
+    '/images/products/gi-channel-clamp.jpeg',
+  ],
+  tools: [
+    '/images/products/cordless-drill.png',
+    '/images/products/angle-grinder.png',
+    '/images/products/wrench-set.png',
+  ],
+  construction: [
+    '/images/products/slotted-channel.jpeg',
+    '/images/products/fischer-drop-in-anchor-box.jpeg',
+    '/images/products/gi-unistrut-channel-bracket.jpeg',
+    '/images/products/pvc-pipe-wrapping-tape.jpeg',
+  ],
+  industrial: [
+    '/images/products/air-compressor.png',
+    '/images/products/welding-machine.png',
+    '/images/products/spring-mount-isolator.jpeg',
+  ],
+  plumbing: [
+    '/images/products/upvc-fitting.jpeg',
+    '/images/products/weldfix-upvc-cement.jpeg',
+    '/images/products/brass-gate-valve.jpeg',
+    '/images/products/jute-kutkut.jpeg',
+  ],
+  electric: [
+    '/images/products/industrial-socket.jpeg',
+    '/images/products/pvc-coated-flexible-conduit.jpeg',
+    '/images/products/pvc-electrical-conduit-box.jpeg',
+    '/images/products/galvanized-conduit-coupling.jpeg',
+  ],
+}
+
 function CardMedia({ cat }: { cat: (typeof categories)[number] }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const images = catImagePool[cat.slug] || [cat.image || '/placeholder.svg']
+  const [currentIdx, setCurrentIdx] = useState(0)
 
   useEffect(() => {
-    if (cat.slug !== 'tools') return
-    const video = videoRef.current
-    if (!video) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {
-            // Autoplay might be blocked by the browser, ignore
-          })
-        } else {
-          video.pause()
-        }
-      },
-      { threshold: 0.25 }
-    )
-
-    observer.observe(video)
-    return () => observer.disconnect()
-  }, [cat.slug])
-
-  if (cat.slug === 'tools') {
-    return (
-      <video
-        ref={videoRef}
-        src="/videos/hand-power-tools.mp4"
-        poster={cat.image || '/placeholder.svg'}
-        muted
-        loop
-        playsInline
-        autoPlay
-        preload="none"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        aria-label={cat.name}
-      />
-    )
-  }
+    if (images.length <= 1) return
+    const interval = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % images.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [images.length])
 
   return (
-    <Image
-      src={cat.image || '/placeholder.svg'}
-      alt={cat.name}
-      fill
-      sizes="(max-width: 1024px) 100vw, 33vw"
-      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-    />
+    <div className="relative h-full w-full">
+      {images.map((src, idx) => (
+        <div
+          key={src}
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            idx === currentIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+        >
+          <Image
+            src={src}
+            alt={cat.name}
+            fill
+            sizes="(max-width: 1024px) 100vw, 33vw"
+            className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -72,56 +102,58 @@ export function CategoryGrid() {
           <p className="eyebrow">Our Range</p>
           <h2 className="section-heading">Product Categories</h2>
           <p className="section-subheading">
-            Five specialist divisions covering everything your project needs, all under one roof.
+            Eight specialist divisions covering everything your project needs, all under one roof.
           </p>
         </div>
       </ScrollReveal>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((cat, i) => {
           const isSiblingHovered = hoveredIdx !== null && hoveredIdx !== i
 
           return (
             <ScrollReveal
               key={cat.slug}
-              delay={i * 80}
-              variant="scale-up"
+              delay={i * 60}
+              variant="rotate-in-3d"
               className={`h-full transition-all duration-300 ${
-                i === 0 ? 'sm:col-span-2 lg:col-span-1 lg:row-span-2' : ''
-              } ${isSiblingHovered ? 'scale-[0.97] opacity-60 blur-[0.3px]' : ''}`}
+                isSiblingHovered ? 'scale-[0.97] opacity-60 blur-[0.3px]' : ''
+              }`}
             >
               <div
                 onMouseEnter={() => setHoveredIdx(i)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 className="h-full"
               >
-                <TiltCard className="group h-full border border-border overflow-hidden">
+                <TiltCard className="group h-full overflow-hidden border border-border shadow-md transition-all duration-300 hover:shadow-2xl">
                   <Link
                     href={`/categories/${cat.slug}`}
                     className="relative flex h-full flex-col overflow-hidden"
                   >
-                    <div
-                      className={`relative w-full overflow-hidden bg-secondary ${
-                        i === 0
-                          ? 'aspect-[4/3] sm:aspect-[16/9] lg:aspect-auto lg:h-full lg:min-h-[440px]'
-                          : 'aspect-[16/9] h-full min-h-[220px]'
-                      }`}
-                    >
+                    <div className="relative aspect-[4/3] w-full min-h-[310px] overflow-hidden bg-secondary">
                       <CardMedia cat={cat} />
                       <div
-                        className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/40 to-transparent transition-opacity duration-300 group-hover:opacity-95"
+                        className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/45 to-transparent transition-opacity duration-300 group-hover:opacity-95"
                         aria-hidden="true"
                       />
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 sm:p-6">
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-7">
                         <div>
-                          <div className="mb-3 inline-flex size-9 items-center justify-center rounded-lg bg-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105">
-                            <CategoryIcon icon={cat.icon} className="size-5 text-white" />
+                          <div className="mb-3.5 inline-flex size-11 items-center justify-center rounded-xl bg-accent shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110">
+                            <CategoryIcon icon={cat.icon} className="size-6 text-white" />
                           </div>
-                          <h3 className="text-sm md:text-[15px] font-black uppercase tracking-tight text-white leading-tight">
+                          <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight md:text-lg">
                             {cat.name}
                           </h3>
+                          {cat.subcategories && cat.subcategories.length > 0 && (
+                            <p className="mt-1.5 line-clamp-1 text-xs font-medium text-white/80">
+                              {cat.subcategories.slice(0, 3).join(' • ')}
+                            </p>
+                          )}
                         </div>
-                        <ArrowRight className="mb-0.5 size-5 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                        <ArrowRight
+                          className="mb-1 size-6 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1.5"
+                          aria-hidden="true"
+                        />
                       </div>
                     </div>
                   </Link>

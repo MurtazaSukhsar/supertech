@@ -2,26 +2,24 @@
 
 import { useMemo, useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight, SlidersHorizontal, X, Check } from 'lucide-react'
-import type { Product } from '@/lib/products'
+import { categories, type Product } from '@/lib/products'
 import { ProductCard } from '@/components/product-card'
 
 const PAGE_SIZE = 12
 
-type SortOption = 'name-asc' | 'name-desc' | 'subcategory'
+type SortOption = 'featured' | 'name-asc' | 'name-desc' | 'subcategory'
 
 export function CategoryProductGrid({ products }: { products: Product[] }) {
-  const [selectedSubs, setSelectedSubs] = useState<string[]>([])
+  const [selectedCats, setSelectedCats] = useState<string[]>([])
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
-  const [sort, setSort] = useState<SortOption>('name-asc')
+  const [sort, setSort] = useState<SortOption>('featured')
   const [page, setPage] = useState(1)
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const [isFiltering, setIsFiltering] = useState(false)
   const [pulseGrid, setPulseGrid] = useState(false)
 
-  const subcategories = useMemo(
-    () => Array.from(new Set(products.map((p) => p.subcategory))).sort(),
-    [products]
-  )
+  const availableCategories = useMemo(() => categories, [])
+
   const brands = useMemo(
     () => Array.from(new Set(products.map((p) => p.brand).filter(Boolean) as string[])).sort(),
     [products]
@@ -29,8 +27,8 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
 
   const filtered = useMemo(() => {
     let result = products
-    if (selectedSubs.length > 0) {
-      result = result.filter((p) => selectedSubs.includes(p.subcategory))
+    if (selectedCats.length > 0) {
+      result = result.filter((p) => selectedCats.includes(p.category))
     }
     if (selectedBrands.length > 0) {
       result = result.filter((p) => p.brand && selectedBrands.includes(p.brand))
@@ -38,10 +36,11 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
     result = [...result].sort((a, b) => {
       if (sort === 'name-asc') return a.name.localeCompare(b.name)
       if (sort === 'name-desc') return b.name.localeCompare(a.name)
-      return a.subcategory.localeCompare(b.subcategory)
+      if (sort === 'subcategory') return a.subcategory.localeCompare(b.subcategory)
+      return 0
     })
     return result
-  }, [products, selectedSubs, selectedBrands, sort])
+  }, [products, selectedCats, selectedBrands, sort])
 
   // Trigger skeleton loading cross-fade & card pulse when filters change
   useEffect(() => {
@@ -53,7 +52,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
       clearTimeout(filterTimer)
       clearTimeout(pulseTimer)
     }
-  }, [selectedSubs, selectedBrands, sort, page])
+  }, [selectedCats, selectedBrands, sort, page])
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
   const currentPage = Math.min(page, totalPages)
@@ -65,26 +64,28 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
   }
 
   function clearFilters() {
-    setSelectedSubs([])
+    setSelectedCats([])
     setSelectedBrands([])
     setPage(1)
   }
 
-  const hasFilters = selectedSubs.length > 0 || selectedBrands.length > 0
+  const hasFilters = selectedCats.length > 0 || selectedBrands.length > 0
 
   const filterPanel = (
     <div className="flex flex-col gap-7">
       <div>
-        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-foreground">Subcategory</h3>
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-wider text-foreground">Category</h3>
         <div className="flex flex-col gap-2.5">
-          {subcategories.map((sub) => {
-            const active = selectedSubs.includes(sub)
+          {availableCategories.map((cat) => {
+            const active = selectedCats.includes(cat.slug)
+            const count = products.filter((p) => p.category === cat.slug).length
+            if (count === 0 && products.length > 10) return null
             return (
               <label
-                key={sub}
+                key={cat.slug}
                 className={`flex cursor-pointer items-center justify-between gap-3 rounded-lg border px-3 py-2 text-sm font-medium transition-all duration-150 ${
                   active
-                    ? 'border-accent bg-accent/10 text-accent shadow-sm scale-102 animate-chip-snap'
+                    ? 'border-accent bg-accent/10 text-accent shadow-sm scale-102'
                     : 'border-border bg-background text-foreground hover:bg-secondary'
                 }`}
               >
@@ -92,12 +93,20 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
                   <input
                     type="checkbox"
                     checked={active}
-                    onChange={() => toggle(selectedSubs, sub, setSelectedSubs)}
+                    onChange={() => toggle(selectedCats, cat.slug, setSelectedCats)}
                     className="size-4 rounded accent-[#D91E2A]"
                   />
-                  {sub}
+                  {cat.name}
                 </span>
-                {active && <Check className="size-3.5 shrink-0 text-accent" aria-hidden="true" />}
+                {count > 0 && (
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${
+                      active ? 'bg-accent text-white' : 'bg-secondary text-muted-foreground'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                )}
               </label>
             )
           })}
@@ -165,7 +174,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
             </p>
             {hasFilters && (
               <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-bold text-accent">
-                {selectedSubs.length + selectedBrands.length} active filters
+                {selectedCats.length + selectedBrands.length} active filters
               </span>
             )}
           </div>
@@ -181,7 +190,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
               Filters
               {hasFilters && (
                 <span className="flex size-5 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground">
-                  {selectedSubs.length + selectedBrands.length}
+                  {selectedCats.length + selectedBrands.length}
                 </span>
               )}
             </button>
@@ -194,6 +203,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
                 className="h-10 rounded-lg border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-accent"
                 aria-label="Sort products"
               >
+                <option value="featured">Featured / Mixed</option>
                 <option value="name-asc">Name (A–Z)</option>
                 <option value="name-desc">Name (Z–A)</option>
                 <option value="subcategory">Subcategory</option>

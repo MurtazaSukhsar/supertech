@@ -58,6 +58,18 @@ export default async function CategoryPage({
               <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-primary-foreground/70 md:text-base">
                 {category.description}
               </p>
+              {category.subcategories && category.subcategories.length > 0 && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {category.subcategories.map((sub) => (
+                    <span
+                      key={sub}
+                      className="inline-flex items-center rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground backdrop-blur-sm"
+                    >
+                      {sub}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Hero } from '@/components/home/hero'
-import { BrandsStrip } from '@/components/home/brands-strip'
+import { CategorySlideshow } from '@/components/home/category-slideshow'
 import { TrustBadges } from '@/components/home/trust-badges'
 import { CategoryGrid } from '@/components/home/category-grid'
 import { FeaturedProducts } from '@/components/home/featured-products'
@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <BrandsStrip />
+      <CategorySlideshow />
       <TrustBadges />
       <CategoryGrid />
       <FeaturedProducts />

@@ -110,22 +110,24 @@ export function SiteHeader() {
             >
               Home
             </Link>
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setDropdownOpen((v) => !v)}
+            <div
+              className="relative"
+              ref={dropdownRef}
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <Link
+                href="/products"
                 className="relative flex items-center gap-1 text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
-                aria-expanded={dropdownOpen}
-                aria-haspopup="true"
               >
                 Products
                 <ChevronDown
                   className={`size-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
-              </button>
+              </Link>
               <div
-                className={`absolute left-0 top-full z-50 mt-3 w-72 rounded-xl border border-border bg-popover p-2 shadow-xl transition-all duration-200 origin-top ${
+                className={`absolute left-0 top-full z-50 mt-1 w-72 rounded-xl border border-border bg-popover p-2 shadow-xl transition-all duration-200 origin-top ${
                   dropdownOpen
                     ? 'scale-100 opacity-100'
                     : 'pointer-events-none scale-95 opacity-0'
