@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: '%s | Super Tech Int\u2019l Construction Materials Co.',
   },
   description:
-    'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand & power tools, construction materials, and industrial equipment. Request a quote today.',
+    'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand & power tools, and construction materials. Request a quote today.',
   keywords: [
     'construction materials Kuwait',
     'air conditioning materials Kuwait',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     siteName: 'Super Tech International Construction Materials Co.',
     title: 'Super Tech International Construction Materials Co. | Kuwait',
     description:
-      'Kuwait-based supplier of HVAC materials, hardware, tools, construction materials, and industrial equipment.',
+      'Kuwait-based supplier of HVAC materials, hardware, tools, and construction materials.',
     images: ['/images/hero-warehouse.png'],
   },
   generator: 'v0.app',
@@ -66,7 +66,7 @@ export default function RootLayout({
     '@type': 'LocalBusiness',
     name: contactInfo.companyName,
     description:
-      'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand and power tools, construction materials, and industrial equipment.',
+      'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand and power tools, and construction materials.',
     url: siteUrl,
     telephone: contactInfo.phone,
     email: contactInfo.email,

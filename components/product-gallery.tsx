@@ -7,7 +7,6 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
   const [active, setActive] = useState(0)
   const [isCrossFading, setIsCrossFading] = useState(false)
   const [wiped, setWiped] = useState(false)
-  const [isZoomed, setIsZoomed] = useState(false)
 
   // Trigger mask-wipe unveil on page load
   useEffect(() => {
@@ -19,7 +18,6 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
   function handleSelectThumbnail(index: number) {
     if (index === active) return
     setIsCrossFading(true)
-    setIsZoomed(false)
     setActive(index)
     const timer = setTimeout(() => setIsCrossFading(false), 250)
   }
@@ -28,22 +26,15 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Main image container with click-to-zoom toggle (non-blocking) */}
+      {/* Main image container */}
       <div
-        onClick={() => setIsZoomed((v) => !v)}
-        className={`relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm ${
-          isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'
-        }`}
+        className="relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary shadow-sm cursor-default"
         style={{
           clipPath: wiped
             ? 'polygon(-20% -20%, 140% -20%, 140% 140%, -20% 140%)'
             : 'polygon(-20% -20%, -20% -20%, -20% 140%, -20% 140%)',
           transition: 'clip-path 550ms cubic-bezier(0.25, 1, 0.5, 1)',
         }}
-        title={isZoomed ? 'Click to reset view' : 'Click to zoom in'}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && setIsZoomed((v) => !v)}
       >
         <Image
           src={currentImage}
@@ -51,9 +42,9 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className={`object-contain p-4 transition-transform duration-500 ease-out ${
-            isZoomed ? 'scale-125' : 'scale-100 hover:scale-105'
-          } ${isCrossFading ? 'opacity-30' : 'opacity-100'}`}
+          className={`object-contain p-4 transition-transform duration-500 ease-out scale-100 ${
+            isCrossFading ? 'opacity-30' : 'opacity-100'
+          }`}
         />
       </div>
 
@@ -76,7 +67,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
                   alt={`${name} thumbnail ${i + 1}`}
                   fill
                   sizes="120px"
-                  className="object-cover"
+                  className="object-contain p-2"
                 />
 
                 <div

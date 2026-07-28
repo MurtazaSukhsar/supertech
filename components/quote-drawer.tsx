@@ -117,7 +117,7 @@ export function QuoteDrawer() {
                   Browse products and click &ldquo;Add to Quote Basket&rdquo; to send a bulk material request.
                 </p>
                 <Link
-                  href="/#categories"
+                  href="/products"
                   onClick={closeDrawer}
                   className="mt-6 inline-flex h-10 items-center rounded-lg btn-primary px-5 text-xs font-bold"
                 >

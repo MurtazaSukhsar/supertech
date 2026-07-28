@@ -84,7 +84,7 @@ const QUICK_REPLIES: QuickReply[] = [
     id: 'categories',
     label: '🛠️ Product Categories',
     question: 'What types of materials and equipment do you supply?',
-    answer: 'We supply a comprehensive range of materials:\n\n• **Air-Conditioning Materials:** Copper pipes, rubber insulation, refrigerants, condensers.\n• **Hardware Supplies:** Fasteners, fittings, fixing items, brackets.\n• **Hand & Power Tools:** Professional-grade drills, grinders, wrenches.\n• **Construction Materials:** Cement, steel, and core building materials in bulk.\n• **Industrial Equipment:** Air compressors, welding machines, generators.',
+    answer: 'We supply a comprehensive range of materials:\n\n• **Air-Conditioning Materials:** Copper pipes, rubber insulation, refrigerants, condensers.\n• **Hardware Supplies:** Fasteners, fittings, fixing items, brackets.\n• **Hand & Power Tools:** Professional-grade drills, grinders, wrenches.\n• **Construction Materials:** Cement, steel, and core building materials in bulk.',
     actions: [
       { label: '❄️ A/C Materials', href: '/categories/air-conditioning' },
       { label: '⚙️ Hand & Power Tools', href: '/categories/tools' },

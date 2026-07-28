@@ -73,32 +73,11 @@ export function ProductCard({ product }: { product: Product }) {
               className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-108"
             />
 
-            {/* Category color indicator pill */}
-            <span
-              className="absolute right-3 top-3 z-20 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-md transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: color.hex }}
-            >
-              {category?.shortName ?? product.category}
-            </span>
           </div>
 
           {/* Main card content */}
           <div className="relative flex flex-1 flex-col justify-between p-5">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  {product.subcategory}
-                </span>
-                {product.brand && (
-                  <>
-                    <span className="text-muted-foreground/40">•</span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-foreground">
-                      {product.brand}
-                    </span>
-                  </>
-                )}
-              </div>
-
               <h3 className="mt-1.5 font-sans text-sm font-bold leading-snug text-card-foreground transition-colors group-hover:text-accent">
                 {product.name}
               </h3>

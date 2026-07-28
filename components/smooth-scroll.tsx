@@ -20,6 +20,8 @@ export function SmoothScroll() {
     })
 
     lenisRef.current = lenis
+    // @ts-ignore - expose to window for external access
+    window.lenis = lenis
 
     function raf(time: number) {
       lenis.raf(time)
@@ -31,15 +33,20 @@ export function SmoothScroll() {
     return () => {
       lenis.destroy()
       lenisRef.current = null
+      // @ts-ignore
+      delete window.lenis
     }
   }, [])
 
   // Automatically scroll to the top of the page on route change
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true })
-    }
-    window.scrollTo(0, 0)
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0)
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true })
+      }
+    }, 50)
+    return () => clearTimeout(timer)
   }, [pathname])
 
   return null

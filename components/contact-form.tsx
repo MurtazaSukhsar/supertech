@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Send } from 'lucide-react'
+import { Send, MessageCircle } from 'lucide-react'
 import { contactInfo } from '@/lib/products'
 import { useQuote } from '@/context/quote-context'
 
@@ -36,6 +36,7 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   const [sent, setSent] = useState(false)
+  const [submitType, setSubmitType] = useState<'email' | 'whatsapp'>('email')
 
   useEffect(() => {
     if (isBasketQuote && items.length > 0) {
@@ -50,12 +51,18 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
-    window.open(
-      `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email}&su=${encodeURIComponent(
-        subject || 'Bulk Quote Request'
-      )}&body=${encodeURIComponent(body)}`,
-      '_blank'
-    )
+    
+    if (submitType === 'whatsapp') {
+      const waBody = `*${subject || 'Bulk Quote Request'}*\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
+      window.open(`${contactInfo.whatsappHref}?text=${encodeURIComponent(waBody)}`, '_blank')
+    } else {
+      window.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email}&su=${encodeURIComponent(
+          subject || 'Bulk Quote Request'
+        )}&body=${encodeURIComponent(body)}`,
+        '_blank'
+      )
+    }
     setSent(true)
   }
 
@@ -148,17 +155,27 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
           placeholder="Tell us what you need — products, quantities, and delivery location."
         />
       </div>
-      <button
-        type="submit"
-        className="inline-flex h-13 items-center justify-center gap-2.5 rounded-lg btn-primary px-8 text-sm font-bold sm:self-start"
-      >
-        <Send className="size-4" aria-hidden="true" />
-        Send Full Inquiry
-      </button>
+      <div className="flex flex-col sm:flex-row gap-3 mt-2">
+        <button
+          type="submit"
+          onClick={() => setSubmitType('email')}
+          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg btn-primary px-6 text-sm font-bold"
+        >
+          <Send className="size-4" aria-hidden="true" />
+          Send via Email
+        </button>
+        <button
+          type="submit"
+          onClick={() => setSubmitType('whatsapp')}
+          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg bg-[#25D366] text-white hover:bg-[#128C7E] px-6 text-sm font-bold transition-colors"
+        >
+          <MessageCircle className="size-4" aria-hidden="true" />
+          Send via WhatsApp
+        </button>
+      </div>
       {sent && (
         <p role="status" className="text-sm font-medium text-accent">
-          Your email client has been opened with your inquiry. You can also reach us directly on WhatsApp at{' '}
-          {contactInfo.phone}.
+          Your inquiry has been prepared! It should have opened in a new tab.
         </p>
       )}
     </form>
