@@ -84,11 +84,12 @@ const QUICK_REPLIES: QuickReply[] = [
     id: 'categories',
     label: '🛠️ Product Categories',
     question: 'What types of materials and equipment do you supply?',
-    answer: 'We supply a comprehensive range of materials:\n\n• **Air-Conditioning Materials:** Copper pipes, rubber insulation, refrigerants, condensers.\n• **Hardware Supplies:** Fasteners, fittings, fixing items, brackets.\n• **Hand & Power Tools:** Professional-grade drills, grinders, wrenches.\n• **Construction Materials:** Cement, steel, and core building materials in bulk.',
+    answer: 'We supply a comprehensive range of materials:\n\n• **Clamps & Supports:** Pipe clamps, unistrut brackets.\n• **Air-Conditioning Materials:** Copper pipes, refrigerants.\n• **Hardware Supplies:** Fasteners, fittings, anchors.\n• **Hand & Power Tools:** Drills, grinders, wrenches.\n• **Construction Materials:** Slotted channels, tapes.\n• **Plumbing Supplies:** UPVC fittings, valves, cements.\n• **Electrical Supplies:** Conduit couplings, industrial sockets.\n• **Duct Accessories:** Flexible ducts, sealants, adhesives.',
     actions: [
+      { label: '🗜️ Clamps', href: '/categories/clamps' },
       { label: '❄️ A/C Materials', href: '/categories/air-conditioning' },
-      { label: '⚙️ Hand & Power Tools', href: '/categories/tools' },
-      { label: '🧱 Construction Materials', href: '/categories/construction' }
+      { label: '🚰 Plumbing', href: '/categories/plumbing' },
+      { label: '⚡ Electrical', href: '/categories/electric' }
     ]
   },
   {
@@ -152,7 +153,7 @@ function getAutoResponse(userInput: string): {
     }
   }
   
-  if (query.includes('product') || query.includes('category') || query.includes('categories') || query.includes('sell') || query.includes('supply') || query.includes('catalog') || query.includes('items') || query.includes('copper') || query.includes('pipe') || query.includes('tool') || query.includes('cement') || query.includes('ac') || query.includes('compressor') || query.includes('welding') || query.includes('hardware')) {
+  if (query.includes('product') || query.includes('category') || query.includes('categories') || query.includes('sell') || query.includes('supply') || query.includes('catalog') || query.includes('items') || query.includes('copper') || query.includes('pipe') || query.includes('tool') || query.includes('cement') || query.includes('ac') || query.includes('compressor') || query.includes('welding') || query.includes('hardware') || query.includes('clamp') || query.includes('duct') || query.includes('plumb') || query.includes('electric')) {
     return {
       answer: QUICK_REPLIES[2].answer,
       actions: [...(QUICK_REPLIES[2].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
