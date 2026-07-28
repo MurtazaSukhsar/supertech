@@ -1,0 +1,103 @@
+diff --git a/app/page.tsx b/app/page.tsx
+index 703aa78..ced0144 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -3,6 +3,7 @@ import { Hero } from '@/components/home/hero'
+ import { BrandsStrip } from '@/components/home/brands-strip'
+ import { TrustBadges } from '@/components/home/trust-badges'
+ import { CategoryGrid } from '@/components/home/category-grid'
++import { ScrollShowcase } from '@/components/home/scroll-showcase'
+ import { FeaturedProducts } from '@/components/home/featured-products'
+ import { StatsCounter } from '@/components/home/stats-counter'
+ import { WhyChooseUs } from '@/components/home/why-choose-us'
+@@ -26,6 +27,7 @@ export default function HomePage() {
+       <BrandsStrip />
+       <TrustBadges />
+       <CategoryGrid />
++      <ScrollShowcase />
+       <FeaturedProducts />
+       <StatsCounter />
+       <WhyChooseUs />
+diff --git a/components/home/category-grid.tsx b/components/home/category-grid.tsx
+index be1faad..b0b2ffb 100644
+--- a/components/home/category-grid.tsx
++++ b/components/home/category-grid.tsx
+@@ -85,7 +85,7 @@ export function CategoryGrid() {
+             <ScrollReveal
+               key={cat.slug}
+               delay={i * 80}
+-              variant="scale-up"
++              variant="rotate-in-3d"
+               className={`h-full transition-all duration-300 ${
+                 i === 0 ? 'sm:col-span-2 lg:col-span-1 lg:row-span-2' : ''
+               } ${isSiblingHovered ? 'scale-[0.97] opacity-60 blur-[0.3px]' : ''}`}
+diff --git a/components/home/featured-products.tsx b/components/home/featured-products.tsx
+index e852f6b..9d3ac10 100644
+--- a/components/home/featured-products.tsx
++++ b/components/home/featured-products.tsx
+@@ -19,7 +19,7 @@ export function FeaturedProducts() {
+         </ScrollReveal>
+         <div className="grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
+           {featured.map((product, i) => (
+-            <ScrollReveal key={product.id} delay={i * 60} variant="scale-up" className="h-full">
++            <ScrollReveal key={product.id} delay={i * 60} variant="rotate-in-3d" className="h-full">
+               <ProductCard product={product} />
+             </ScrollReveal>
+           ))}
+diff --git a/components/home/stats-counter.tsx b/components/home/stats-counter.tsx
+index 4323876..a92f18e 100644
+--- a/components/home/stats-counter.tsx
++++ b/components/home/stats-counter.tsx
+@@ -24,7 +24,7 @@ export function StatsCounter() {
+         </ScrollReveal>
+         <div className="grid grid-cols-2 gap-5 md:gap-8 lg:grid-cols-4">
+           {stats.map((stat, i) => (
+-            <ScrollReveal key={stat.label} delay={i * 100} variant="scale-up" className="h-full">
++            <ScrollReveal key={stat.label} delay={i * 100} variant="rotate-in-3d" className="h-full">
+               <div className="group flex h-full flex-col items-center justify-center gap-3.5 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-7 text-center backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:bg-primary-foreground/10 hover:shadow-2xl hover:shadow-accent/10 md:p-9">
+                 <div className="flex size-14 items-center justify-center rounded-2xl bg-white/15 transition-transform duration-300 group-hover:scale-110 group-hover:bg-white/25">
+                   <stat.icon className="size-7 text-white" strokeWidth={1.5} />
+diff --git a/components/home/testimonials.tsx b/components/home/testimonials.tsx
+index 77ddc44..838b148 100644
+--- a/components/home/testimonials.tsx
++++ b/components/home/testimonials.tsx
+@@ -36,7 +36,7 @@ export function Testimonials() {
+       </ScrollReveal>
+       <div className="grid gap-6 md:grid-cols-3 md:gap-8">
+         {testimonials.map((t, i) => (
+-          <ScrollReveal key={t.name} delay={i * 120} variant="scale-up" className="h-full">
++          <ScrollReveal key={t.name} delay={i * 120} variant="rotate-in-3d" className="h-full">
+             <blockquote className="card-premium flex h-full flex-col p-8">
+               <div className="mb-5 flex size-10 items-center justify-center rounded-lg bg-accent/10">
+                 <Quote className="size-5 text-accent" aria-hidden="true" />
+diff --git a/components/home/why-choose-us.tsx b/components/home/why-choose-us.tsx
+index bdf564d..044e073 100644
+--- a/components/home/why-choose-us.tsx
++++ b/components/home/why-choose-us.tsx
+@@ -1,5 +1,8 @@
++'use client'
++
+ import { ShieldCheck, Handshake, Truck, BadgeCheck } from 'lucide-react'
+ import { ScrollReveal } from '@/components/scroll-reveal'
++import { TiltCard } from '@/components/tilt-card'
+ 
+ const reasons = [
+   {
+@@ -39,14 +42,14 @@ export function WhyChooseUs() {
+       </ScrollReveal>
+       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">
+         {reasons.map((reason, i) => (
+-          <ScrollReveal key={reason.title} delay={i * 100} variant="scale-up" className="h-full">
+-            <div className="card-premium group flex h-full flex-col items-start gap-5 p-8">
++          <ScrollReveal key={reason.title} delay={i * 100} variant="rotate-in-3d" className="h-full">
++            <TiltCard className="group flex h-full flex-col items-start gap-5 p-8">
+               <div className="flex size-14 items-center justify-center rounded-2xl bg-primary transition-all duration-300 group-hover:bg-primary/80 group-hover:shadow-lg group-hover:shadow-primary/25">
+                 <reason.icon className="size-7 text-white" strokeWidth={1.5} />
+               </div>
+               <h3 className="text-lg font-bold uppercase tracking-tight text-foreground">{reason.title}</h3>
+               <p className="text-sm leading-relaxed text-muted-foreground">{reason.description}</p>
+-            </div>
++            </TiltCard>
+           </ScrollReveal>
+         ))}
+       </div>

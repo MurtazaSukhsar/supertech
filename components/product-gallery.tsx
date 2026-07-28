@@ -51,7 +51,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className={`object-cover transition-transform duration-500 ease-out ${
+          className={`object-contain p-4 transition-transform duration-500 ease-out ${
             isZoomed ? 'scale-125' : 'scale-100 hover:scale-105'
           } ${isCrossFading ? 'opacity-30' : 'opacity-100'}`}
         />

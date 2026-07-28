@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
+import { Chatbot } from '@/components/chatbot'
 import { MobileQuoteButton } from '@/components/mobile-quote-button'
 import { QuoteProvider } from '@/context/quote-context'
 import { QuoteDrawer } from '@/components/quote-drawer'
@@ -91,6 +92,7 @@ export default function RootLayout({
           <main>{children}</main>
           <SiteFooter />
           <WhatsAppButton />
+          <Chatbot />
           <MobileQuoteButton />
           <QuoteDrawer />
         </QuoteProvider>
