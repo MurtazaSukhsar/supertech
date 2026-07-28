@@ -1,11 +1,11 @@
-import { CheckCircle2, CalendarDays, Box, Globe2 } from 'lucide-react'
+import { CheckCircle2, CalendarDays, Layers, Globe2 } from 'lucide-react'
 import { AnimatedCounter } from '@/components/animated-counter'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 const stats = [
   { icon: CheckCircle2, value: 500, suffix: '+', label: 'Projects Delivered' },
-  { icon: CalendarDays, value: 15, suffix: '+', label: 'Years in Kuwait' },
-  { icon: Box, value: 5000, suffix: '+', label: 'Products in Stock' },
+  { icon: CalendarDays, value: 8, suffix: '+', label: 'Years in Kuwait' },
+  { icon: Layers, value: 5000, suffix: '+', label: 'Products in Stock' },
   { icon: Globe2, value: 30, suffix: '+', label: 'Global Brand Partners' },
 ]
 

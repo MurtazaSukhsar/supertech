@@ -23,10 +23,16 @@ const catImagePool: Record<string, string[]> = {
     '/images/products/hvac-damper-fittings.jpeg',
   ],
   hardware: [
+    '/images/products/galvanized-fasteners.jpeg',
+    '/images/products/fischer-drop-in-anchor-box.jpeg',
+    '/images/products/brass-flare-nut.jpeg',
+    '/images/products/aluminium-rivet.jpeg',
+  ],
+  clamps: [
     '/images/products/gi-universal-clamp.jpeg',
     '/images/products/rubber-lined-clamp.jpeg',
-    '/images/products/galvanized-fasteners.jpeg',
-    '/images/products/gi-channel-clamp.jpeg',
+    '/images/products/gi-u-clamp-saddle.jpeg',
+    '/images/products/gi-beam-clamp.jpeg',
   ],
   tools: [
     '/images/products/cordless-drill.png',
@@ -53,7 +59,7 @@ const catImagePool: Record<string, string[]> = {
   electric: [
     '/images/products/industrial-socket.jpeg',
     '/images/products/pvc-coated-flexible-conduit.jpeg',
-    '/images/products/pvc-electrical-conduit-box.jpeg',
+    '/images/products/electric-brass-adaptor.jpeg',
     '/images/products/galvanized-conduit-coupling.jpeg',
   ],
 }
@@ -84,6 +90,7 @@ function CardMedia({ cat }: { cat: (typeof categories)[number] }) {
             alt={cat.name}
             fill
             sizes="(max-width: 1024px) 100vw, 33vw"
+            priority={idx === 0}
             className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </div>

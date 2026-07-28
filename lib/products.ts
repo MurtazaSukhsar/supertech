@@ -27,7 +27,7 @@ export const categories: Category[] = [
     shortName: 'Clamps',
     description: 'Various clamps and supports for piping, ductwork, and electrical conduits.',
     icon: 'paperclip',
-    image: '/images/products/gi-heavy-duty-clamp.jpeg',
+    image: '/images/products/gi-universal-clamp.jpeg',
     subcategories: ['Pipe Supports & Clamps', 'Structural Supports & Framing'],
   },
   {
@@ -232,8 +232,8 @@ export const products: Product[] = [
       "Lining": "EPDM Rubber Insulation",
       "Material": "Galvanized Steel",
       "Noise Reduction": "Up to 18 dB"
-
     },
+    featured: true,
   },
   {
     id: 'rubber-cork-pad',
@@ -425,8 +425,8 @@ export const products: Product[] = [
       'Desiccant Core': 'Molecular Sieve & Activated Alumina',
       'Max Working Pressure': '500 PSI / 35 bar',
       Origin: 'Mexico',
-      Compatibility: 'R410A, R134a, R404A, R407C, R32',
     },
+    featured: true,
   },
   {
     id: 'insulated-screwdriver-set',
@@ -442,23 +442,6 @@ export const products: Product[] = [
       "Piece Count": "7 Screwdrivers (Slotted & Phillips)",
       "Standard": "IEC 60900 / DIN EN 60900",
       "Handle": "Ergonomic Anti-Slip Soft-Grip Handle"
-
-    },
-  },
-  {
-    id: 'gi-heavy-duty-clamp',
-    name: "Heavy Duty GI Pipe Clamp",
-    category: 'clamps',
-    subcategory: 'Pipe Supports & Clamps',
-    brand: 'ST',
-    images: ["/images/products/gi-heavy-duty-clamp.jpeg"],
-    description: "Industrial-grade heavy duty galvanized iron pipe clamp engineered for high-load piping infrastructure, chilled water lines, and drainage riser stacks.",
-    specs: {
-       
-      "Available Sizes": "2-1/2\", 3\", 4\", 6\", 8\"",
-      "Material": "Hot-Dip Galvanized Steel",
-      "Application": "High-Load Pipe Suspension",
-      "Standard": "BS 3974 / ASTM A123"
 
     },
   },
@@ -686,8 +669,8 @@ export const products: Product[] = [
       "Material": "Electro-Galvanized Iron (GI)",
       "Application": "MEP & HVAC Pipe Hangers",
       "Origin": "UAE / China"
-
     },
+    featured: true,
   },
   {
     id: 'rubber-waffle-sheet-thin',
