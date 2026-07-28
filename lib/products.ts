@@ -22,6 +22,15 @@ export type Product = {
 
 export const categories: Category[] = [
   {
+    slug: 'clamps',
+    name: 'Clamps & Supports',
+    shortName: 'Clamps',
+    description: 'Various clamps and supports for piping, ductwork, and electrical conduits.',
+    icon: 'paperclip',
+    image: '/images/products/gi-heavy-duty-clamp.jpeg',
+    subcategories: ['Pipe Supports & Clamps', 'Structural Supports & Framing'],
+  },
+  {
     slug: 'air-conditioning',
     name: 'Air-Conditioning Materials',
     shortName: 'A/C Materials',
@@ -77,16 +86,7 @@ export const categories: Category[] = [
       'Painting & Surface Prep',
     ],
   },
-  {
-    slug: 'industrial',
-    name: 'Industrial Equipment',
-    shortName: 'Industrial',
-    description:
-      'Compressors, welding machines, generators, and heavy-duty industrial equipment.',
-    icon: 'factory',
-    image: '/images/products/air-compressor.png',
-    subcategories: ['Compressors', 'Welding'],
-  },
+
   {
     slug: 'plumbing',
     name: 'Plumbing Supplies',
@@ -152,7 +152,7 @@ export const products: Product[] = [
   {
     id: 'fischer-drop-in-anchor-box',
     name: "Fischer EA II Heavy Duty Drop-In Anchor Box",
-    category: 'construction',
+    category: 'hardware',
     subcategory: 'Anchoring & Fasteners',
     brand: 'Fischer',
     images: ["/images/products/fischer-drop-in-anchor-box.jpeg"],
@@ -185,26 +185,9 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    id: 'pvc-electrical-conduit-box',
-    name: "PVC Electrical Circular Conduit Junction Box",
-    category: 'electric',
-    subcategory: 'Electrical Supplies',
-    brand: 'ST',
-    images: ["/images/products/pvc-electrical-conduit-box.jpeg"],
-    description: "Surface-mounted PVC circular conduit junction box with knockouts for protecting electrical wire joints and conduit wire splices.",
-    specs: {
-       
-      "Available Sizes": "20mm & 25mm (1-Way, 2-Way, 3-Way, 4-Way)",
-      "Material": "High-Impact Flame-Retardant PVC",
-      "IP Rating": "IP65 Weatherproof",
-      "Application": "Surface electrical conduit wiring connections"
-
-    },
-  },
-  {
     id: 'brass-flare-nut',
     name: "Brass Flare Nut",
-    category: 'air-conditioning',
+    category: 'hardware',
     subcategory: 'Brass Fittings & Valves',
     brand: 'ST',
     images: ["/images/products/brass-flare-nut.jpeg"],
@@ -234,33 +217,18 @@ export const products: Product[] = [
       Storage: 'Roll-up heavy-duty canvas pouch',
     },
   },
-  {
-    id: 'mig-welding-machine-250a',
-    name: 'Inverter MIG/TIG/MMA Welding Machine 250A',
-    category: 'industrial',
-    subcategory: 'Welding',
-    brand: 'Telwin',
-    images: ['/images/products/welding-machine.png'],
-    description:
-      'Multi-process 250A inverter welder supporting MIG/MAG flux-cored, TIG touch-start, and MMA stick welding. Ideal for structural steel fabrication and maintenance.',
-    specs: {
-      Output: '250 Amps max',
-      DutyCycle: '60% @ 250A',
-      WireSpool: '5kg / 15kg spools',
-      InputVoltage: '230V Single Phase',
-    },
-  },
+
   {
     id: 'rubber-lined-clamp',
     name: "Rubber Lined Pipe Clamp",
-    category: 'hardware',
+    category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/rubber-lined-clamp.jpeg"],
     description: "Acoustic EPDM rubber-lined galvanized pipe clamp for vibration dampening and noise isolation in chilled water and domestic water supply lines.",
     specs: {
        
-      "Available Sizes": "1/2\", 3/4\", 1\", 1-1/4\", 1-1/2\", 2\", 2-1/2\", 3\", 4\", 6\"",
+      "Available Sizes": "1/2\", 3/4\", 1\", 1-1/4\", 1-1/2\", 2\", 3\", 4\", 6\", 8\"",
       "Lining": "EPDM Rubber Insulation",
       "Material": "Galvanized Steel",
       "Noise Reduction": "Up to 18 dB"
@@ -340,7 +308,7 @@ export const products: Product[] = [
     description:
       'Precision-manufactured wrot copper solder fittings including 90° elbows, 45° elbows, tees, couplings, reducers, and flare adapters. Engineered for pressure-tight solder joints in HVAC, refrigeration, and plumbing installations.',
     specs: {
-      Sizes: 'All standard sizes (1/4" to 2-1/8")',
+      Sizes: '1/4", 1/2", 3/8", 5/8", 3/4", 7/8", 1-1/8", 1-3/8", 1-5/8"',
       Material: 'High-purity C12200 Deoxidized Copper',
       Standard: 'ASME B16.22 / EN 1254',
       Origin: 'China',
@@ -369,7 +337,7 @@ export const products: Product[] = [
   {
     id: 'gi-channel-clamp',
     name: "GI Channel Clamp",
-    category: 'hardware',
+    category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/gi-channel-clamp.jpeg"],
@@ -432,7 +400,7 @@ export const products: Product[] = [
   {
     id: 'electric-gi-saddle',
     name: "Electric GI Saddle Clamp",
-    category: 'electric',
+    category: 'clamps',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
     images: ["/images/products/electric-gi-saddle.jpeg"],
@@ -480,7 +448,7 @@ export const products: Product[] = [
   {
     id: 'gi-heavy-duty-clamp',
     name: "Heavy Duty GI Pipe Clamp",
-    category: 'hardware',
+    category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/gi-heavy-duty-clamp.jpeg"],
@@ -513,7 +481,7 @@ export const products: Product[] = [
   {
     id: 'gi-drop-in-anchor',
     name: 'Fischer Galvanized Steel Drop-In Anchor',
-    category: 'construction',
+    category: 'hardware',
     subcategory: 'Anchoring & Fasteners',
     brand: 'Fischer',
     images: ['/images/products/fasteners-set.png'],
@@ -594,7 +562,7 @@ export const products: Product[] = [
   {
     id: 'gi-u-clamp-saddle',
     name: "GI U Clamp Saddle",
-    category: 'hardware',
+    category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/gi-u-clamp-saddle.jpeg"],
@@ -626,8 +594,8 @@ export const products: Product[] = [
   },
   {
     id: 'gi-beam-clamp',
-    name: "GI Beam Clamp",
-    category: 'construction',
+    name: 'GI Beam Clamp',
+    category: 'clamps',
     subcategory: 'Structural Supports & Framing',
     brand: 'ST',
     images: ["/images/products/gi-beam-clamp.jpeg"],
@@ -707,7 +675,7 @@ export const products: Product[] = [
   {
     id: 'gi-universal-clamp',
     name: "GI Universal Pipe Clamp",
-    category: 'hardware',
+    category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/gi-universal-clamp.jpeg"],
@@ -776,7 +744,7 @@ export const products: Product[] = [
     description:
       'Seamless soft copper pancake coil manufactured to ASTM B280 international standards for air conditioning and refrigeration field service. Fully annealed for easy hand bending, flaring, and installation in residential and commercial split A/C refrigerant lines.',
     specs: {
-      Sizes: '1/4" to 7/8" OD',
+      Sizes: '1/4", 1/2", 3/8", 5/8", 3/4", 7/8", 1-1/8", 1-3/8", 1-5/8"',
       Standard: 'ASTM B280 / EN 12735-1',
       Origin: 'Vietnam',
       Type: 'Soft Annealed Pancake Coil',
@@ -816,20 +784,6 @@ export const products: Product[] = [
       Color: 'Grey / Black',
       'Operating Temp': '-20°C to +80°C',
       Application: 'Fume extraction, bathroom exhaust, ventilation drops',
-    },
-  },
-  {
-    id: 'thinner',
-    name: 'Industrial Solvent Thinner & Cleaner',
-    category: 'construction',
-    subcategory: 'Chemicals & Cleaners',
-    images: ['/images/products/duct-insulation-coating.jpeg'],
-    description:
-      'High-purity industrial solvent thinner formulated for thinning duct contact adhesives, mastic coatings, paints, and primers, as well as cleaning application brushes, spray equipment, and jobsite tools.',
-    specs: {
-      Packaging: '1 Gallon & 5 Gallon metal drums',
-      Type: 'High-Purity Hydrocarbon Solvent Blend',
-      Application: 'Solvent thinning, tool cleaning, & surface degreasing',
     },
   },
   {
@@ -922,7 +876,7 @@ export const products: Product[] = [
     description:
       'Seamless hard-drawn copper tubes engineered for high-pressure HVAC, chilled water, and refrigeration systems. Available in Type L and Type K wall thicknesses providing high tensile strength, superior corrosion resistance, and high burst pressure reliability.',
     specs: {
-      Sizes: '3/8" up to 2-1/8"',
+      Sizes: '1/4", 1/2", 3/8", 5/8", 3/4", 7/8", 1-1/8", 1-3/8", 1-5/8"',
       'Wall Thickness': 'Type L (Standard) & Type K (Heavy Duty)',
       Standard: 'ASTM B88 / ASTM B280',
       Length: '6 meter straight lengths',
@@ -949,7 +903,7 @@ export const products: Product[] = [
   {
     id: 'aluminium-rivet',
     name: 'Aluminium Blind Pop Rivets',
-    category: 'duct-accessories',
+    category: 'hardware',
     subcategory: 'Duct Accessories & Fasteners',
     images: ['/images/products/aluminium-rivet.jpeg'],
     description:
@@ -964,9 +918,9 @@ export const products: Product[] = [
   },
   {
     id: 'gi-conduit-fitting',
-    name: "GI Electric Conduit Fitting Box",
-    category: 'electric',
-    subcategory: 'Electrical Supplies',
+    name: 'GI "G" CLAMP',
+    category: 'clamps',
+    subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
     images: ["/images/products/gi-conduit-fitting.jpeg"],
     description: "Malleable iron galvanized electrical conduit junction box for heavy duty commercial and industrial wiring runs.",
@@ -1230,8 +1184,85 @@ export const products: Product[] = [
       Packaging: '30 meter dispenser roll',
       Application: 'Pipe insulation strapping & duct cladding fixing',
     },
+  },
+  {
+    id: 'av-rubber-mount',
+    name: 'Anti-Vibration (AV) Rubber Mount',
+    category: 'duct-accessories',
+    subcategory: 'Duct Accessories & Insulation',
+    images: ['/images/products/anti-rubber.jpeg'],
+    description: 'Heavy-duty anti-vibration rubber mounts designed to isolate high-frequency vibration and reduce noise from HVAC units, fans, pumps, and motors. Ensures equipment stability and extends operational lifespan.',
+    specs: {
+      Sizes: 'Small and Big',
+      Material: 'High-Density Neoprene Rubber',
+      Application: 'HVAC vibration isolation and noise reduction',
+      Feature: 'Threaded metal insert for secure mounting'
+    },
+  },
+  {
+    id: 'pvc-pipe',
+    name: 'PVC Pipe',
+    category: 'plumbing',
+    subcategory: 'Plumbing & Drainage',
+    images: ['/images/products/pvc-pipe.png'],
+    description: 'High-quality PVC pipes designed for robust plumbing, drainage, and fluid transport applications.',
+    specs: {
+      Material: 'Polyvinyl Chloride (PVC)',
+      Application: 'Plumbing, drainage, and conduit systems',
+      Durability: 'Corrosion and chemical resistant',
+    },
+  },
+  {
+    id: 'gi-clevis-hanger',
+    name: 'GI Clevis Hanger',
+    category: 'clamps',
+    subcategory: 'Pipe Supports & Clamps',
+    images: ['/images/products/gi-clevis-hanger.jpeg'],
+    description: 'Galvanized iron clevis hanger designed for suspension of non-insulated stationary pipe lines.',
+    specs: {
+      "Available Sizes": '2-1/2", 3", 4", 6", 8"',
+      Material: 'Galvanized Steel',
+    },
+  },
+  {
+    id: 'shurtape-aluminium-tape',
+    name: 'Shurtape Aluminium Tape',
+    category: 'air-conditioning',
+    subcategory: 'Adhesives & Tapes',
+    brand: 'Shurtape',
+    images: ['/images/products/aluminium-tape.jpeg'],
+    description: 'High-quality aluminium tape designed for HVAC and duct sealing applications.',
+    specs: {
+      "Available Size": '3"',
+      Material: 'Aluminium Foil',
+    },
+  },
+  {
+    id: 'foam-gasket-diamond',
+    name: 'Diamond Foam Gasket',
+    category: 'duct-accessories',
+    subcategory: 'Duct Accessories & Insulation',
+    brand: 'Diamond',
+    images: ['/images/products/foam-gasket.jpeg'],
+    description: 'High-quality adhesive foam gasket tape for duct sealing and insulation.',
+    specs: {
+      "Available Size": '3mm, 6mm',
+      Material: 'Foam',
+    },
+  },
+  {
+    id: 'foster-30-36',
+    name: 'Airmaster Ductcoat 30-36 (Foster)',
+    category: 'duct-accessories',
+    subcategory: 'Duct Sealants & Coatings',
+    brand: 'airmaster',
+    images: ['/images/products/foster-30-36.jpeg'],
+    description: 'Advanced formulation A/C duct insulation coating, fungal proof, fire resistant, and washable.',
+    specs: {
+      Application: 'A/C duct thermal insulation',
+      Type: 'Exterior Coating',
+    },
   }
-
 ]
 
 import { getAllActiveProducts } from './product-storage'
@@ -1247,24 +1278,25 @@ export function getCategory(slug: string): Category | undefined {
   return categories.find((c) => c.slug === slug)
 }
 
-export function getCategoryColor(slug: string): { bg: string; text: string; ring: string } {
+export function getCategoryColor(slug: string): { bg: string; text: string; ring: string; hex: string } {
   switch (slug) {
     case 'air-conditioning':
-      return { bg: 'bg-blue-500/10', text: 'text-blue-500', ring: 'ring-blue-500/30' }
+      return { bg: 'bg-blue-500/10', text: 'text-blue-500', ring: 'ring-blue-500/30', hex: '#3b82f6' }
     case 'hardware':
-      return { bg: 'bg-amber-500/10', text: 'text-amber-500', ring: 'ring-amber-500/30' }
+      return { bg: 'bg-amber-500/10', text: 'text-amber-500', ring: 'ring-amber-500/30', hex: '#f59e0b' }
     case 'tools':
-      return { bg: 'bg-red-500/10', text: 'text-red-500', ring: 'ring-red-500/30' }
+      return { bg: 'bg-red-500/10', text: 'text-red-500', ring: 'ring-red-500/30', hex: '#ef4444' }
     case 'construction':
-      return { bg: 'bg-emerald-500/10', text: 'text-emerald-500', ring: 'ring-emerald-500/30' }
-    case 'industrial':
-      return { bg: 'bg-purple-500/10', text: 'text-purple-500', ring: 'ring-purple-500/30' }
+      return { bg: 'bg-emerald-500/10', text: 'text-emerald-500', ring: 'ring-emerald-500/30', hex: '#10b981' }
+
     case 'plumbing':
-      return { bg: 'bg-cyan-500/10', text: 'text-cyan-500', ring: 'ring-cyan-500/30' }
+      return { bg: 'bg-cyan-500/10', text: 'text-cyan-500', ring: 'ring-cyan-500/30', hex: '#06b6d4' }
     case 'electric':
-      return { bg: 'bg-amber-500/10', text: 'text-amber-500', ring: 'ring-amber-500/30' }
+      return { bg: 'bg-amber-500/10', text: 'text-amber-500', ring: 'ring-amber-500/30', hex: '#f59e0b' }
+    case 'clamps':
+      return { bg: 'bg-zinc-500/10', text: 'text-zinc-500', ring: 'ring-zinc-500/30', hex: '#71717a' }
     default:
-      return { bg: 'bg-accent/10', text: 'text-accent', ring: 'ring-accent/30' }
+      return { bg: 'bg-accent/10', text: 'text-accent', ring: 'ring-accent/30', hex: '#D91E2A' }
   }
 }
 
@@ -1301,6 +1333,10 @@ export function searchProducts(query: string): Product[] {
       (p.brand ?? '').toLowerCase().includes(q) ||
       p.description.toLowerCase().includes(q)
   )
+}
+
+export function getAllProducts(): Product[] {
+  return getProductSource()
 }
 
 export const contactInfo = {

@@ -13,7 +13,7 @@ import { CtaBanner } from '@/components/home/cta-banner'
 export const metadata: Metadata = {
   title: 'Air-Conditioning Materials, Hardware, Tools & Construction Supplies in Kuwait',
   description:
-    'Super Tech supplies HVAC materials, hardware, hand and power tools, construction materials, and industrial equipment for contractors and businesses across Kuwait.',
+    'Super Tech supplies HVAC materials, hardware, hand and power tools, and construction materials for contractors and businesses across Kuwait.',
   alternates: {
     canonical: '/',
   },

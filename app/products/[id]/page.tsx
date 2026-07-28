@@ -90,7 +90,7 @@ export default async function ProductPage({
       <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
         <Breadcrumbs
           crumbs={[
-            { label: 'Products' },
+            { label: 'Products', href: '/products' },
             { label: category?.name ?? product.category, href: `/categories/${product.category}` },
             { label: product.name },
           ]}

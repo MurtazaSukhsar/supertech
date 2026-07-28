@@ -58,15 +58,31 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
   const currentPage = Math.min(page, totalPages)
   const paginated = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
+  const scrollToTop = () => {
+    setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        // @ts-ignore
+        if (window.lenis) {
+          // @ts-ignore
+          window.lenis.scrollTo(0, { immediate: true })
+        } else {
+          window.scrollTo(0, 0)
+        }
+      }
+    }, 50)
+  }
+
   function toggle(list: string[], value: string, setter: (v: string[]) => void) {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value])
     setPage(1)
+    scrollToTop()
   }
 
   function clearFilters() {
     setSelectedCats([])
     setSelectedBrands([])
     setPage(1)
+    scrollToTop()
   }
 
   const hasFilters = selectedCats.length > 0 || selectedBrands.length > 0
@@ -263,7 +279,10 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
           <nav aria-label="Pagination" className="mt-12 flex items-center justify-center gap-2">
             <button
               type="button"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => {
+                setPage((p) => Math.max(1, p - 1))
+                scrollToTop()
+              }}
               disabled={currentPage === 1}
               className="inline-flex size-10 items-center justify-center rounded-lg border border-border disabled:opacity-40"
               aria-label="Previous page"
@@ -274,7 +293,10 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
               <button
                 key={n}
                 type="button"
-                onClick={() => setPage(n)}
+                onClick={() => {
+                  setPage(n)
+                  scrollToTop()
+                }}
                 aria-current={n === currentPage ? 'page' : undefined}
                 className={`inline-flex size-10 items-center justify-center rounded-lg text-sm font-bold transition-colors ${
                   n === currentPage
@@ -287,7 +309,10 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
             ))}
             <button
               type="button"
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => {
+                setPage((p) => Math.min(totalPages, p + 1))
+                scrollToTop()
+              }}
               disabled={currentPage === totalPages}
               className="inline-flex size-10 items-center justify-center rounded-lg border border-border disabled:opacity-40"
               aria-label="Next page"

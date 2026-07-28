@@ -10,7 +10,7 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 export const metadata: Metadata = {
   title: 'About Us',
   description:
-    'Learn about Super Tech International Construction Materials Co., a Kuwait-based supplier of air-conditioning materials, hardware, tools, and industrial equipment.',
+    'Learn about Super Tech International Construction Materials Co., a Kuwait-based supplier of air-conditioning materials, hardware, tools, and construction materials.',
 }
 
 const stats = [

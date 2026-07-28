@@ -6,14 +6,14 @@ import { CategoryProductGrid } from '@/components/category-product-grid'
 export const metadata: Metadata = {
   title: 'All Air-Conditioning Materials, Hardware, Tools & Construction Supplies | Kuwait',
   description:
-    'Browse our full collection of copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, cement, steel, and industrial equipment at Super Tech Kuwait.',
+    'Browse our full collection of copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, cement, and steel at Super Tech Kuwait.',
   alternates: {
     canonical: '/products',
   },
   openGraph: {
     title: 'All Air-Conditioning Materials, Hardware, Tools & Construction Supplies | Kuwait',
     description:
-      'Browse our full collection of copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, cement, steel, and industrial equipment at Super Tech Kuwait.',
+      'Browse our full collection of copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, cement, and steel at Super Tech Kuwait.',
     images: ['/images/hero-warehouse.png'],
   },
 }

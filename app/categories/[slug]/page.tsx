@@ -77,7 +77,7 @@ export default async function CategoryPage({
 
       <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
         <div className="mb-10">
-          <Breadcrumbs crumbs={[{ label: 'Products' }, { label: category.name }]} />
+          <Breadcrumbs crumbs={[{ label: 'Products', href: '/products' }, { label: category.name }]} />
         </div>
         <CategoryProductGrid products={products} />
       </div>
