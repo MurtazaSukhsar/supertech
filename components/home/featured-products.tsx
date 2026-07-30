@@ -7,7 +7,7 @@ export function FeaturedProducts() {
 
   return (
     <section className="bg-surface-alt">
-      <div className="section-pad mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
         <ScrollReveal variant="fade-up">
           <div className="mb-14 flex flex-col items-start gap-3">
             <p className="eyebrow">Best Sellers</p>

@@ -93,7 +93,7 @@ export function ProductDetailActions({ product }: { product: Product }) {
                   key={size}
                   type="button"
                   onClick={() => setSelectedSize(size)}
-                  className={`inline-flex items-center gap-1.5 rounded-lg border px-3.5 py-2 text-xs font-bold transition-all duration-200 ${
+                  className={`inline-flex items-center gap-1 sm:gap-1.5 rounded-lg border px-2.5 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-bold transition-all duration-200 ${
                     active
                       ? 'border-accent bg-accent/10 text-accent shadow-sm scale-102'
                       : 'border-border bg-background text-foreground hover:bg-secondary'
@@ -109,25 +109,27 @@ export function ProductDetailActions({ product }: { product: Product }) {
       )}
 
       {/* Main Action Buttons */}
-      <div className="flex flex-col gap-3.5 sm:flex-row">
+      <div className="flex gap-2 sm:gap-3.5">
         <button
           type="button"
           onClick={handleAddToCart}
-          className={`flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg btn-primary text-sm font-bold shadow-md transition-all ${
+          className={`flex h-14 flex-1 items-center justify-center gap-1.5 sm:gap-2.5 rounded-lg btn-primary text-xs sm:text-base font-extrabold shadow-md transition-all ${
             addedAnimation ? 'scale-102 bg-green-600' : ''
           }`}
         >
-          <ShoppingBagIcon className="size-4" aria-hidden="true" />
-          {addedAnimation ? 'Added to Quote Basket!' : 'Add to Quote Basket'}
+          <ShoppingBagIcon className="size-4 sm:size-5" aria-hidden="true" />
+          <span className="hidden sm:inline">{addedAnimation ? 'Added to Quote Basket!' : 'Add to Quote Basket'}</span>
+          <span className="sm:hidden">{addedAnimation ? 'Added!' : 'Add to Basket'}</span>
         </button>
 
         <button
           type="button"
           onClick={handleDirectWhatsApp}
-          className="flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg bg-[#25D366] text-sm font-bold text-white shadow-md shadow-[#25D366]/20 transition-all hover:opacity-95"
+          className="flex h-14 flex-1 items-center justify-center gap-1.5 sm:gap-2.5 rounded-lg bg-[#25D366] text-xs sm:text-base font-extrabold text-white shadow-md shadow-[#25D366]/20 transition-all hover:opacity-95"
         >
-          <MessageCircle className="size-4" aria-hidden="true" />
-          Request via WhatsApp
+          <MessageCircle className="size-4 sm:size-5" aria-hidden="true" />
+          <span className="hidden sm:inline">Request via WhatsApp</span>
+          <span className="sm:hidden">WhatsApp</span>
         </button>
       </div>
     </div>

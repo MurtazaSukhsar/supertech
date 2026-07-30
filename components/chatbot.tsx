@@ -66,7 +66,7 @@ const QUICK_REPLIES: QuickReply[] = [
     question: 'How can I request a quote for products?',
     answer: 'You can request a quote in two easy ways:\n\n1. Browse our website, add products to your quote list, and submit the request directly.\n2. Click the links below to send your requirements or Bill of Quantities (BOQ) directly to our team via WhatsApp or Email.',
     actions: [
-      { label: '💬 WhatsApp Quote', href: contactInfo.whatsappHref, external: true },
+      { label: '💬 WhatsApp Quote', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I would like to request a bulk material quote. Here are our project requirements: ")}`, external: true },
       { label: '✉️ Email Quote', href: `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email}&su=Quote%20Request`, external: true },
       { label: '🔍 Browse Products', href: '/products' }
     ]
@@ -77,7 +77,7 @@ const QUICK_REPLIES: QuickReply[] = [
     question: 'Do you deliver to job sites and workshops?',
     answer: 'Yes! We deliver bulk orders, HVAC accessories, power tools, and construction materials directly to workshops, stores, and project sites across Kuwait.',
     actions: [
-      { label: '💬 Contact Delivery Desk', href: contactInfo.whatsappHref, external: true }
+      { label: '💬 Contact Delivery Desk', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I have a question about material delivery to our job site in Kuwait.")}`, external: true }
     ]
   },
   {
@@ -108,7 +108,7 @@ const QUICK_REPLIES: QuickReply[] = [
     question: 'How can I reach customer support or sales?',
     answer: `You can reach the Super Tech support and sales team directly:\n\n• **Phone:** ${contactInfo.phone}\n• **Email:** ${contactInfo.email}\n• **Showroom:** Shuwaikh Industrial Area, Kuwait`,
     actions: [
-      { label: '💬 WhatsApp Chat', href: contactInfo.whatsappHref, external: true },
+      { label: '💬 WhatsApp Chat', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech Customer Support, I need assistance with a product or order inquiry.")}`, external: true },
       { label: '📞 Call Now', href: contactInfo.phoneHref, external: true }
     ]
   }
@@ -153,22 +153,6 @@ function getAutoResponse(userInput: string): {
     }
   }
   
-  if (query.includes('product') || query.includes('category') || query.includes('categories') || query.includes('sell') || query.includes('supply') || query.includes('catalog') || query.includes('items') || query.includes('copper') || query.includes('pipe') || query.includes('tool') || query.includes('cement') || query.includes('ac') || query.includes('compressor') || query.includes('welding') || query.includes('hardware') || query.includes('clamp') || query.includes('duct') || query.includes('plumb') || query.includes('electric')) {
-    return {
-      answer: QUICK_REPLIES[2].answer,
-      actions: [...(QUICK_REPLIES[2].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-  
-  if (query.includes('location') || query.includes('map') || query.includes('showroom') || query.includes('address') || query.includes('where') || query.includes('place') || query.includes('office') || query.includes('site') || query.includes('hour') || query.includes('time') || query.includes('open') || query.includes('close') || query.includes('saturday') || query.includes('thursday') || query.includes('friday') || query.includes('work day')) {
-    return {
-      answer: QUICK_REPLIES[3].answer,
-      actions: [...(QUICK_REPLIES[3].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-  
   if (query.includes('contact') || query.includes('phone') || query.includes('email') || query.includes('call') || query.includes('support') || query.includes('number') || query.includes('whatsapp') || query.includes('talk') || query.includes('reach') || query.includes('help') || query.includes('agent') || query.includes('human')) {
     return {
       answer: QUICK_REPLIES[4].answer,
@@ -176,11 +160,27 @@ function getAutoResponse(userInput: string): {
       showQuickReplies: false
     }
   }
+
+  if (query.includes('location') || query.includes('map') || query.includes('showroom') || query.includes('address') || query.includes('where') || query.includes('place') || query.includes('office') || query.includes('site') || query.includes('hour') || query.includes('time') || query.includes('open') || query.includes('close') || query.includes('saturday') || query.includes('thursday') || query.includes('friday') || query.includes('work day')) {
+    return {
+      answer: QUICK_REPLIES[3].answer,
+      actions: [...(QUICK_REPLIES[3].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
+      showQuickReplies: false
+    }
+  }
+
+  if (query.includes('product') || query.includes('category') || query.includes('categories') || query.includes('sell') || query.includes('supply') || query.includes('catalog') || query.includes('items') || query.includes('copper') || query.includes('pipe') || query.includes('tool') || query.includes('cement') || /\bac\b/.test(query) || query.includes('a/c') || query.includes('compressor') || query.includes('welding') || query.includes('hardware') || query.includes('clamp') || query.includes('duct') || query.includes('plumb') || query.includes('electric')) {
+    return {
+      answer: QUICK_REPLIES[2].answer,
+      actions: [...(QUICK_REPLIES[2].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
+      showQuickReplies: false
+    }
+  }
   
   return {
     answer: "I couldn't quite match that with our standard FAQs. I am the Super Tech auto-assistant, but you can select one of the common topics below, or chat directly with our team on WhatsApp!",
     actions: [
-      { label: '💬 Chat on WhatsApp', href: contactInfo.whatsappHref, external: true },
+      { label: '💬 Chat on WhatsApp', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I need support with product specifications and material orders.")}`, external: true },
       { label: '✉️ Send an Email', href: `mailto:${contactInfo.email}`, external: true }
     ],
     showQuickReplies: true
@@ -211,6 +211,9 @@ export function Chatbot() {
           sender: 'bot',
           text: "Hi there! Welcome to Super Tech. I can quickly answer your questions about quotes, delivery, products, showroom location, or contact details. Click a pretyped option below or type your question!",
           timestamp: new Date(),
+          actions: [
+            { label: '💬 Chat on WhatsApp', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I would like to get a quote and check product availability.")}`, external: true }
+          ],
           showQuickReplies: true
         }
       ])
@@ -292,11 +295,11 @@ export function Chatbot() {
 
   return (
     <>
-      {/* Floating Chatbot FAB Button */}
+      {/* Floating Chatbot FAB Button - positioned above WhatsApp button */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open support chat"
-        className={`fixed bottom-[92px] right-5 z-50 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/25 transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-accent/30 hover:bg-accent-hover md:bottom-[108px] md:size-16 ${
+        className={`fixed bottom-[84px] right-4 z-50 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/25 transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-accent/30 hover:bg-accent-hover sm:bottom-[88px] sm:right-5 sm:size-14 md:bottom-[92px] md:right-5 md:size-16 ${
           visible && !isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 pointer-events-none opacity-0'
         }`}
       >
@@ -308,10 +311,10 @@ export function Chatbot() {
 
       {/* Chatbot Window Container */}
       <div
-        className={`fixed bottom-5 right-5 z-40 flex h-[500px] w-[calc(100vw-2.5rem)] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl transition-all duration-300 sm:right-6 sm:bottom-6 sm:w-[380px] sm:h-[550px] ${
+        className={`fixed bottom-4 right-0 left-0 mx-auto z-40 flex flex-col overflow-hidden rounded-t-2xl border border-border bg-card shadow-2xl transition-all duration-300 sm:left-auto sm:right-5 sm:bottom-5 sm:rounded-2xl sm:w-[380px] ${
           isOpen
-            ? 'translate-y-0 scale-100 opacity-100 pointer-events-auto'
-            : 'translate-y-8 scale-95 opacity-0 pointer-events-none'
+            ? 'translate-y-0 scale-100 opacity-100 pointer-events-auto h-[85dvh] sm:h-[550px]'
+            : 'translate-y-8 scale-95 opacity-0 pointer-events-none h-[85dvh] sm:h-[550px]'
         }`}
       >
         {/* Header */}

@@ -18,7 +18,7 @@ export function MobileQuoteButton() {
   return (
     <Link
       href="/contact"
-      className={`fixed bottom-24 right-5 z-40 inline-flex h-12 items-center gap-2 rounded-full btn-primary px-5 text-sm shadow-lg md:hidden transition-all duration-300 ${
+      className={`fixed bottom-4 left-4 z-40 inline-flex h-11 items-center gap-2 rounded-full btn-primary px-4 text-sm shadow-lg md:hidden transition-all duration-300 ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0 pointer-events-none'
       }`}
       aria-label="Request a quote"

@@ -89,18 +89,18 @@ export function ProductCard({ product }: { product: Product }) {
 
             {/* Action buttons */}
             <div className="mt-4 flex items-center justify-between gap-2 pt-3 border-t border-border/40">
-              <span className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-accent group-hover:underline">
-                View Details <ArrowRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+              <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-accent group-hover:underline">
+                <span className="hidden xs:inline">View</span> Details <ArrowRight className="size-3 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </span>
 
               <button
                 type="button"
                 onClick={handleQuickAdd}
-                className="inline-flex h-8 items-center gap-1 rounded-lg bg-accent/10 px-3 text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white"
+                className="inline-flex h-7 sm:h-8 items-center gap-1 rounded-lg bg-accent/10 px-2 sm:px-3 text-[10px] sm:text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white shrink-0"
                 title="Add to Quote"
               >
                 <Plus className="size-3.5" aria-hidden="true" />
-                Add to Quote
+                <span className="hidden sm:inline">Add to Quote</span>
               </button>
             </div>
           </div>

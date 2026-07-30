@@ -26,7 +26,7 @@ export function StickyProductBar({ product }: { product: Product }) {
           : '-translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 md:px-8 lg:px-12">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 py-2.5 sm:py-3 md:px-8 lg:px-12">
         {/* Left: Thumbnail & Title */}
         <div className="flex items-center gap-3.5 min-w-0">
           <div className="relative size-11 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary">

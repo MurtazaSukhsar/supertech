@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
@@ -13,12 +13,10 @@ import { siteUrl } from '@/lib/content'
 import { contactInfo } from '@/lib/products'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
+// Use system font configuration to allow isolated offline build compilation without requesting Google Fonts
+const inter = {
   variable: '--font-inter',
-  weight: ['400', '500', '600', '700', '800', '900'],
-  display: 'swap',
-})
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -54,6 +52,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: '#0a2472',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({

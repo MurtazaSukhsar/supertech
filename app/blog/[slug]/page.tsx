@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       />
       <article>
         <section className="bg-primary">
-          <div className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28 lg:px-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12">
             <p className="eyebrow !text-accent">{post.category}</p>
             <h1 className="mt-4 max-w-4xl text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
               {post.title}
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20 lg:px-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
           <Breadcrumbs crumbs={[{ label: 'Blog', href: '/blog' }, { label: post.title }]} />
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">

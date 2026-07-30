@@ -77,8 +77,8 @@ export function QuoteDrawer() {
         aria-hidden="true"
       />
 
-      <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
-        <div className="w-screen max-w-md bg-background shadow-2xl flex flex-col border-l border-border animate-slide-left">
+      <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 sm:pl-10">
+        <div className="w-screen sm:max-w-md bg-background shadow-2xl flex flex-col border-l border-border animate-slide-left">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border p-5 bg-primary text-primary-foreground">
             <div className="flex items-center gap-3">

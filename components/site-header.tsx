@@ -88,7 +88,7 @@ export function SiteHeader() {
 
       {/* Main nav */}
       <div className="border-b border-border">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 md:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-3 md:px-8 lg:px-12">
           <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Super Tech home">
             <Image
               src="/images/logo.jpg"
@@ -96,7 +96,7 @@ export function SiteHeader() {
               width={360}
               height={188}
               className={`w-auto object-contain transition-all duration-300 ${
-                scrolled ? 'h-12 sm:h-16 md:h-18 lg:h-20' : 'h-16 sm:h-24 md:h-28 lg:h-32'
+                scrolled ? 'h-10 sm:h-12 md:h-16 lg:h-18' : 'h-12 sm:h-16 md:h-22 lg:h-28'
               }`}
               priority
             />
@@ -220,11 +220,11 @@ export function SiteHeader() {
       <div
         className={`border-b border-border bg-background lg:hidden transition-all duration-300 origin-top ${
           mobileOpen
-            ? 'max-h-[80vh] opacity-100 overflow-y-auto'
+            ? 'max-h-screen opacity-100 overflow-y-auto'
             : 'max-h-0 opacity-0 overflow-hidden border-b-0'
         }`}
       >
-        <div className="mx-auto max-w-7xl px-6 py-4 md:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 md:px-8">
           <form onSubmit={submitSearch} role="search" className="relative mb-4 md:hidden">
             <Search
               className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
