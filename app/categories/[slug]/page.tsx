@@ -46,7 +46,7 @@ export default async function CategoryPage({
     <>
       {/* Category hero band */}
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-24 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-24 lg:px-12">
           <div className="flex items-start gap-6">
             <div className="hidden size-16 shrink-0 items-center justify-center rounded-xl bg-accent shadow-lg shadow-accent/20 sm:flex">
               <CategoryIcon icon={category.icon} className="size-8 text-accent-foreground" />
@@ -75,7 +75,7 @@ export default async function CategoryPage({
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <div className="mb-10">
           <Breadcrumbs crumbs={[{ label: 'Products', href: '/products' }, { label: category.name }]} />
         </div>

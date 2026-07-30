@@ -27,7 +27,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="section-pad mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+    <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 text-center">
           <p className="eyebrow">What Our Clients Say</p>

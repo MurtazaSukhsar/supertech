@@ -23,7 +23,7 @@ export default function ProductsPage() {
     <>
       {/* Products hero banner */}
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-24 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-24 lg:px-12">
           <div>
             <h1 className="text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-4xl lg:text-5xl">
               All Products
@@ -36,7 +36,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Main product list section */}
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <div className="mb-10">
           <Breadcrumbs crumbs={[{ label: 'Products' }]} />
         </div>

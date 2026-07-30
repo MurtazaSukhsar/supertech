@@ -33,7 +33,7 @@ const reasons = [
 
 export function WhyChooseUs() {
   return (
-    <section className="section-pad mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+    <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 flex flex-col items-center gap-3 text-center">
           <p className="eyebrow">Our Promise</p>

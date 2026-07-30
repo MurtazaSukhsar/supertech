@@ -19,7 +19,7 @@ export default function BlogPage() {
   return (
     <>
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12">
           <p className="eyebrow !text-accent">Resource Center</p>
           <h1 className="mt-4 max-w-3xl text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
             Buying Guides for Kuwait Contractors
@@ -30,10 +30,10 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
         <Breadcrumbs crumbs={[{ label: 'Blog' }]} />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3 md:gap-8">
+        <div className="mt-10 sm:mt-12 grid gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
           {blogPosts.map((post, i) => (
             <ScrollReveal key={post.slug} delay={i * 100}>
               <article className="card-premium group flex h-full flex-col overflow-hidden">

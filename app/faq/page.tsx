@@ -38,7 +38,7 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12">
           <p className="eyebrow !text-accent">FAQ</p>
           <h1 className="mt-4 max-w-3xl text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
             Questions Contractors Ask Before Ordering
@@ -49,7 +49,7 @@ export default function FaqPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
         <Breadcrumbs crumbs={[{ label: 'FAQ' }]} />
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_360px] lg:gap-14">

@@ -103,7 +103,7 @@ export function CategoryGrid() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
 
   return (
-    <section className="section-pad mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+    <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 flex flex-col items-start gap-3">
           <p className="eyebrow">Our Range</p>
@@ -114,7 +114,7 @@ export function CategoryGrid() {
         </div>
       </ScrollReveal>
 
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((cat, i) => {
           const isSiblingHovered = hoveredIdx !== null && hoveredIdx !== i
 
@@ -137,13 +137,13 @@ export function CategoryGrid() {
                     href={`/categories/${cat.slug}`}
                     className="relative flex h-full flex-col overflow-hidden"
                   >
-                    <div className="relative aspect-[4/3] w-full min-h-[310px] overflow-hidden bg-secondary">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
                       <CardMedia cat={cat} />
                       <div
                         className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/45 to-transparent transition-opacity duration-300 group-hover:opacity-95"
                         aria-hidden="true"
                       />
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 sm:p-7">
+                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-4 sm:p-6 md:p-7">
                         <div>
                           <div className="mb-3.5 inline-flex size-11 items-center justify-center rounded-xl bg-accent shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110">
                             <CategoryIcon icon={cat.icon} className="size-6 text-white" />

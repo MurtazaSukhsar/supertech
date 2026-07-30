@@ -19,7 +19,7 @@ export default async function SearchPage({
   return (
     <>
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-24 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-24 lg:px-12">
           <p className="eyebrow !text-accent">Search</p>
           <h1 className="mt-4 text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-4xl lg:text-5xl">
             Search Results
@@ -27,7 +27,7 @@ export default async function SearchPage({
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <Breadcrumbs crumbs={[{ label: 'Search' }]} />
         <p className="mt-6 text-sm text-muted-foreground">
           {q

@@ -14,7 +14,7 @@ function InstagramIcon({ className }: { className?: string }) {
 export function SiteFooter() {
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-20 lg:px-12">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand col */}
           <div className="flex flex-col gap-4">

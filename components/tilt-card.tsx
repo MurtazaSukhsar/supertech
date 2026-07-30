@@ -10,10 +10,14 @@ interface TiltCardProps {
 export function TiltCard({ children, className = '' }: TiltCardProps) {
   const [coords, setCoords] = useState({ rotateX: 0, rotateY: 0, isHovered: false })
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // Disable tilt on touch devices
+      setIsTouchDevice(navigator.maxTouchPoints > 0)
+      
       const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
       setReducedMotion(mediaQuery.matches)
       
@@ -24,7 +28,7 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
   }, [])
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (reducedMotion || !cardRef.current) return
+    if (reducedMotion || isTouchDevice || !cardRef.current) return
 
     const rect = cardRef.current.getBoundingClientRect()
     const width = rect.width
@@ -51,7 +55,7 @@ export function TiltCard({ children, className = '' }: TiltCardProps) {
     ? '0 20px 40px -10px rgba(10, 36, 114, 0.22), 0 0 1px 1px rgba(217, 30, 42, 0.2)'
     : '0 4px 20px -6px rgba(10, 36, 114, 0.08)'
 
-  const transformStyle = reducedMotion
+  const transformStyle = (reducedMotion || isTouchDevice)
     ? undefined
     : {
         transform: `perspective(1000px) rotateX(${coords.rotateX}deg) rotateY(${coords.rotateY}deg) translateY(${

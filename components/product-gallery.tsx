@@ -50,7 +50,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
 
       {/* Thumbnails with animated active ring */}
       {images.length > 1 && (
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid grid-cols-5 gap-2 sm:gap-3">
           {images.map((img, i) => {
             const isSelected = i === active
             return (

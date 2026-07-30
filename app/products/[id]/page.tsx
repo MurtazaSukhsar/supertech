@@ -87,7 +87,7 @@ export default async function ProductPage({
       {/* Sticky top bar on scroll */}
       <StickyProductBar product={product} />
 
-      <div className="mx-auto max-w-7xl px-6 py-10 md:px-8 md:py-16 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <Breadcrumbs
           crumbs={[
             { label: 'Products', href: '/products' },
@@ -148,7 +148,7 @@ export default async function ProductPage({
 
         {/* Related products drag-scroll rail */}
         {related.length > 0 && (
-          <section className="mt-20 md:mt-32">
+          <section className="mt-14 sm:mt-20 md:mt-32">
             <ScrollReveal>
               <h2 className="section-heading mb-2">Related Products</h2>
             </ScrollReveal>

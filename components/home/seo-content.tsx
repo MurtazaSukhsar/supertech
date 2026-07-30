@@ -6,7 +6,7 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 export function SeoContent() {
   return (
     <section className="bg-surface-alt">
-      <div className="section-pad mx-auto max-w-7xl px-6 md:px-8 lg:px-12">
+      <div className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
           <div>
             <ScrollReveal variant="fade-left">

@@ -14,7 +14,7 @@ export function TrustBadges() {
         {badges.map((badge, i) => (
           <div
             key={badge.label}
-            className={`reveal-up flex items-center justify-center gap-3 px-6 py-7 md:py-8 ${
+            className={`reveal-up flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-6 py-5 sm:py-7 md:py-8 ${
               i < badges.length - 1 ? 'border-r border-border/50' : ''
             }`}
             style={{ animationDelay: `${i * 70}ms` }}

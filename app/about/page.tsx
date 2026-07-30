@@ -24,7 +24,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12">
           <p className="eyebrow !text-accent">Who We Are</p>
           <h1 className="mt-4 max-w-3xl text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
             Built to Supply Kuwait&apos;s Builders
@@ -32,7 +32,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
         <Breadcrumbs crumbs={[{ label: 'About Us' }]} />
 
         <div className="mt-12 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
@@ -83,12 +83,12 @@ export default function AboutPage() {
         <div className="mt-20 grid grid-cols-2 gap-6 md:mt-32 md:gap-8 lg:grid-cols-4">
           {stats.map((stat, i) => (
             <ScrollReveal key={stat.label} delay={i * 100} className="h-full">
-              <div className="card-premium flex h-full flex-col items-center justify-center gap-3 p-8 text-center md:p-10">
+              <div className="card-premium flex h-full flex-col items-center justify-center gap-3 p-4 sm:p-8 text-center md:p-10">
                 <stat.icon className="size-7 text-accent" aria-hidden="true" />
-                <p className="font-display text-3xl font-extrabold text-primary md:text-4xl">
+                <p className="font-display text-2xl sm:text-3xl font-extrabold text-primary md:text-4xl">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} duration={2000} />
                 </p>
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+                <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground">{stat.label}</p>
               </div>
             </ScrollReveal>
           ))}

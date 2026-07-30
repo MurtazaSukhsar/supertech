@@ -21,7 +21,7 @@ export default async function ContactPage({
   return (
     <>
       <section className="bg-primary">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:px-8 md:py-28 lg:px-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-16 sm:py-20 md:px-8 md:py-28 lg:px-12">
           <p className="eyebrow !text-accent">Get In Touch</p>
           <h1 className="mt-4 text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-5xl lg:text-6xl">
             Contact Super Tech
@@ -32,7 +32,7 @@ export default async function ContactPage({
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-6 py-12 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
         <Breadcrumbs crumbs={[{ label: 'Contact' }]} />
 
         <div className="mt-12 grid gap-12 lg:grid-cols-5 lg:gap-16">
@@ -130,12 +130,12 @@ export default async function ContactPage({
               title="Super Tech location map — Kuwait City"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4153.25909928476!2d47.94651090000001!3d29.3289452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9ac5d8af9d1b%3A0x898aca45651cdd7f!2sSUPER%20TECH%20INT%E2%80%99L%20CONSTRUCTION%20MATERIALS%20CO!5e1!3m2!1sen!2sin!4v1784449605250!5m2!1sen!2sin"
               width="100%"
-              height="450"
+              height="300"
               style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="block w-full border-0"
+              className="block w-full border-0 h-[250px] sm:h-[350px] md:h-[450px]"
             />
           </div>
         </ScrollReveal>
