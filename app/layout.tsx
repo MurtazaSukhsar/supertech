@@ -9,6 +9,7 @@ import { MobileQuoteButton } from '@/components/mobile-quote-button'
 import { QuoteProvider } from '@/context/quote-context'
 import { QuoteDrawer } from '@/components/quote-drawer'
 import { SmoothScroll } from '@/components/smooth-scroll'
+import { LoadingScreen } from '@/components/loading-screen'
 import { siteUrl } from '@/lib/content'
 import { contactInfo } from '@/lib/products'
 import './globals.css'
@@ -88,6 +89,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
+        <LoadingScreen />
         <SmoothScroll />
         <QuoteProvider>
           <SiteHeader />
