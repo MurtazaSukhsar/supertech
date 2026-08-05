@@ -48,7 +48,7 @@ export function FeaturedProducts() {
 
   return (
     // Tall track gives each card its own slice of scroll (~55vh per card)
-    <section ref={container} className="relative h-[330vh] bg-surface-alt">
+    <section ref={container} className="relative h-[500vh] bg-surface-alt">
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center gap-5 overflow-hidden px-4 py-10 sm:gap-7 sm:py-14">
         {/* Heading */}
         <motion.div
