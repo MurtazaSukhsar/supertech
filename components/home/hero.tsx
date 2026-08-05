@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Building2, Truck, Wrench } from 'lucide-react'
 
+import { HeroProductCarousel } from '@/components/home/hero-product-carousel'
+
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-primary py-16 sm:py-20 md:py-28 lg:py-32">
@@ -20,8 +22,9 @@ export function Hero() {
       <div className="absolute inset-0 surface-grid opacity-[0.04]" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12 z-10">
+        <div className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.18fr)] lg:gap-10">
         <div className="max-w-3xl">
-          
+
           {/* Badge */}
           <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground backdrop-blur-md">
             <span className="relative flex size-2 rounded-full bg-accent" aria-hidden="true">
@@ -69,6 +72,13 @@ export function Hero() {
             </Link>
           </div>
 
+        </div>
+
+          {/* Rotate-to-reveal product carousel. Shown on every size; on small
+              screens it sits above the copy so it isn't buried below the CTAs. */}
+          <div className="order-first w-full lg:order-none">
+            <HeroProductCarousel />
+          </div>
         </div>
       </div>
     </section>

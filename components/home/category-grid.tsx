@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
@@ -8,96 +8,6 @@ import { categories } from '@/lib/products'
 import { CategoryIcon } from '@/components/category-icon'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TiltCard } from '@/components/tilt-card'
-
-const catImagePool: Record<string, string[]> = {
-  'air-conditioning': [
-    '/images/products/copper-coil.jpeg',
-    '/images/products/copper-pipe.jpeg',
-    '/images/products/copper-fitting.jpeg',
-    '/images/products/filter-dryer.jpeg',
-  ],
-  'duct-accessories': [
-    '/images/products/insulated-flexible-duct.jpeg',
-    '/images/products/aeroduct-flexible-connector.jpeg',
-    '/images/products/duct-sealant.jpeg',
-    '/images/products/hvac-damper-fittings.jpeg',
-  ],
-  hardware: [
-    '/images/products/galvanized-fasteners.jpeg',
-    '/images/products/fischer-drop-in-anchor-box.jpeg',
-    '/images/products/brass-flare-nut.jpeg',
-    '/images/products/aluminium-rivet.jpeg',
-  ],
-  clamps: [
-    '/images/products/gi-universal-clamp.jpeg',
-    '/images/products/rubber-lined-clamp.jpeg',
-    '/images/products/gi-u-clamp-saddle.jpeg',
-    '/images/products/gi-beam-clamp.jpeg',
-  ],
-  tools: [
-    '/images/products/cordless-drill.png',
-    '/images/products/angle-grinder.png',
-    '/images/products/wrench-set.png',
-  ],
-  construction: [
-    '/images/products/slotted-channel.jpeg',
-    '/images/products/fischer-drop-in-anchor-box.jpeg',
-    '/images/products/gi-unistrut-channel-bracket.jpeg',
-    '/images/products/pvc-pipe-wrapping-tape.jpeg',
-  ],
-  industrial: [
-    '/images/products/air-compressor.png',
-    '/images/products/welding-machine.png',
-    '/images/products/spring-mount-isolator.jpeg',
-  ],
-  plumbing: [
-    '/images/products/upvc-fitting.jpeg',
-    '/images/products/weldfix-upvc-cement.jpeg',
-    '/images/products/brass-gate-valve.jpeg',
-    '/images/products/jute-kutkut.jpeg',
-  ],
-  electric: [
-    '/images/products/industrial-socket.jpeg',
-    '/images/products/pvc-coated-flexible-conduit.jpeg',
-    '/images/products/electric-brass-adaptor.jpeg',
-    '/images/products/galvanized-conduit-coupling.jpeg',
-  ],
-}
-
-function CardMedia({ cat }: { cat: (typeof categories)[number] }) {
-  const images = catImagePool[cat.slug] || [cat.image || '/placeholder.svg']
-  const [currentIdx, setCurrentIdx] = useState(0)
-
-  useEffect(() => {
-    if (images.length <= 1) return
-    const interval = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % images.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [images.length])
-
-  return (
-    <div className="relative h-full w-full">
-      {images.map((src, idx) => (
-        <div
-          key={src}
-          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-            idx === currentIdx ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
-        >
-          <Image
-            src={src}
-            alt={cat.name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 33vw"
-            priority={idx === 0}
-            className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-        </div>
-      ))}
-    </div>
-  )
-}
 
 export function CategoryGrid() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
@@ -138,7 +48,15 @@ export function CategoryGrid() {
                     className="relative flex h-full flex-col overflow-hidden"
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
-                      <CardMedia cat={cat} />
+                      {/* One fixed image per category, from the category record */}
+                      <Image
+                        src={cat.image || '/placeholder.svg'}
+                        alt={cat.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        priority={i < 4}
+                        className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
                       <div
                         className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/45 to-transparent transition-opacity duration-300 group-hover:opacity-95"
                         aria-hidden="true"
