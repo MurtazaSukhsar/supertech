@@ -11,7 +11,7 @@ export function Hero() {
     <section className="relative isolate overflow-hidden bg-primary py-16 sm:py-20 md:py-28 lg:py-32">
       {/* Full-Bleed Jobsite & Warehouse Background Image */}
       <Image
-        src="/images/hero-warehouse.png"
+        src="/images/hero-warehouse.webp"
         alt="HVAC materials supplier warehouse in Kuwait"
         fill
         priority

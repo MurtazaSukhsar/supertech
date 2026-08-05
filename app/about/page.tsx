@@ -39,7 +39,7 @@ export default function AboutPage() {
           <ScrollReveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border">
               <Image
-                src="/images/about-facility.png"
+                src="/images/about-facility.webp"
                 alt="Super Tech warehouse and showroom facility in Kuwait"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

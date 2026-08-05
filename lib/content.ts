@@ -59,7 +59,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Air-Conditioning Materials',
     publishedAt: '2026-07-18',
     readTime: '4 min read',
-    image: '/images/products/ac-condenser.png',
+    image: '/images/products/ac-condenser.webp',
     body: [
       'Successful HVAC work starts with the right material plan. In Kuwait, contractors often need to prepare for high ambient temperatures, tight delivery windows, and site conditions that can change quickly.',
       'Core materials usually include soft copper pipe coils, rubber foam insulation tubes, refrigerant gas, mounting hardware, drain accessories, outdoor condenser units, and consumables for testing and commissioning.',
@@ -75,7 +75,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Construction Materials',
     publishedAt: '2026-07-18',
     readTime: '5 min read',
-    image: '/images/products/cement-bags.png',
+    image: '/images/products/cement-bags.webp',
     body: [
       'Bulk material orders work best when the supplier receives clear specifications. Product type, grade, size, packaging, certification requirements, and delivery location all affect pricing and lead time.',
       'For construction materials such as cement and steel rebar, confirm standards and project approvals before placing the order. For hardware and fixing items, check both size and finish so the materials match the installation environment.',
@@ -91,7 +91,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Tools & Industrial Equipment',
     publishedAt: '2026-07-18',
     readTime: '4 min read',
-    image: '/images/products/cordless-drill.png',
+    image: '/images/products/cordless-drill.webp',
     body: [
       'Tools used every day need more than a good price. Contractors should look at motor type, duty cycle, serviceability, accessory availability, and whether the tool can handle repeated site conditions.',
       'For cordless drills, battery capacity and torque matter. For grinders, check disc size, wattage, guard adjustment, and safety features. For welders and compressors, match output capacity to the actual workload.',

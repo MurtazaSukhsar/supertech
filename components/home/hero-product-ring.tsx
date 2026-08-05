@@ -17,16 +17,16 @@ type RingItem = { file: string; productId: string }
  * lowering ITEM_WIDTH will make products touch.
  */
 const ITEMS: RingItem[] = [
-  { file: 'copper-coil.png', productId: 'copper-coil' },
-  { file: 'brass-flare-nut.png', productId: 'brass-flare-nut' },
-  { file: 'insulated-flexible-duct.png', productId: 'insulated-flexible-duct' },
-  { file: 'gi-universal-clamp.png', productId: 'gi-universal-clamp' },
-  { file: 'duct-sealant.png', productId: 'duct-sealant' },
-  { file: 'brass-gate-valve.png', productId: 'brass-gate-valve' },
-  { file: 'slotted-channel.png', productId: 'slotted-channel' },
-  { file: 'copper-fitting.png', productId: 'copper-fitting' },
-  { file: 'industrial-socket.png', productId: 'industrial-socket' },
-  { file: 'cordless-drill.png', productId: 'rotary-hammer-drill' },
+  { file: 'copper-coil.webp', productId: 'copper-coil' },
+  { file: 'brass-flare-nut.webp', productId: 'brass-flare-nut' },
+  { file: 'insulated-flexible-duct.webp', productId: 'insulated-flexible-duct' },
+  { file: 'gi-universal-clamp.webp', productId: 'gi-universal-clamp' },
+  { file: 'duct-sealant.webp', productId: 'duct-sealant' },
+  { file: 'brass-gate-valve.webp', productId: 'brass-gate-valve' },
+  { file: 'slotted-channel.webp', productId: 'slotted-channel' },
+  { file: 'copper-fitting.webp', productId: 'copper-fitting' },
+  { file: 'industrial-socket.webp', productId: 'industrial-socket' },
+  { file: 'cordless-drill.webp', productId: 'rotary-hammer-drill' },
 ]
 
 const N = ITEMS.length

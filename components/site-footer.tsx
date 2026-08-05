@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { categories, contactInfo } from '@/lib/products'
@@ -21,7 +21,7 @@ export function SiteFooter() {
             <Link href="/" className="inline-block" aria-label="Super Tech home">
               <div className="inline-flex rounded-xl bg-white p-3 sm:p-3.5 shadow-md">
                 <Image
-                  src="/images/logo.jpg"
+                  src="/images/logo.webp"
                   alt="Super Tech logo"
                   width={320}
                   height={167}

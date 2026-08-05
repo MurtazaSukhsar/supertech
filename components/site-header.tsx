@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
@@ -91,7 +91,7 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-3 md:px-8 lg:px-12">
           <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Super Tech home">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo.webp"
               alt="Super Tech International Construction Materials Co. logo"
               width={360}
               height={188}

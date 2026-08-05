@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: 'Super Tech International Construction Materials Co. | Kuwait',
     description:
       'Kuwait-based supplier of HVAC materials, hardware, tools, and construction materials.',
-    images: ['/images/hero-warehouse.png'],
+    images: ['/images/hero-warehouse.webp'],
   },
   generator: 'v0.app',
 }

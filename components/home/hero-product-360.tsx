@@ -96,7 +96,7 @@ export function HeroProduct360() {
         />
 
         <Image
-          src="/images/hero-360.png"
+          src="/images/hero-360.webp"
           alt=""
           fill
           sizes="(max-width: 1024px) 90vw, 760px"

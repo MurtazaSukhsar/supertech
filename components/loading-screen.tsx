@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 
@@ -6,7 +6,7 @@ const MIN_DURATION = 900 // keep the brand moment on screen at least this long
 const MAX_DURATION = 7000 // hard fallback so a stuck asset never blocks the site
 const FADE_DURATION = 600
 
-// Sampled straight from /images/logo.jpg — no other colours are used here.
+// Sampled straight from /images/logo.webp — no other colours are used here.
 const NAVY = '#00267C'
 const RED = '#EE0009'
 
@@ -147,7 +147,7 @@ export function LoadingScreen() {
           {/* Plain <img> on purpose: skips the image optimizer hop so the mark paints instantly.
               multiply blending knocks out the JPEG's white box, so it reads as transparent. */}
           <img
-            src="/images/logo.jpg"
+            src="/images/logo.webp"
             alt="Super Tech International Construction Materials Co."
             className="st-loader__logo"
             decoding="async"

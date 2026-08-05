@@ -27,7 +27,7 @@ export const categories: Category[] = [
     shortName: 'Clamps',
     description: 'Various clamps and supports for piping, ductwork, and electrical conduits.',
     icon: 'paperclip',
-    image: '/images/products/gi-universal-clamp.jpeg',
+    image: '/images/products/gi-universal-clamp.webp',
     subcategories: ['Pipe Supports & Clamps', 'Structural Supports & Framing'],
   },
   {
@@ -37,7 +37,7 @@ export const categories: Category[] = [
     description:
       'Copper pipes, insulation, refrigerants, dampers, access valves, flexible ducts, and materials for professional HVAC installation.',
     icon: 'wind',
-    image: '/images/products/copper-coil.jpeg',
+    image: '/images/products/copper-coil.webp',
     subcategories: [
       'Copper Pipes & Coils',
       'Copper Pipes & Fittings',
@@ -57,7 +57,7 @@ export const categories: Category[] = [
     description:
       'Galvanized fasteners, conduit couplings, electrical sockets, jute hemp, test plugs, clips, and plumbing hardware.',
     icon: 'wrench',
-    image: '/images/products/galvanized-fasteners.jpeg',
+    image: '/images/products/galvanized-fasteners.webp',
     subcategories: ['Fasteners & Fittings'],
   },
   {
@@ -67,7 +67,7 @@ export const categories: Category[] = [
     description:
       'Professional-grade hand tools and power tools from trusted brands built for daily jobsite performance.',
     icon: 'drill',
-    image: '/images/products/cordless-drill.png',
+    image: '/images/products/cordless-drill.webp',
     subcategories: ['Power Tools', 'Hand Tools'],
   },
   {
@@ -77,7 +77,7 @@ export const categories: Category[] = [
     description:
       'Slotted unistrut channels, UPVC pipe fittings, drop-in anchors, paint brushes, wrapping tapes, and solvent thinners.',
     icon: 'building',
-    image: '/images/products/slotted-channel.jpeg',
+    image: '/images/products/slotted-channel.webp',
     subcategories: [
       'Structural Supports & Framing',
       'Anchoring & Fasteners',
@@ -94,7 +94,7 @@ export const categories: Category[] = [
     description:
       'UPVC pressure & drainage fittings, test plugs, gauge cock valves, jute hemp, thread sealants, and plumbing materials.',
     icon: 'droplets',
-    image: '/images/products/upvc-fitting.jpeg',
+    image: '/images/products/upvc-fitting.webp',
     subcategories: [
       'Plumbing & Drainage',
       'Plumbing Supplies',
@@ -109,7 +109,7 @@ export const categories: Category[] = [
     description:
       'Galvanized conduit couplings, industrial plugs & sockets, spring conduit clips, cable containment, and electrical hardware.',
     icon: 'zap',
-    image: '/images/products/industrial-socket.jpeg',
+    image: '/images/products/industrial-socket.webp',
     subcategories: ['Electrical Supplies', 'Fasteners & Clamps'],
   },
   {
@@ -119,7 +119,7 @@ export const categories: Category[] = [
     description:
       'Flexible ducts, volume control dampers, duct sealants, adhesives, acoustic insulation, vibration hangers, and ductwork hardware.',
     icon: 'fan',
-    image: '/images/products/insulated-flexible-duct.jpeg',
+    image: '/images/products/insulated-flexible-duct.webp',
     subcategories: [
       'Flexible Ducts',
       'Duct Sealants & Coatings',
@@ -137,7 +137,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Flexible Ducts',
     brand: 'Aeroduct',
-    images: ["/images/products/aeroduct-flexible-connector.jpeg"],
+    images: ["/images/products/aeroduct-flexible-connector.webp"],
     description: "Aeroduct heavy-duty flexible duct connector roll engineered for HVAC acoustic vibration isolation between air handling units and sheet metal ductwork.",
     specs: {
        
@@ -155,7 +155,7 @@ export const products: Product[] = [
     category: 'hardware',
     subcategory: 'Anchoring & Fasteners',
     brand: 'Fischer',
-    images: ["/images/products/fischer-drop-in-anchor-box.jpeg"],
+    images: ["/images/products/fischer-drop-in-anchor-box.webp"],
     description: "Fischer EA II internal thread steel drop-in anchor set for heavy pipe suspension, unistrut channels, and concrete ceiling fixings.",
     specs: {
        
@@ -172,7 +172,7 @@ export const products: Product[] = [
     category: 'plumbing',
     subcategory: 'Plumbing Supplies',
     brand: 'Weldfix',
-    images: ["/images/products/weldfix-upvc-cement.jpeg"],
+    images: ["/images/products/weldfix-upvc-cement.webp"],
     description: "Weldfix high-strength solvent cement for fast, pressure-tight bonding of UPVC, PVC, and CPVC pressure pipes and fittings. Meets ASTM D-2564 standards.",
     specs: {
        
@@ -190,7 +190,7 @@ export const products: Product[] = [
     category: 'hardware',
     subcategory: 'Brass Fittings & Valves',
     brand: 'ST',
-    images: ["/images/products/brass-flare-nut.jpeg"],
+    images: ["/images/products/brass-flare-nut.webp"],
     description: "Heavy duty forged brass flare nut for connecting copper refrigeration tubing to air conditioning compressor valves and split units.",
     specs: {
        
@@ -207,7 +207,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Hand Tools',
     brand: 'ST',
-    images: ['/images/products/wrench-set.png'],
+    images: ['/images/products/wrench-set.webp'],
     description:
       'Full 24-piece metric and SAE combination spanner set forged from Cr-V steel with Maxi-Drive profile to prevent fastener rounding under high torque.',
     specs: {
@@ -224,7 +224,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
-    images: ["/images/products/rubber-lined-clamp.jpeg"],
+    images: ["/images/products/rubber-lined-clamp.webp"],
     description: "Acoustic EPDM rubber-lined galvanized pipe clamp for vibration dampening and noise isolation in chilled water and domestic water supply lines.",
     specs: {
        
@@ -241,7 +241,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/rubber-cork-pad.jpeg"],
+    images: ["/images/products/rubber-cork-pad.webp"],
     description: "High-density rubber cork composite pad for under-equipment vibration dampening on chillers, pumps, and compressors.",
     specs: {
        
@@ -256,7 +256,7 @@ export const products: Product[] = [
     category: 'construction',
     subcategory: 'Structural Supports & Framing',
     brand: 'ST',
-    images: ["/images/products/gi-unistrut-channel-bracket.jpeg"],
+    images: ["/images/products/gi-unistrut-channel-bracket.webp"],
     description: "Hot-dip galvanized steel cantilever arm support bracket for mounting unistrut channels, heavy ductwork, and cable trays to walls.",
     specs: {
        
@@ -272,7 +272,7 @@ export const products: Product[] = [
     category: 'plumbing',
     subcategory: 'Plumbing & Valves',
     brand: 'ST',
-    images: ["/images/products/brass-gate-valve.jpeg"],
+    images: ["/images/products/brass-gate-valve.webp"],
     description: "Forged brass heavy-duty inline gate valve with red cast iron handwheel for reliable fluid shutoff control in water, HVAC, and plumbing lines.",
     specs: {
        
@@ -289,7 +289,7 @@ export const products: Product[] = [
     category: 'electric',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
-    images: ["/images/products/gi-electric-conduit-pipe.jpeg"],
+    images: ["/images/products/gi-electric-conduit-pipe.webp"],
     description: "Class 4 hot-dip galvanized rigid steel electrical conduit pipe for surface and underground cable protection.",
     specs: {
        
@@ -304,7 +304,7 @@ export const products: Product[] = [
     name: 'Wrot Copper Fittings Set',
     category: 'air-conditioning',
     subcategory: 'Copper Pipes & Fittings',
-    images: ['/images/products/copper-fitting.jpeg'],
+    images: ['/images/products/copper-fitting.webp'],
     description:
       'Precision-manufactured wrot copper solder fittings including 90° elbows, 45° elbows, tees, couplings, reducers, and flare adapters. Engineered for pressure-tight solder joints in HVAC, refrigeration, and plumbing installations.',
     specs: {
@@ -321,7 +321,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Hand Tools',
     brand: 'ST',
-    images: ["/images/products/wrench-set.png"],
+    images: ["/images/products/wrench-set.webp"],
     description: "Professional 94-piece Chrome Vanadium socket and ratchet wrench tool set in a heavy-duty blow-molded case. Ideal for MEP installation, automotive, and plant maintenance.",
     specs: {
        
@@ -340,7 +340,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
-    images: ["/images/products/gi-channel-clamp.jpeg"],
+    images: ["/images/products/gi-channel-clamp.webp"],
     description: "Galvanized strut channel clamp designed for securing pipes directly onto 41x41mm and 41x21mm unistrut metal framing channels.",
     specs: {
        
@@ -356,7 +356,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/spring-hanger-mount.jpeg"],
+    images: ["/images/products/spring-hanger-mount.webp"],
     description: "Compact steel spring hanger for isolated ceiling suspension of air handling units, fan coil units, and ductwork.",
     specs: {
        
@@ -371,7 +371,7 @@ export const products: Product[] = [
     category: 'construction',
     subcategory: 'Tapes & Surface Protection',
     brand: 'Shurtape',
-    images: ['/images/products/pvc-pipe-wrapping-tape.jpeg'],
+    images: ['/images/products/pvc-pipe-wrapping-tape.webp'],
     description:
       'Heavy-duty unplasticized non-adhesive PVC pipe wrapping tape engineered for wrapping underground chilled water lines, steel pipes, and copper tubing to protect against soil corrosion, moisture ingress, and chemical degradation.',
     specs: {
@@ -387,7 +387,7 @@ export const products: Product[] = [
     name: 'Egyptian Plumbing Jute Fibre (Kutkut Hemp)',
     category: 'plumbing',
     subcategory: 'Plumbing Supplies',
-    images: ['/images/products/jute-kutkut.jpeg'],
+    images: ['/images/products/jute-kutkut.webp'],
     description:
       'Premium natural Egyptian jute fiber (kutkut plumbing hemp) used in combination with pipe jointing paste for thread sealing on cast iron, galvanized steel, and brass pipe fittings in plumbing installations.',
     specs: {
@@ -403,7 +403,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
-    images: ["/images/products/electric-gi-saddle.jpeg"],
+    images: ["/images/products/electric-gi-saddle.webp"],
     description: "Half and full galvanized iron saddle clamps for fixing electrical conduits and PVC pipes against walls and ceilings.",
     specs: {
        
@@ -417,7 +417,7 @@ export const products: Product[] = [
     name: 'Refrigeration Liquid Line Filter Drier',
     category: 'air-conditioning',
     subcategory: 'Refrigeration Components',
-    images: ['/images/products/filter-dryer.jpeg'],
+    images: ['/images/products/filter-dryer.webp'],
     description:
       'High-capacity liquid line filter drier designed to absorb moisture, acid, and solid contaminants from HVAC and refrigeration systems. Protects thermal expansion valves and compressor mechanisms from premature wear and corrosion.',
     specs: {
@@ -434,7 +434,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Hand Tools',
     brand: 'ST',
-    images: ["/images/products/wrench-set.png"],
+    images: ["/images/products/wrench-set.webp"],
     description: "VDE certified 1000V insulated screwdriver set engineered for safe live electrical installation and panel assembly work. Tested to IEC 60900 standards.",
     specs: {
        
@@ -451,7 +451,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/spring-hanger-70kg.jpeg"],
+    images: ["/images/products/spring-hanger-70kg.webp"],
     description: "Suspended spring hanger vibration isolator designed to absorb structural vibration from suspended HVAC ducts and inline fans.",
     specs: {
        
@@ -467,7 +467,7 @@ export const products: Product[] = [
     category: 'hardware',
     subcategory: 'Anchoring & Fasteners',
     brand: 'Fischer',
-    images: ['/images/products/fasteners-set.png'],
+    images: ['/images/products/fasteners-set.webp'],
     description:
       'Fischer internal thread drop-in expansion anchor manufactured from galvanized steel. Ideal for flush mounting in concrete to secure threaded suspension rods, HVAC duct hangers, and pipe cradles.',
     specs: {
@@ -483,7 +483,7 @@ export const products: Product[] = [
     name: 'Brass Gauge Cock Valve',
     category: 'plumbing',
     subcategory: 'Plumbing & Valves',
-    images: ['/images/products/brass-union.jpeg'],
+    images: ['/images/products/brass-union.webp'],
     description:
       'Heavy-duty forged brass gauge cock shut-off valve designed for isolating pressure gauges and regulating airflow/liquid lines on plumbing, HVAC, and industrial piping manifolds.',
     specs: {
@@ -498,7 +498,7 @@ export const products: Product[] = [
     name: 'Industrial Plug & Socket Connector Set',
     category: 'electric',
     subcategory: 'Electrical Supplies',
-    images: ['/images/products/industrial-socket.jpeg'],
+    images: ['/images/products/industrial-socket.webp'],
     description:
       'Heavy-duty CEE industrial plug and socket connectors engineered for high-power distribution on construction job sites, industrial workshops, and temporary site power boards. Impact-resistant and weatherproof.',
     specs: {
@@ -513,7 +513,7 @@ export const products: Product[] = [
     name: 'High-Tensile PVC Packing Strapping Roll',
     category: 'air-conditioning',
     subcategory: 'Packaging & Duct Strapping',
-    images: ['/images/products/pvc-packing-strap.jpeg'],
+    images: ['/images/products/pvc-packing-strap.webp'],
     description:
       'High-strength flexible plastic packing strap roll used for bundling sheet metal ductwork, securing palletized HVAC materials, binding pipe bundles, and jobsite material packaging.',
     specs: {
@@ -529,7 +529,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Power Tools',
     brand: 'ST',
-    images: ["/images/products/cordless-drill.png"],
+    images: ["/images/products/cordless-drill.webp"],
     description: "Industrial-grade SDS-Plus 3-mode rotary hammer drill engineered for high-impact drilling and chiseling into concrete, masonry, and steel. Features safety clutch and vibration control.",
     specs: {
        
@@ -548,7 +548,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
-    images: ["/images/products/gi-u-clamp-saddle.jpeg"],
+    images: ["/images/products/gi-u-clamp-saddle.webp"],
     description: "Galvanized steel U-bolt clamp saddle for securing heavy steel pipes, conduits, and copper risers to structural surfaces.",
     specs: {
        
@@ -564,7 +564,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ['/images/products/cotton-canvas-cloth.jpeg'],
+    images: ['/images/products/cotton-canvas-cloth.webp'],
     description:
       'Premium heavy-duty woven cotton canvas cloth used as a protective outer jacketing and vapor barrier covering for thermal insulation on HVAC air ducts and chilled water piping. Delivers high tensile strength, excellent adhesive absorption, and a smooth protective finish.',
     specs: {
@@ -581,7 +581,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Structural Supports & Framing',
     brand: 'ST',
-    images: ["/images/products/gi-beam-clamp.jpeg"],
+    images: ["/images/products/gi-beam-clamp.webp"],
     description: "Malleable iron galvanized structural beam clamp for attaching threaded rods to steel I-beams without drilling or welding.",
     specs: {
        
@@ -597,7 +597,7 @@ export const products: Product[] = [
     name: 'Brass Pressure & Temperature Test Plug (Pete\'s Plug)',
     category: 'plumbing',
     subcategory: 'Plumbing & Testing Equipment',
-    images: ['/images/products/test-plug.jpeg'],
+    images: ['/images/products/test-plug.webp'],
     description:
       'Solid brass 1/4" NPT pressure test plug (Pete\'s Plug) fitted with self-closing dual neoprene internal seals. Allows technician to quickly insert pressure/temperature probes without fluid leakage.',
     specs: {
@@ -613,7 +613,7 @@ export const products: Product[] = [
     category: 'electric',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
-    images: ["/images/products/electric-brass-adaptor.jpeg"],
+    images: ["/images/products/electric-brass-adaptor.webp"],
     description: "Precision machined brass electrical conduit male/female adaptor for securing flexible and rigid metal conduits to junction boxes and enclosures.",
     specs: {
        
@@ -629,7 +629,7 @@ export const products: Product[] = [
     name: 'Hardwood Insulated Pipe Support Blocks',
     category: 'air-conditioning',
     subcategory: 'Pipe Supports & Clamps',
-    images: ['/images/products/wooden-support.jpeg'],
+    images: ['/images/products/wooden-support.webp'],
     description:
       'High-density treated hardwood pipe support blocks designed to support insulated copper tubing and chilled water lines without compressing thermal insulation. Prevents thermal bridging, sweating, and moisture condensation.',
     specs: {
@@ -645,7 +645,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Power Tools',
     brand: 'ST',
-    images: ['/images/products/angle-grinder.png'],
+    images: ['/images/products/angle-grinder.webp'],
     description:
       'High-output 1100W angle grinder designed for cutting steel rebar, grinding welds, and masonry slotting with restart protection and burst-proof guard.',
     specs: {
@@ -661,7 +661,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
-    images: ["/images/products/gi-universal-clamp.jpeg"],
+    images: ["/images/products/gi-universal-clamp.webp"],
     description: "Heavy-duty galvanized iron universal pipe clamp for MEP, HVAC, and plumbing pipe installations. Features dual screw clamping mechanism and zinc plating.",
     specs: {
        
@@ -678,7 +678,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/rubber-waffle-sheet-thin.jpeg"],
+    images: ["/images/products/rubber-waffle-sheet-thin.webp"],
     description: "Cross-ribbed neoprene rubber waffle pad sheet providing high deflection acoustic isolation under mechanical equipment.",
     specs: {
        
@@ -692,7 +692,7 @@ export const products: Product[] = [
     name: 'Slotted Metal Strut Channel (Unistrut Profile)',
     category: 'construction',
     subcategory: 'Structural Supports & Framing',
-    images: ['/images/products/slotted-channel.jpeg'],
+    images: ['/images/products/slotted-channel.webp'],
     description:
       'Cold-formed slotted structural steel framing channels (unistrut profile) with pre-galvanized finish. Provides versatile overhead support framing for hanging HVAC ductwork, heavy pipe runs, electrical cable trays, and equipment.',
     specs: {
@@ -708,7 +708,7 @@ export const products: Product[] = [
     name: 'Galvanized Spring Metal Conduit Clip',
     category: 'electric',
     subcategory: 'Fasteners & Clamps',
-    images: ['/images/products/metal-clip.jpeg'],
+    images: ['/images/products/metal-clip.webp'],
     description:
       'Heavy-gauge galvanized steel spring clip saddle designed for securing electrical conduits, copper tubes, and small steel pipes to masonry walls, metal studs, or unistrut channels.',
     specs: {
@@ -723,7 +723,7 @@ export const products: Product[] = [
     name: 'Seamless Soft Copper Pipe Coil',
     category: 'air-conditioning',
     subcategory: 'Copper Pipes & Coils',
-    images: ['/images/products/copper-coil.jpeg'],
+    images: ['/images/products/copper-coil.webp'],
     description:
       'Seamless soft copper pancake coil manufactured to ASTM B280 international standards for air conditioning and refrigeration field service. Fully annealed for easy hand bending, flaring, and installation in residential and commercial split A/C refrigerant lines.',
     specs: {
@@ -741,7 +741,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Power Tools',
     brand: 'ST',
-    images: ["/images/products/angle-grinder.png"],
+    images: ["/images/products/angle-grinder.webp"],
     description: "Powerful 1400W 7-1/4 inch handheld circular saw designed for precise straight ripping and cross-cutting of plywood, hardwood, formwork, and plastic sheets.",
     specs: {
        
@@ -758,7 +758,7 @@ export const products: Product[] = [
     name: 'Heavy Duty PVC Flexible Air Duct',
     category: 'duct-accessories',
     subcategory: 'Flexible Ducts',
-    images: ['/images/products/pvc-flexible-duct.jpeg'],
+    images: ['/images/products/pvc-flexible-duct.webp'],
     description:
       'Non-insulated flexible duct fabricated from tough PVC foil laminate reinforced with a high-tensile spring steel wire helix. Offers outstanding tear resistance, chemical resistance, and smooth internal airflow for exhaust and supply air drops.',
     specs: {
@@ -775,7 +775,7 @@ export const products: Product[] = [
     category: 'electric',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
-    images: ["/images/products/pvc-coated-flexible-conduit.jpeg"],
+    images: ["/images/products/pvc-coated-flexible-conduit.webp"],
     description: "Liquid-tight PVC coated flexible galvanized steel conduit for weatherproof outdoor and industrial electrical wiring runs.",
     specs: {
        
@@ -790,7 +790,7 @@ export const products: Product[] = [
     name: 'Refrigeration Service Access Valve 1/4"',
     category: 'air-conditioning',
     subcategory: 'Refrigeration Components & Valves',
-    images: ['/images/products/access-valves.jpeg'],
+    images: ['/images/products/access-valves.webp'],
     description:
       'Standard 1/4" SAE flare refrigeration service access valve (Schrader valve) complete with removable internal core, 1/4" copper tube tail, and knurled brass cap with core remover tool.',
     specs: {
@@ -807,7 +807,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Hand Tools',
     brand: 'ST',
-    images: ["/images/products/wrench-set.png"],
+    images: ["/images/products/wrench-set.webp"],
     description: "Heavy-duty 4-piece forged pliers set including 8\" combination pliers, 8\" long nose pliers, 7\" diagonal side cutters, and 10\" adjustable water pump pliers.",
     specs: {
        
@@ -824,7 +824,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'GoFlex',
-    images: ["/images/products/nbr-insulation-roll.jpeg"],
+    images: ["/images/products/nbr-insulation-roll.webp"],
     description: "Flexible NBR closed-cell synthetic rubber insulation sheet roll for wrapping large HVAC ductwork, tanks, and large diameter pipes.",
     specs: {
        
@@ -840,7 +840,7 @@ export const products: Product[] = [
     category: 'electric',
     subcategory: 'Electrical Supplies',
     brand: 'ST',
-    images: ["/images/products/electric-brass-male-bush.jpeg"],
+    images: ["/images/products/electric-brass-male-bush.webp"],
     description: "Short pattern brass male bush for electrical conduit entry into switchgear panels and steel trunking boxes.",
     specs: {
        
@@ -855,7 +855,7 @@ export const products: Product[] = [
     name: 'Copper Pipe',
     category: 'air-conditioning',
     subcategory: 'Copper Pipes & Coils',
-    images: ['/images/products/copper-pipe.jpeg'],
+    images: ['/images/products/copper-pipe.webp'],
     description:
       'Seamless hard-drawn copper tubes engineered for high-pressure HVAC, chilled water, and refrigeration systems. Available in Type L and Type K wall thicknesses providing high tensile strength, superior corrosion resistance, and high burst pressure reliability.',
     specs: {
@@ -872,7 +872,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Hand Tools',
     brand: 'ST',
-    images: ["/images/products/cordless-drill.png"],
+    images: ["/images/products/cordless-drill.webp"],
     description: "High-precision 100-meter digital laser rangefinder distance meter featuring indirect Pythagorean measurements, area calculation, volume calculation, and backlit LCD.",
     specs: {
        
@@ -888,7 +888,7 @@ export const products: Product[] = [
     name: 'Aluminium Blind Pop Rivets',
     category: 'hardware',
     subcategory: 'Duct Accessories & Fasteners',
-    images: ['/images/products/aluminium-rivet.jpeg'],
+    images: ['/images/products/aluminium-rivet.webp'],
     description:
       'Precision-engineered aluminium blind pop rivets featuring high-strength steel mandrels. Ideal for fast, permanent mechanical joining of sheet metal ductwork, aluminum cladding, and ventilation duct flanges.',
     specs: {
@@ -905,7 +905,7 @@ export const products: Product[] = [
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
     brand: 'ST',
-    images: ["/images/products/gi-conduit-fitting.jpeg"],
+    images: ["/images/products/gi-conduit-fitting.webp"],
     description: "Malleable iron galvanized electrical conduit junction box for heavy duty commercial and industrial wiring runs.",
     specs: {
        
@@ -920,7 +920,7 @@ export const products: Product[] = [
     name: 'Extruded Brass Flare Union Coupling',
     category: 'air-conditioning',
     subcategory: 'Brass Fittings & Valves',
-    images: ['/images/products/brass-union.jpeg'],
+    images: ['/images/products/brass-union.webp'],
     description:
       'Precision-machined extruded brass flare union coupling designed to connect two copper lines with gas-tight metal-to-metal 45° SAE flare seals. Built to withstand high-pressure refrigerant gases.',
     specs: {
@@ -936,7 +936,7 @@ export const products: Product[] = [
     category: 'tools',
     subcategory: 'Power Tools',
     brand: 'ST',
-    images: ["/images/products/cordless-drill.png"],
+    images: ["/images/products/cordless-drill.webp"],
     description: "High-torque 20V brushless impact driver delivering 200Nm of fastening torque for heavy structural screws, duct hanging, and MEP framing assembly.",
     specs: {
        
@@ -954,7 +954,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/rubber-metal-pad.jpeg"],
+    images: ["/images/products/rubber-metal-pad.webp"],
     description: "Steel-reinforced elastomeric isolation pad engineered for heavy equipment inertia bases and generator set mounting.",
     specs: {
        
@@ -969,7 +969,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/rubber-waffle-sheet.jpeg"],
+    images: ["/images/products/rubber-waffle-sheet.webp"],
     description: "Heavy duty 3/4 inch thick ribbed elastomeric waffle vibration isolation pad sheet for HVAC chillers and air handling units.",
     specs: {
        
@@ -983,7 +983,7 @@ export const products: Product[] = [
     name: 'Lightweight Aluminum Securing Clip',
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Hardware',
-    images: ['/images/products/aluminum-clip.jpeg'],
+    images: ['/images/products/aluminum-clip.webp'],
     description:
       'Lightweight corrosion-resistant aluminum clips designed for mounting light-gauge flexible duct drops, securing foil insulation outer wraps, and organizing wire runs inside HVAC enclosures.',
     specs: {
@@ -998,7 +998,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/spring-hanger-isolator.jpeg"],
+    images: ["/images/products/spring-hanger-isolator.webp"],
     description: "Heavy capacity spring hanger mount for isolating low-frequency mechanical vibration in heavy piping and HVAC ductwork.",
     specs: {
        
@@ -1013,7 +1013,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'Aeroduct',
-    images: ["/images/products/rubber-foam-insulation.jpeg"],
+    images: ["/images/products/rubber-foam-insulation.webp"],
     description: "Closed-cell elastomeric NBR rubber foam insulation tube for copper refrigerant lines and chilled water pipes.",
     specs: {
        
@@ -1029,7 +1029,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Flexible Ducts',
     brand: 'Aeroduct',
-    images: ["/images/products/flexible-duct-connector.jpeg"],
+    images: ["/images/products/flexible-duct-connector.webp"],
     description: "Acoustic flexible duct connector roll made of heavy galvanized steel metal strip lock-seamed to durable canvas or neoprene fabric.",
     specs: {
        
@@ -1044,7 +1044,7 @@ export const products: Product[] = [
     name: 'Water-Based Elastomeric HVAC Duct Sealant',
     category: 'duct-accessories',
     subcategory: 'Duct Sealants & Coatings',
-    images: ['/images/products/duct-sealant.jpeg'],
+    images: ['/images/products/duct-sealant.webp'],
     description:
       'Premium water-based elastomeric duct joint sealant specially formulated for sealing high, medium, and low pressure sheet metal ductwork systems. Cures into a flexible, air-tight, flame-resistant seal.',
     specs: {
@@ -1062,7 +1062,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Hardware',
     brand: 'ST',
-    images: ['/images/products/hvac-damper-fittings.jpeg'],
+    images: ['/images/products/hvac-damper-fittings.webp'],
     description:
       'Heavy-duty galvanized steel volume control damper quadrant regulators, dial handles, spring pins, and brass bearing hardware. Essential for fabricating, installing, and adjusting airflow volume dampers in duct distribution systems.',
     specs: {
@@ -1078,7 +1078,7 @@ export const products: Product[] = [
     name: 'Galvanized Duct Flange Corners (TDF/TDC)',
     category: 'duct-accessories',
     subcategory: 'Duct Accessories',
-    images: ['/images/products/galvanized-corner.jpeg'],
+    images: ['/images/products/galvanized-corner.webp'],
     description:
       'Stamped galvanized steel duct flange corners engineered for TDF/TDC transverse duct flange connection systems. Ensures rigid, square, leak-free corner seals on rectangular sheet metal ducts.',
     specs: {
@@ -1093,7 +1093,7 @@ export const products: Product[] = [
     name: 'HVAC Duct Contact Adhesive',
     category: 'duct-accessories',
     subcategory: 'Duct Sealants & Coatings',
-    images: ['/images/products/duct-adhesives.jpeg'],
+    images: ['/images/products/duct-adhesives.webp'],
     description:
       'High-strength solvent-based contact adhesive engineered for bonding rubber foam sheet insulation, acoustic liners, glass wool insulation, and canvas wrapping to sheet metal air conditioning ducts.',
     specs: {
@@ -1110,7 +1110,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'ST',
-    images: ["/images/products/spring-mount-isolator.jpeg"],
+    images: ["/images/products/spring-mount-isolator.webp"],
     description: "Floor-mounted heavy spring vibration isolator designed for cooling towers, chillers, and large industrial pumps.",
     specs: {
        
@@ -1124,7 +1124,7 @@ export const products: Product[] = [
     name: 'Thermally Insulated Flexible Duct',
     category: 'duct-accessories',
     subcategory: 'Flexible Ducts',
-    images: ['/images/products/insulated-flexible-duct.jpeg'],
+    images: ['/images/products/insulated-flexible-duct.webp'],
     description:
       'High-performance insulated flexible air duct featuring a multi-ply aluminum inner core wrapped in high-density fiberglass wool insulation and protected by a durable reinforced metalized outer jacket. Prevents condensation and reduces HVAC noise transmission.',
     specs: {
@@ -1141,7 +1141,7 @@ export const products: Product[] = [
     name: 'Aluminum Insulation Strapping Roll',
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Hardware',
-    images: ['/images/products/aluminum-strap.jpeg'],
+    images: ['/images/products/aluminum-strap.webp'],
     description:
       'Commercial-grade aluminum strapping roll designed for securing sheet metal cladding, pipe insulation jackets, and fiberglass duct wraps. Weatherproof, corrosion-resistant, and easy to cut and tension.',
     specs: {
@@ -1157,7 +1157,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Hardware',
     brand: 'Aeroduct',
-    images: ['/images/products/aeroduct-banding.jpeg'],
+    images: ['/images/products/aeroduct-banding.webp'],
     description:
       'Heavy-duty galvanized steel banding tape designed for securing thermal insulation, pipe jacketing, acoustic liners, and flexible duct connections. Supplied in continuous dispenser coils for quick field installation.',
     specs: {
@@ -1173,7 +1173,7 @@ export const products: Product[] = [
     name: 'Anti-Vibration (AV) Rubber Mount',
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
-    images: ['/images/products/anti-rubber.jpeg'],
+    images: ['/images/products/anti-rubber.webp'],
     description: 'Heavy-duty anti-vibration rubber mounts designed to isolate high-frequency vibration and reduce noise from HVAC units, fans, pumps, and motors. Ensures equipment stability and extends operational lifespan.',
     specs: {
       Sizes: 'Small and Big',
@@ -1187,7 +1187,7 @@ export const products: Product[] = [
     name: 'PVC Pipe',
     category: 'plumbing',
     subcategory: 'Plumbing & Drainage',
-    images: ['/images/products/pvc-pipe.png'],
+    images: ['/images/products/pvc-pipe.webp'],
     description: 'High-quality PVC pipes designed for robust plumbing, drainage, and fluid transport applications.',
     specs: {
       Material: 'Polyvinyl Chloride (PVC)',
@@ -1200,7 +1200,7 @@ export const products: Product[] = [
     name: 'GI Clevis Hanger',
     category: 'clamps',
     subcategory: 'Pipe Supports & Clamps',
-    images: ['/images/products/gi-clevis-hanger.jpeg'],
+    images: ['/images/products/gi-clevis-hanger.webp'],
     description: 'Galvanized iron clevis hanger designed for suspension of non-insulated stationary pipe lines.',
     specs: {
       "Available Sizes": '2-1/2", 3", 4", 6", 8"',
@@ -1213,7 +1213,7 @@ export const products: Product[] = [
     category: 'air-conditioning',
     subcategory: 'Adhesives & Tapes',
     brand: 'Shurtape',
-    images: ['/images/products/aluminium-tape.jpeg'],
+    images: ['/images/products/aluminium-tape.webp'],
     description: 'High-quality aluminium tape designed for HVAC and duct sealing applications.',
     specs: {
       "Available Size": '3"',
@@ -1226,7 +1226,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Accessories & Insulation',
     brand: 'Diamond',
-    images: ['/images/products/foam-gasket.jpeg'],
+    images: ['/images/products/foam-gasket.webp'],
     description: 'High-quality adhesive foam gasket tape for duct sealing and insulation.',
     specs: {
       "Available Size": '3mm, 6mm',
@@ -1239,7 +1239,7 @@ export const products: Product[] = [
     category: 'duct-accessories',
     subcategory: 'Duct Sealants & Coatings',
     brand: 'airmaster',
-    images: ['/images/products/foster-30-36.jpeg'],
+    images: ['/images/products/foster-30-36.webp'],
     description: 'Advanced formulation A/C duct insulation coating, fungal proof, fire resistant, and washable.',
     specs: {
       Application: 'A/C duct thermal insulation',
