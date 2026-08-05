@@ -47,7 +47,7 @@ const STEP = (Math.PI * 2) / N
  * 0.45 and RADIUS_X at 50, this leaves the front product clear of its
  * neighbours rather than overlapping them.
  */
-const ITEM_WIDTH = 40
+const ITEM_WIDTH = 55
 /** How far the orbit swings sideways, as a share of the stage */
 const RADIUS_X = 50
 /** Items further round than this are fully hidden */
@@ -194,7 +194,7 @@ export function HeroProductCarousel() {
           if (e.key === 'ArrowLeft') go(-1)
           if (e.key === 'ArrowRight') go(1)
         }}
-        className={`relative mx-auto aspect-[4/3] w-full max-w-[340px] touch-pan-y outline-none sm:aspect-square sm:max-w-[440px] lg:ml-auto lg:mr-0 lg:max-w-[760px] ${
+        className={`relative mx-auto aspect-[4/3] w-full max-w-[420px] touch-pan-y outline-none sm:aspect-square sm:max-w-[500px] lg:ml-auto lg:mr-0 lg:max-w-[760px] ${
           dragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
       >
@@ -250,7 +250,7 @@ export function HeroProductCarousel() {
                 alt=""
                 width={480}
                 height={480}
-                sizes="(max-width: 640px) 45vw, (max-width: 1024px) 220px, 360px"
+                sizes="(max-width: 640px) 60vw, (max-width: 1024px) 280px, 420px"
                 draggable={false}
                 priority={i < 3}
                 className="pointer-events-none h-auto w-full object-contain"
