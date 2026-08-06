@@ -4,8 +4,11 @@ import { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { X, Trash2, Send } from 'lucide-react'
 import { useQuote } from '@/context/quote-context'
+import { useI18n } from '@/components/i18n-provider'
+import { EASE_OUT, listItemVariants, panelVariants, springPop } from '@/lib/motion'
 
 function ShoppingBagIcon({ className }: { className?: string }) {
   return (
@@ -27,6 +30,8 @@ function ShoppingBagIcon({ className }: { className?: string }) {
 }
 
 export function QuoteDrawer() {
+  const { t, href, isRtl } = useI18n()
+  const shouldReduce = useReducedMotion()
   const {
     items,
     removeItem,
@@ -63,22 +68,34 @@ export function QuoteDrawer() {
 
   function handleSendEmailForm() {
     closeDrawer()
-    router.push('/contact?quote=basket')
+    router.push(`${href('/contact')}?quote=basket`)
   }
 
-  if (!isDrawerOpen) return null
-
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-primary/40 backdrop-blur-sm transition-opacity duration-300"
-        onClick={closeDrawer}
-        aria-hidden="true"
-      />
+    /* AnimatePresence lets the drawer animate *out* as well as in. Previously it
+       returned null on close, so it vanished instantly. */
+    <AnimatePresence>
+      {isDrawerOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden">
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: EASE_OUT }}
+            className="absolute inset-0 bg-primary/40 backdrop-blur-sm"
+            onClick={closeDrawer}
+            aria-hidden="true"
+          />
 
-      <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 sm:pl-10">
-        <div className="w-screen sm:max-w-md bg-background shadow-2xl flex flex-col border-l border-border animate-slide-left">
+      <div className="fixed inset-y-0 end-0 flex max-w-full ps-0 sm:ps-10">
+        <motion.div
+          variants={panelVariants(isRtl)}
+          initial={shouldReduce ? 'visible' : 'hidden'}
+          animate="visible"
+          exit={shouldReduce ? 'visible' : 'exit'}
+          className="w-screen sm:max-w-md bg-background shadow-2xl flex flex-col border-s border-border"
+        >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border p-5 bg-primary text-primary-foreground">
             <div className="flex items-center gap-3">
@@ -87,10 +104,11 @@ export function QuoteDrawer() {
               </div>
               <div>
                 <h2 className="font-sans text-lg font-extrabold uppercase tracking-tight">
-                  Quote Basket
+                  {t.quote.drawerTitle}
                 </h2>
                 <p className="text-xs text-primary-foreground/75">
-                  {totalCount} {totalCount === 1 ? 'item' : 'items'} ready for quote request
+                  {totalCount} {totalCount === 1 ? t.quote.itemCount : t.quote.itemCountPlural}{' '}
+                  {t.quote.readyForQuote}
                 </p>
               </div>
             </div>
@@ -99,7 +117,7 @@ export function QuoteDrawer() {
               type="button"
               onClick={closeDrawer}
               className="rounded-lg p-2 text-primary-foreground/80 hover:bg-primary-foreground/10 hover:text-primary-foreground"
-              aria-label="Close quote drawer"
+              aria-label={t.quote.closeDrawer}
             >
               <X className="size-5" aria-hidden="true" />
             </button>
@@ -112,24 +130,30 @@ export function QuoteDrawer() {
                 <div className="flex size-16 items-center justify-center rounded-full bg-secondary text-muted-foreground mb-4">
                   <ShoppingBagIcon className="size-8" aria-hidden="true" />
                 </div>
-                <h3 className="text-base font-bold text-foreground">Your quote basket is empty</h3>
+                <h3 className="text-base font-bold text-foreground">{t.quote.emptyTitle}</h3>
                 <p className="mt-1 text-xs text-muted-foreground max-w-xs">
-                  Browse products and click &ldquo;Add to Quote Basket&rdquo; to send a bulk material request.
+                  {t.quote.emptyHelp}
                 </p>
                 <Link
-                  href="/products"
+                  href={href('/products')}
                   onClick={closeDrawer}
                   className="mt-6 inline-flex h-10 items-center rounded-lg btn-primary px-5 text-xs font-bold"
                 >
-                  Browse Products
+                  {t.quote.browseProducts}
                 </Link>
               </div>
             ) : (
-              items.map((item) => (
-                <div
-                  key={`${item.productId}-${item.selectedSize || 'default'}`}
-                  className="flex items-center justify-between gap-3.5 rounded-xl border border-border bg-card p-3.5 shadow-sm transition-all hover:border-accent/30"
-                >
+              <AnimatePresence initial={false} mode="popLayout">
+                {items.map((item) => (
+                  <motion.div
+                    key={`${item.productId}-${item.selectedSize || 'default'}`}
+                    layout={!shouldReduce}
+                    variants={listItemVariants}
+                    initial={shouldReduce ? 'visible' : 'hidden'}
+                    animate="visible"
+                    exit={shouldReduce ? 'visible' : 'exit'}
+                    className="flex items-center justify-between gap-3.5 overflow-hidden rounded-xl border border-border bg-card p-3.5 shadow-sm transition-colors hover:border-accent/30"
+                  >
                   {/* Image & Info */}
                   <div className="flex items-center gap-3.5 min-w-0">
                     <div className="relative size-14 shrink-0 overflow-hidden rounded-lg border border-border bg-secondary">
@@ -149,7 +173,7 @@ export function QuoteDrawer() {
                       <div className="mt-1 flex flex-wrap items-center gap-2">
                         {item.selectedSize && (
                           <span className="rounded bg-secondary px-2 py-0.5 text-[10px] font-bold text-secondary-foreground">
-                            Size: {item.selectedSize}
+                            {t.quote.sizeLabel}: {item.selectedSize}
                           </span>
                         )}
                         {item.brand && (
@@ -162,16 +186,18 @@ export function QuoteDrawer() {
                   </div>
 
                   {/* Remove button */}
-                  <button
+                  <motion.button
                     type="button"
+                    whileTap={shouldReduce ? undefined : { scale: 0.85 }}
                     onClick={() => removeItem(item.productId, item.selectedSize)}
                     className="text-muted-foreground hover:text-destructive transition-colors p-1.5 shrink-0"
-                    aria-label={`Remove ${item.productName}`}
+                    aria-label={`${t.quote.removeNamed} ${item.productName}`}
                   >
                     <Trash2 className="size-4" aria-hidden="true" />
-                  </button>
-                </div>
-              ))
+                  </motion.button>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             )}
           </div>
 
@@ -179,8 +205,10 @@ export function QuoteDrawer() {
           {items.length > 0 && (
             <div className="border-t border-border p-5 bg-surface-alt space-y-3">
               <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground mb-1">
-                <span>Selected Items in Quote:</span>
-                <span className="font-bold text-foreground text-sm">{totalCount} items</span>
+                <span>{t.quote.selectedItems}</span>
+                <span className="font-bold text-foreground text-sm">
+                  {totalCount} {totalCount === 1 ? t.quote.itemCount : t.quote.itemCountPlural}
+                </span>
               </div>
 
               <button
@@ -189,7 +217,7 @@ export function QuoteDrawer() {
                 className="flex h-12 w-full items-center justify-center gap-2.5 rounded-lg btn-primary text-sm font-bold shadow-md"
               >
                 <Send className="size-4" aria-hidden="true" />
-                Submit Quote via Inquiry Form
+                {t.quote.submitViaForm}
               </button>
 
               <div className="flex justify-between items-center pt-2">
@@ -198,20 +226,22 @@ export function QuoteDrawer() {
                   onClick={clearQuote}
                   className="text-xs font-semibold text-muted-foreground hover:text-destructive transition-colors"
                 >
-                  Clear All Items
+                  {t.quote.clearAllItems}
                 </button>
                 <Link
-                  href="/#categories"
+                  href={href('/products')}
                   onClick={closeDrawer}
                   className="text-xs font-semibold text-accent hover:underline"
                 >
-                  Continue Browsing
+                  {t.quote.continueBrowsing}
                 </Link>
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
-    </div>
+        </div>
+      )}
+    </AnimatePresence>
   )
 }

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 
+import { useI18n } from '@/components/i18n-provider'
+
 const MIN_DURATION = 900 // keep the brand moment on screen at least this long
 const MAX_DURATION = 7000 // hard fallback so a stuck asset never blocks the site
 const FADE_DURATION = 600
@@ -11,6 +13,7 @@ const NAVY = '#00267C'
 const RED = '#EE0009'
 
 export function LoadingScreen() {
+  const { t } = useI18n()
   const [progress, setProgress] = useState(0)
   const [done, setDone] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -140,7 +143,7 @@ export function LoadingScreen() {
       data-done={done ? 'true' : 'false'}
       role="status"
       aria-live="polite"
-      aria-label="Loading Super Tech International"
+      aria-label={t.footer.loaderAria}
     >
       <div className="st-loader__stage" ref={stageRef}>
         <div className="st-loader__tilt">
@@ -148,7 +151,7 @@ export function LoadingScreen() {
               multiply blending knocks out the JPEG's white box, so it reads as transparent. */}
           <img
             src="/images/logo.webp"
-            alt="Super Tech International Construction Materials Co."
+            alt={t.meta.siteName}
             className="st-loader__logo"
             decoding="async"
           />
@@ -157,7 +160,7 @@ export function LoadingScreen() {
         <p className="st-loader__name">
           SUPER <span>TECH</span>
         </p>
-        <p className="st-loader__tag">Int&apos;l. Construction Materials Co.</p>
+        <p className="st-loader__tag">{t.footer.loaderTag}</p>
 
         <div className="st-loader__bar" aria-hidden="true">
           <span style={{ transform: `scaleX(${progress})` }} />

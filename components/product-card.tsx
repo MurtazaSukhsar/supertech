@@ -4,13 +4,16 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Layers, Plus } from 'lucide-react'
-import { getCategory, getCategoryColor, type Product } from '@/lib/products'
+import { getCategoryColor, type Product } from '@/lib/products'
+import { getCategoryLocalized } from '@/lib/catalog'
 import { useQuote } from '@/context/quote-context'
+import { useI18n } from '@/components/i18n-provider'
 
 import { TiltCard } from '@/components/tilt-card'
 
 export function ProductCard({ product }: { product: Product }) {
-  const category = getCategory(product.category)
+  const { t, locale, href, isRtl } = useI18n()
+  const category = getCategoryLocalized(product.category, locale)
   const color = getCategoryColor(product.category)
   const { addItem } = useQuote()
 
@@ -45,13 +48,15 @@ export function ProductCard({ product }: { product: Product }) {
     <div className="h-full">
       <TiltCard className="group h-full flex flex-col overflow-hidden outline-none">
         <Link
-          href={`/products/${product.id}`}
+          href={href(`/products/${product.id}`)}
           className="relative flex flex-1 flex-col justify-between"
-          aria-label={`View ${product.name}`}
+          aria-label={`${t.products.viewProduct}: ${product.name}`}
         >
           {/* Category color-tag accent line */}
           <div
-            className="absolute left-0 top-0 z-20 h-1.5 w-full origin-left transition-transform duration-500 ease-out"
+            className={`absolute top-0 z-20 h-1.5 w-full transition-transform duration-500 ease-out ${
+              isRtl ? 'right-0 origin-right' : 'left-0 origin-left'
+            }`}
             style={{
               backgroundColor: color.hex,
               transform: drawn ? 'scaleX(1)' : 'scaleX(0)',
@@ -90,17 +95,17 @@ export function ProductCard({ product }: { product: Product }) {
             {/* Action buttons */}
             <div className="mt-4 flex items-center justify-between gap-2 pt-3 border-t border-border/40">
               <span className="inline-flex items-center gap-1 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-accent group-hover:underline">
-                <span className="hidden xs:inline">View</span> Details <ArrowRight className="size-3 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                {t.products.viewProduct} <ArrowRight className="rtl-flip size-3 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </span>
 
               <button
                 type="button"
                 onClick={handleQuickAdd}
                 className="inline-flex h-7 sm:h-8 items-center gap-1 rounded-lg bg-accent/10 px-2 sm:px-3 text-[10px] sm:text-xs font-bold text-accent transition-colors hover:bg-accent hover:text-white shrink-0"
-                title="Add to Quote"
+                title={t.quote.addToQuote}
               >
                 <Plus className="size-3.5" aria-hidden="true" />
-                <span className="hidden sm:inline">Add to Quote</span>
+                <span className="hidden sm:inline">{t.quote.addToQuote}</span>
               </button>
             </div>
           </div>

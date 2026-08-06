@@ -7,7 +7,7 @@ export function AnimatedSpecTable({ specs }: { specs: Record<string, string> }) 
             <tr key={key} className={i % 2 === 0 ? 'bg-secondary/60' : 'bg-background'}>
               <th
                 scope="row"
-                className="w-2/5 border-b border-border px-5 py-3.5 text-left font-bold text-foreground"
+                className="w-2/5 border-b border-border px-5 py-3.5 text-start font-bold text-foreground"
               >
                 {key}
               </th>

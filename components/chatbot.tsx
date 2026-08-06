@@ -3,6 +3,13 @@
 import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Phone, Mail, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react'
 import { contactInfo } from '@/lib/products'
+import { useI18n } from '@/components/i18n-provider'
+import {
+  getAutoResponse,
+  getChatbotContent,
+  type ChatAction,
+  type QuickReply,
+} from '@/lib/chatbot-content'
 
 // Custom Bot SVG icon to bypass type resolution issues in some environment scopes
 function BotIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -51,143 +58,19 @@ function SupportFABIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-type QuickReply = {
-  id: string
-  label: string
-  question: string
-  answer: string
-  actions?: { label: string; href: string; external?: boolean }[]
-}
-
-const QUICK_REPLIES: QuickReply[] = [
-  {
-    id: 'quote',
-    label: '📋 Request a Quote',
-    question: 'How can I request a quote for products?',
-    answer: 'You can request a quote in two easy ways:\n\n1. Browse our website, add products to your quote list, and submit the request directly.\n2. Click the links below to send your requirements or Bill of Quantities (BOQ) directly to our team via WhatsApp or Email.',
-    actions: [
-      { label: '💬 WhatsApp Quote', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I would like to request a bulk material quote. Here are our project requirements: ")}`, external: true },
-      { label: '✉️ Email Quote', href: `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email}&su=Quote%20Request`, external: true },
-      { label: '🔍 Browse Products', href: '/products' }
-    ]
-  },
-  {
-    id: 'delivery',
-    label: '🚚 Delivery Info',
-    question: 'Do you deliver to job sites and workshops?',
-    answer: 'Yes! We deliver bulk orders, HVAC accessories, power tools, and construction materials directly to workshops, stores, and project sites across Kuwait.',
-    actions: [
-      { label: '💬 Contact Delivery Desk', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I have a question about material delivery to our job site in Kuwait.")}`, external: true }
-    ]
-  },
-  {
-    id: 'categories',
-    label: '🛠️ Product Categories',
-    question: 'What types of materials and equipment do you supply?',
-    answer: 'We supply a comprehensive range of materials:\n\n• **Clamps & Supports:** Pipe clamps, unistrut brackets.\n• **Air-Conditioning Materials:** Copper pipes, refrigerants.\n• **Hardware Supplies:** Fasteners, fittings, anchors.\n• **Hand & Power Tools:** Drills, grinders, wrenches.\n• **Construction Materials:** Slotted channels, tapes.\n• **Plumbing Supplies:** UPVC fittings, valves, cements.\n• **Electrical Supplies:** Conduit couplings, industrial sockets.\n• **Duct Accessories:** Flexible ducts, sealants, adhesives.',
-    actions: [
-      { label: '🗜️ Clamps', href: '/categories/clamps' },
-      { label: '❄️ A/C Materials', href: '/categories/air-conditioning' },
-      { label: '🚰 Plumbing', href: '/categories/plumbing' },
-      { label: '⚡ Electrical', href: '/categories/electric' }
-    ]
-  },
-  {
-    id: 'location',
-    label: '📍 Location & Hours',
-    question: 'Where is your showroom and what are the working hours?',
-    answer: 'Our main office & showroom is located in **Shuwaikh Industrial Area, Kuwait City**.\n\n🕒 **Working Hours:**\n• Saturday to Thursday: 8:00 AM - 5:00 PM\n• Friday: Closed',
-    actions: [
-      { label: '🗺️ Google Maps Location', href: contactInfo.googleMapsUrl, external: true },
-      { label: '📞 Call Showroom', href: contactInfo.phoneHref, external: true }
-    ]
-  },
-  {
-    id: 'contact',
-    label: '📞 Contact Support',
-    question: 'How can I reach customer support or sales?',
-    answer: `You can reach the Super Tech support and sales team directly:\n\n• **Phone:** ${contactInfo.phone}\n• **Email:** ${contactInfo.email}\n• **Showroom:** Shuwaikh Industrial Area, Kuwait`,
-    actions: [
-      { label: '💬 WhatsApp Chat', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech Customer Support, I need assistance with a product or order inquiry.")}`, external: true },
-      { label: '📞 Call Now', href: contactInfo.phoneHref, external: true }
-    ]
-  }
-]
-
 type Message = {
   id: string
   sender: 'user' | 'bot'
   text: string
   timestamp: Date
-  actions?: { label: string; href: string; external?: boolean }[]
+  actions?: ChatAction[]
   showQuickReplies?: boolean
 }
 
-function getAutoResponse(userInput: string): { 
-  answer: string; 
-  actions?: { label: string; href: string; external?: boolean }[];
-  showQuickReplies?: boolean;
-} {
-  const query = userInput.toLowerCase().trim()
-  
-  if (query === 'menu' || query === 'help' || query === 'categories' || query === 'start' || query === 'show main menu') {
-    return {
-      answer: 'Here are the quick topics you can choose from:',
-      showQuickReplies: true
-    }
-  }
-  
-  if (query.includes('quote') || query.includes('price') || query.includes('cost') || query.includes('pricing') || query.includes('bulk') || query.includes('inquire') || query.includes('bill of') || query.includes('boq') || query.includes('buy')) {
-    return {
-      answer: QUICK_REPLIES[0].answer,
-      actions: [...(QUICK_REPLIES[0].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-  
-  if (query.includes('deliver') || query.includes('ship') || query.includes('send') || query.includes('transport') || query.includes('cargo') || query.includes('coverage') || query.includes('areas') || query.includes('workshops')) {
-    return {
-      answer: QUICK_REPLIES[1].answer,
-      actions: [...(QUICK_REPLIES[1].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-  
-  if (query.includes('contact') || query.includes('phone') || query.includes('email') || query.includes('call') || query.includes('support') || query.includes('number') || query.includes('whatsapp') || query.includes('talk') || query.includes('reach') || query.includes('help') || query.includes('agent') || query.includes('human')) {
-    return {
-      answer: QUICK_REPLIES[4].answer,
-      actions: [...(QUICK_REPLIES[4].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-
-  if (query.includes('location') || query.includes('map') || query.includes('showroom') || query.includes('address') || query.includes('where') || query.includes('place') || query.includes('office') || query.includes('site') || query.includes('hour') || query.includes('time') || query.includes('open') || query.includes('close') || query.includes('saturday') || query.includes('thursday') || query.includes('friday') || query.includes('work day')) {
-    return {
-      answer: QUICK_REPLIES[3].answer,
-      actions: [...(QUICK_REPLIES[3].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-
-  if (query.includes('product') || query.includes('category') || query.includes('categories') || query.includes('sell') || query.includes('supply') || query.includes('catalog') || query.includes('items') || query.includes('copper') || query.includes('pipe') || query.includes('tool') || query.includes('cement') || /\bac\b/.test(query) || query.includes('a/c') || query.includes('compressor') || query.includes('welding') || query.includes('hardware') || query.includes('clamp') || query.includes('duct') || query.includes('plumb') || query.includes('electric')) {
-    return {
-      answer: QUICK_REPLIES[2].answer,
-      actions: [...(QUICK_REPLIES[2].actions || []), { label: '↩️ Main Menu', href: 'action:menu' }],
-      showQuickReplies: false
-    }
-  }
-  
-  return {
-    answer: "I couldn't quite match that with our standard FAQs. I am the Super Tech auto-assistant, but you can select one of the common topics below, or chat directly with our team on WhatsApp!",
-    actions: [
-      { label: '💬 Chat on WhatsApp', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I need support with product specifications and material orders.")}`, external: true },
-      { label: '✉️ Send an Email', href: `mailto:${contactInfo.email}`, external: true }
-    ],
-    showQuickReplies: true
-  }
-}
-
 export function Chatbot() {
+  const { locale, isRtl, href } = useI18n()
+  const c = getChatbotContent(locale)
+  const QUICK_REPLIES = c.quickReplies
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
@@ -209,16 +92,22 @@ export function Chatbot() {
         {
           id: 'welcome',
           sender: 'bot',
-          text: "Hi there! Welcome to Super Tech. I can quickly answer your questions about quotes, delivery, products, showroom location, or contact details. Click a pretyped option below or type your question!",
+          text: c.welcome,
           timestamp: new Date(),
           actions: [
-            { label: '💬 Chat on WhatsApp', href: `${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Super Tech, I would like to get a quote and check product availability.")}`, external: true }
+            {
+              label: c.welcomeWhatsApp,
+              href: `${contactInfo.whatsappHref}?text=${encodeURIComponent(
+                'Hello Super Tech, I would like to get a quote and check product availability.',
+              )}`,
+              external: true,
+            },
           ],
           showQuickReplies: true
         }
       ])
     }
-  }, [isOpen, messages.length])
+  }, [isOpen, messages.length, c])
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -244,7 +133,7 @@ export function Chatbot() {
 
     setIsTyping(true)
     setTimeout(() => {
-      const response = getAutoResponse(textToSend)
+      const response = getAutoResponse(textToSend, c)
       const botMsg: Message = {
         id: `bot-${Date.now()}`,
         sender: 'bot',
@@ -264,7 +153,7 @@ export function Chatbot() {
       const userMsg: Message = {
         id: userMsgId,
         sender: 'user',
-        text: '↩️ Show Main Menu',
+        text: c.showMenu,
         timestamp: new Date()
       }
       setMessages(prev => (prev.map(m => ({ ...m, showQuickReplies: false })) as Message[]).concat(userMsg))
@@ -274,7 +163,7 @@ export function Chatbot() {
         const botMsg: Message = {
           id: `bot-${Date.now()}`,
           sender: 'bot',
-          text: 'Here are the quick topics you can choose from:',
+          text: c.menuPrompt,
           timestamp: new Date(),
           showQuickReplies: true
         }
@@ -298,20 +187,28 @@ export function Chatbot() {
       {/* Floating Chatbot FAB Button - positioned above WhatsApp button */}
       <button
         onClick={() => setIsOpen(true)}
-        aria-label="Open support chat"
-        className={`fixed bottom-[84px] right-4 z-50 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/25 transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-accent/30 hover:bg-accent-hover sm:bottom-[88px] sm:right-5 sm:size-14 md:bottom-[92px] md:right-5 md:size-16 ${
+        aria-label={c.fabLabel}
+        className={`fixed bottom-[84px] z-50 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/25 transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-accent/30 hover:bg-accent-hover sm:bottom-[88px] sm:size-14 md:bottom-[92px] md:size-16 ${
+          isRtl ? 'left-4 sm:left-5 md:left-5' : 'right-4 sm:right-5 md:right-5'
+        } ${
           visible && !isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 pointer-events-none opacity-0'
         }`}
       >
         <SupportFABIcon className="size-7 md:size-8" />
-        <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white animate-pulse">
+        <span
+          className={`absolute -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white animate-pulse ${
+            isRtl ? '-left-1' : '-right-1'
+          }`}
+        >
           1
         </span>
       </button>
 
       {/* Chatbot Window Container */}
       <div
-        className={`fixed bottom-4 right-0 left-0 mx-auto z-40 flex flex-col overflow-hidden rounded-t-2xl border border-border bg-card shadow-2xl transition-all duration-300 sm:left-auto sm:right-5 sm:bottom-5 sm:rounded-2xl sm:w-[380px] ${
+        className={`fixed bottom-4 right-0 left-0 mx-auto z-40 flex flex-col overflow-hidden rounded-t-2xl border border-border bg-card shadow-2xl transition-all duration-300 sm:bottom-5 sm:rounded-2xl sm:w-[380px] ${
+          isRtl ? 'sm:right-auto sm:left-5' : 'sm:left-auto sm:right-5'
+        } ${
           isOpen
             ? 'translate-y-0 scale-100 opacity-100 pointer-events-auto h-[85dvh] sm:h-[550px]'
             : 'translate-y-8 scale-95 opacity-0 pointer-events-none h-[85dvh] sm:h-[550px]'
@@ -324,16 +221,16 @@ export function Chatbot() {
               <BotIcon className="size-6 text-white" />
             </div>
             <div>
-              <h3 className="font-sans text-sm font-bold leading-tight">Super Tech Assistant</h3>
+              <h3 className="font-sans text-sm font-bold leading-tight">{c.headerTitle}</h3>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[11px] font-medium text-white/80">Online • Auto-Answers</span>
+                <span className="text-[11px] font-medium text-white/80">{c.headerStatus}</span>
               </div>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            aria-label="Close chat"
+            aria-label={c.closeLabel}
             className="rounded-lg p-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
           >
             <X className="size-5" />
@@ -381,13 +278,13 @@ export function Chatbot() {
                         return (
                           <a
                             key={act.label}
-                            href={act.href}
+                            href={act.href.startsWith('/') ? href(act.href) : act.href}
                             target={act.external ? '_blank' : undefined}
                             rel={act.external ? 'noopener noreferrer' : undefined}
                             className="flex items-center gap-1 rounded-lg bg-surface-alt px-2.5 py-1 text-xs font-semibold text-primary border border-border hover:bg-primary hover:text-white transition-all duration-200"
                           >
                             {act.label}
-                            {!act.external && <ArrowRight className="size-3" />}
+                            {!act.external && <ArrowRight className="rtl-flip size-3" />}
                           </a>
                         )
                       })}
@@ -398,17 +295,17 @@ export function Chatbot() {
 
               {/* Pretyped Quick Reply Buttons */}
               {msg.sender === 'bot' && msg.showQuickReplies && (
-                <div className="pl-9 pr-4 py-1 space-y-2">
+                <div className="ps-9 pe-4 py-1 space-y-2">
                   <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
                     <Sparkles className="size-3 text-accent" />
-                    Quick Answers:
+                    {c.menuPrompt}
                   </div>
                   <div className="flex flex-col gap-2">
                     {QUICK_REPLIES.map((reply) => (
                       <button
                         key={reply.id}
                         onClick={() => handleQuickReplyClick(reply)}
-                        className="w-full text-left rounded-xl border border-border bg-white px-3.5 py-2.5 text-xs font-medium text-foreground shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:text-primary active:scale-[0.98]"
+                        className="w-full text-start rounded-xl border border-border bg-white px-3.5 py-2.5 text-xs font-medium text-foreground shadow-sm transition-all duration-200 hover:border-primary/50 hover:bg-primary/5 hover:text-primary active:scale-[0.98]"
                       >
                         {reply.label}
                       </button>
@@ -442,16 +339,16 @@ export function Chatbot() {
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Type your question..."
+            placeholder={c.inputPlaceholder}
             className="flex-1 rounded-xl border border-border bg-surface-alt px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
           />
           <button
             type="submit"
             disabled={!inputValue.trim() || isTyping}
-            aria-label="Send message"
+            aria-label={c.sendLabel}
             className="flex size-10 items-center justify-center rounded-xl bg-primary text-white shadow-md shadow-primary/20 transition-all duration-200 hover:scale-105 hover:bg-primary-hover active:scale-95 disabled:scale-100 disabled:opacity-40 disabled:pointer-events-none"
           >
-            <Send className="size-4" />
+            <Send className="rtl-flip size-4" />
           </button>
         </form>
         <style>{`

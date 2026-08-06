@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { motion, type MotionValue, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
-import { getCategory, getCategoryColor, type Product } from '@/lib/products'
+import { getCategoryColor, type Product } from '@/lib/products'
+import { getCategoryLocalized } from '@/lib/catalog'
+import { useI18n } from '@/components/i18n-provider'
 
 interface StackRevealCardProps {
   /** This card's index in the deck (0 = front) */
@@ -23,7 +25,8 @@ const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(mi
 const easeInCubic = (t: number) => t * t * t
 
 export function StackRevealCard({ index, product, advance, flyDistance, priority }: StackRevealCardProps) {
-  const category = getCategory(product.category)
+  const { t, locale, href } = useI18n()
+  const category = getCategoryLocalized(product.category, locale)
   const color = getCategoryColor(product.category)
 
   // d > 0  → sitting back in the stack, offset by depth
@@ -58,10 +61,10 @@ export function StackRevealCard({ index, product, advance, flyDistance, priority
       className="absolute left-0 top-0 h-full w-full will-change-transform"
     >
       <Link
-        href={`/products/${product.id}`}
+        href={href(`/products/${product.id}`)}
         className="group flex h-full w-full flex-col overflow-hidden rounded-[28px] border border-border bg-card"
         style={{ boxShadow: '0 30px 60px -20px rgba(16, 24, 40, 0.28)' }}
-        aria-label={`View ${product.name}`}
+        aria-label={`${t.products.viewProduct}: ${product.name}`}
       >
         {/* Category accent strip */}
         <div className="h-1.5 w-full shrink-0" style={{ backgroundColor: color.hex }} aria-hidden="true" />
@@ -77,7 +80,7 @@ export function StackRevealCard({ index, product, advance, flyDistance, priority
             className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
           />
           <span
-            className="absolute left-5 top-5 inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm sm:text-[11px]"
+            className="absolute start-5 top-5 inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm sm:text-[11px]"
             style={{ backgroundColor: `${color.hex}1F`, color: color.hex }}
           >
             {category?.shortName ?? product.category}
@@ -95,9 +98,9 @@ export function StackRevealCard({ index, product, advance, flyDistance, priority
               {category?.name ?? product.category}
             </span>
             <span className="inline-flex shrink-0 items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-accent sm:text-xs">
-              View
+              {t.products.viewProduct}
               <ArrowRight
-                className="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                className="rtl-flip size-3.5 transition-transform duration-300 group-hover:translate-x-1"
                 aria-hidden="true"
               />
             </span>

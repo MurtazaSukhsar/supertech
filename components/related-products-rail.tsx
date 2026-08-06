@@ -3,9 +3,11 @@
 import { useRef, useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Product } from '@/lib/products'
+import { useI18n } from '@/components/i18n-provider'
 import { ProductCard } from '@/components/product-card'
 
 export function RelatedProductsRail({ products }: { products: Product[] }) {
+  const { t } = useI18n()
   const railRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
@@ -42,7 +44,7 @@ export function RelatedProductsRail({ products }: { products: Product[] }) {
       {/* Scroll Navigation Arrows (desktop) */}
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Swipe or scroll to explore related items
+          {t.products.dragToScroll}
         </p>
         <div className="hidden items-center gap-2 md:flex">
           <button
@@ -50,7 +52,7 @@ export function RelatedProductsRail({ products }: { products: Product[] }) {
             onClick={() => scroll('left')}
             disabled={!canScrollLeft}
             className="flex size-9 items-center justify-center rounded-lg border border-border bg-card shadow-sm transition-all hover:bg-accent hover:text-accent-foreground disabled:opacity-30 disabled:pointer-events-none"
-            aria-label="Scroll left"
+            aria-label={t.quote.scrollLeft}
           >
             <ChevronLeft className="size-4" aria-hidden="true" />
           </button>
@@ -59,7 +61,7 @@ export function RelatedProductsRail({ products }: { products: Product[] }) {
             onClick={() => scroll('right')}
             disabled={!canScrollRight}
             className="flex size-9 items-center justify-center rounded-lg border border-border bg-card shadow-sm transition-all hover:bg-accent hover:text-accent-foreground disabled:opacity-30 disabled:pointer-events-none"
-            aria-label="Scroll right"
+            aria-label={t.quote.scrollRight}
           >
             <ChevronRight className="size-4" aria-hidden="true" />
           </button>

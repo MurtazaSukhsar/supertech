@@ -1,25 +1,28 @@
+'use client'
+
 import { CheckCircle2, CalendarDays, Layers, Globe2 } from 'lucide-react'
 import { AnimatedCounter } from '@/components/animated-counter'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
-const stats = [
-  { icon: CheckCircle2, value: 500, suffix: '+', label: 'Projects Delivered' },
-  { icon: CalendarDays, value: 8, suffix: '+', label: 'Years in Kuwait' },
-  { icon: Layers, value: 5000, suffix: '+', label: 'Products in Stock' },
-  { icon: Globe2, value: 30, suffix: '+', label: 'Global Brand Partners' },
-]
+import { useI18n } from '@/components/i18n-provider'
 
 export function StatsCounter() {
+  const { t } = useI18n()
+
+  const stats = [
+    { icon: CheckCircle2, value: 500, suffix: '+', label: t.home.statProjects },
+    { icon: CalendarDays, value: 8, suffix: '+', label: t.home.statYears },
+    { icon: Layers, value: 5000, suffix: '+', label: t.home.statProducts },
+    { icon: Globe2, value: 30, suffix: '+', label: t.home.statBrands },
+  ]
+
   return (
     <section className="relative overflow-hidden bg-primary">
       <div className="absolute inset-0 surface-grid opacity-[0.06]" aria-hidden="true" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 md:px-8 md:py-28 lg:px-12">
         <ScrollReveal variant="fade-up">
           <div className="mb-14 text-center">
-            <p className="eyebrow !text-accent">By the Numbers</p>
-            <h2 className="mt-3 section-heading !text-primary-foreground">
-              Scale You Can Count On
-            </h2>
+            <p className="eyebrow !text-accent">{t.home.statsEyebrow}</p>
+            <h2 className="mt-3 section-heading !text-primary-foreground">{t.home.statsTitle}</h2>
           </div>
         </ScrollReveal>
         <div className="grid grid-cols-2 gap-5 md:gap-8 lg:grid-cols-4">

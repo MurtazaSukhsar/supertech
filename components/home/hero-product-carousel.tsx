@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { getProduct } from '@/lib/products'
+import { useI18n } from '@/components/i18n-provider'
 
 type Item = {
   file: string
@@ -70,6 +71,7 @@ function wrapOffset(i: number, pos: number) {
 }
 
 export function HeroProductCarousel() {
+  const { t: dict, href } = useI18n()
   const [pos, setPos] = useState(0)
   const [dragging, setDragging] = useState(false)
   const [reduced, setReduced] = useState(false)
@@ -181,7 +183,7 @@ export function HeroProductCarousel() {
       <div
         ref={stageRef}
         role="group"
-        aria-label="Product showcase. Drag or use arrow keys to bring the next product to the front."
+        aria-label={dict.products.carouselLabel}
         tabIndex={0}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -194,7 +196,7 @@ export function HeroProductCarousel() {
           if (e.key === 'ArrowLeft') go(-1)
           if (e.key === 'ArrowRight') go(1)
         }}
-        className={`relative mx-auto aspect-[4/3] w-full max-w-[420px] touch-pan-y outline-none sm:aspect-square sm:max-w-[500px] lg:ml-auto lg:mr-0 lg:max-w-[760px] ${
+        className={`relative mx-auto aspect-[4/3] w-full max-w-[420px] touch-pan-y outline-none sm:aspect-square sm:max-w-[500px] lg:ms-auto lg:me-0 lg:max-w-[760px] ${
           dragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
       >
@@ -220,14 +222,16 @@ export function HeroProductCarousel() {
           const opacity = fade ** 1.3
           const blur = (1 - fade) * 3
           const name = item.productId ? getProduct(item.productId)?.name : item.label
-          const href = item.productId ? `/products/${item.productId}` : `/categories/${item.categorySlug}`
+          const itemHref = href(
+            item.productId ? `/products/${item.productId}` : `/categories/${item.categorySlug}`,
+          )
 
           return (
             <Link
               key={item.file}
-              href={href}
+              href={itemHref}
               onClick={(e) => onItemClick(e, offset)}
-              aria-label={name ?? 'View product'}
+              aria-label={name ?? dict.products.viewProduct}
               title={name}
               aria-hidden={away > 0.35}
               tabIndex={away > 0.35 ? -1 : 0}
@@ -281,8 +285,8 @@ export function HeroProductCarousel() {
       >
         <ChevronLeft className="size-3 shrink-0 animate-pulse sm:size-3.5" aria-hidden="true" />
         <span>
-          <span className="sm:hidden">Swipe to see more</span>
-          <span className="hidden sm:inline">Drag to see more products</span>
+          <span className="sm:hidden">{dict.products.swipeMore}</span>
+          <span className="hidden sm:inline">{dict.products.dragMore}</span>
         </span>
         <ChevronRight className="size-3 shrink-0 animate-pulse sm:size-3.5" aria-hidden="true" />
       </div>

@@ -2,13 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Phone } from 'lucide-react'
-import {
-  contactInfo,
-  getCategory,
-  getProduct,
-  getRelatedProducts,
-  products,
-} from '@/lib/products'
+import { contactInfo, getProduct, products } from '@/lib/products'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ProductGallery } from '@/components/product-gallery'
 import { ScrollReveal } from '@/components/scroll-reveal'
@@ -18,27 +12,43 @@ import { StickyProductBar } from '@/components/sticky-product-bar'
 import { RelatedProductsRail } from '@/components/related-products-rail'
 import { ProductDetailActions } from '@/components/product-detail-actions'
 import { siteUrl } from '@/lib/content'
+import {
+  getCategoryLocalized,
+  getProductLocalized,
+  getRelatedProductsLocalized,
+} from '@/lib/catalog'
+import { getDictionary } from '@/lib/i18n'
+import { localePath, locales, type Locale } from '@/lib/i18n/config'
 
 export function generateStaticParams() {
-  return products.map((p) => ({ id: p.id }))
+  return locales.flatMap((locale) => products.map((p) => ({ locale, id: p.id })))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ locale: string; id: string }>
 }): Promise<Metadata> {
-  const { id } = await params
-  const product = getProduct(id)
+  const { locale, id } = await params
+  const t = getDictionary(locale)
+  const product = getProductLocalized(id, locale as Locale)
   if (!product) return {}
+
+  const title = `${product.name} ${t.products.inKuwait}`
+
   return {
-    title: `${product.name} in Kuwait`,
-    description: `${product.description} Request pricing, availability, and delivery from Super Tech Kuwait.`,
+    title,
+    description: `${product.description} ${t.products.metaSuffix}`,
     alternates: {
-      canonical: `/products/${product.id}`,
+      canonical: `/${locale}/products/${product.id}`,
+      languages: {
+        en: `/en/products/${product.id}`,
+        ar: `/ar/products/${product.id}`,
+        'x-default': `/en/products/${product.id}`,
+      },
     },
     openGraph: {
-      title: `${product.name} in Kuwait`,
+      title,
       description: product.description,
       images: product.images,
     },
@@ -48,14 +58,20 @@ export async function generateMetadata({
 export default async function ProductPage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ locale: string; id: string }>
 }) {
-  const { id } = await params
-  const product = getProduct(id)
-  if (!product) notFound()
+  const { locale: rawLocale, id } = await params
+  const locale = rawLocale as Locale
+  const t = getDictionary(rawLocale)
 
-  const category = getCategory(product.category)
-  const related = getRelatedProducts(product)
+  const product = getProductLocalized(id, locale)
+  const baseProduct = getProduct(id)
+  if (!product || !baseProduct) notFound()
+
+  const category = getCategoryLocalized(product.category, locale)
+  const related = getRelatedProductsLocalized(baseProduct, locale)
+  const href = (path: string) => localePath(locale, path)
+
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -69,11 +85,12 @@ export default async function ProductPage({
       : undefined,
     category: category?.name ?? product.category,
     image: product.images.map((image) => `${siteUrl}${image}`),
+    inLanguage: locale,
     offers: {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
       priceCurrency: 'KWD',
-      url: `${siteUrl}/products/${product.id}`,
+      url: `${siteUrl}/${locale}/products/${product.id}`,
     },
   }
 
@@ -90,8 +107,11 @@ export default async function ProductPage({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <Breadcrumbs
           crumbs={[
-            { label: 'Products', href: '/products' },
-            { label: category?.name ?? product.category, href: `/categories/${product.category}` },
+            { label: t.products.breadcrumb, href: '/products' },
+            {
+              label: category?.name ?? product.category,
+              href: `/categories/${product.category}`,
+            },
             { label: product.name },
           ]}
         />
@@ -107,7 +127,7 @@ export default async function ProductPage({
             <div className="flex flex-col">
               <div className="flex flex-wrap items-center gap-2.5">
                 <Link
-                  href={`/categories/${product.category}`}
+                  href={href(`/categories/${product.category}`)}
                   className="rounded-lg bg-secondary px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
                 >
                   {category?.shortName ?? product.category}
@@ -116,7 +136,9 @@ export default async function ProductPage({
                   {product.subcategory}
                 </span>
                 {product.brand && (
-                  <span className="text-xs font-bold uppercase tracking-wider text-accent">{product.brand}</span>
+                  <span className="ltr-embed text-xs font-bold uppercase tracking-wider text-accent">
+                    {product.brand}
+                  </span>
                 )}
                 <InStockBadge />
               </div>
@@ -124,7 +146,9 @@ export default async function ProductPage({
               <h1 className="mt-5 text-balance text-3xl font-extrabold uppercase tracking-tight text-foreground md:text-4xl">
                 {product.name}
               </h1>
-              <p className="mt-5 text-pretty leading-relaxed text-muted-foreground max-w-prose">{product.description}</p>
+              <p className="mt-5 text-pretty leading-relaxed text-muted-foreground max-w-prose">
+                {product.description}
+              </p>
 
               {/* Interactive Size Selector, Quantity Stepper & Add to Quote Basket */}
               <ProductDetailActions product={product} />
@@ -134,13 +158,15 @@ export default async function ProductPage({
                 className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-accent"
               >
                 <Phone className="size-4" aria-hidden="true" />
-                Or call us directly: {contactInfo.phone}
+                {t.products.orCallUs} <span className="ltr-embed">{contactInfo.phone}</span>
               </a>
 
               {/* Specifications Table with Animated Counters */}
               <div className="mt-10">
-                <h2 className="text-lg font-extrabold uppercase tracking-tight text-foreground">Specifications</h2>
-                <AnimatedSpecTable specs={product.specs} />
+                <h2 className="text-lg font-extrabold uppercase tracking-tight text-foreground">
+                  {t.products.specifications}
+                </h2>
+                <AnimatedSpecTable specs={product.specsDisplay} />
               </div>
             </div>
           </ScrollReveal>
@@ -150,7 +176,7 @@ export default async function ProductPage({
         {related.length > 0 && (
           <section className="mt-14 sm:mt-20 md:mt-32">
             <ScrollReveal>
-              <h2 className="section-heading mb-2">Related Products</h2>
+              <h2 className="section-heading mb-2">{t.products.relatedProducts}</h2>
             </ScrollReveal>
             <RelatedProductsRail products={related} />
           </section>

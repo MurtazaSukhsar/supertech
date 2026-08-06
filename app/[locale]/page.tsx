@@ -9,14 +9,24 @@ import { WhyChooseUs } from '@/components/home/why-choose-us'
 import { Testimonials } from '@/components/home/testimonials'
 import { SeoContent } from '@/components/home/seo-content'
 import { CtaBanner } from '@/components/home/cta-banner'
+import { getDictionary } from '@/lib/i18n'
 
-export const metadata: Metadata = {
-  title: 'Air-Conditioning Materials, Hardware, Tools & Construction Supplies in Kuwait',
-  description:
-    'Super Tech supplies HVAC materials, hardware, hand and power tools, and construction materials for contractors and businesses across Kuwait.',
-  alternates: {
-    canonical: '/',
-  },
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = getDictionary(locale)
+
+  return {
+    title: t.products.metaTitle,
+    description: t.meta.description,
+    alternates: {
+      canonical: `/${locale}`,
+      languages: { en: '/en', ar: '/ar', 'x-default': '/en' },
+    },
+  }
 }
 
 export default function HomePage() {

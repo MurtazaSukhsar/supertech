@@ -1,37 +1,39 @@
+'use client'
+
 import { Quote } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
-
-const testimonials = [
-  {
-    quote:
-      'Super Tech has been our go-to supplier for three years. Their stock levels and delivery speed keep our HVAC installations on schedule across multiple sites in Kuwait.',
-    name: 'Ahmed Al-Rashidi',
-    role: 'Operations Manager',
-    company: 'Gulf Cooling Systems',
-  },
-  {
-    quote:
-      'We order copper pipes, insulation, and hardware in bulk every month. The pricing is competitive, and the team always confirms availability before we commit.',
-    name: 'Faisal Hamed',
-    role: 'Procurement Lead',
-    company: 'Al Salam Contracting',
-  },
-  {
-    quote:
-      'What sets Super Tech apart is the one-stop range — tools, construction materials, and A/C supplies all from a single supplier. Saves us time coordinating with multiple vendors.',
-    name: 'Nasser Al-Mutairi',
-    role: 'Site Supervisor',
-    company: 'KME Engineering',
-  },
-]
+import { useI18n } from '@/components/i18n-provider'
 
 export function Testimonials() {
+  const { t } = useI18n()
+
+  const testimonials = [
+    {
+      quote: t.home.testimonial1,
+      name: t.home.testimonial1Name,
+      role: t.home.testimonial1Role,
+      company: t.home.testimonial1Company,
+    },
+    {
+      quote: t.home.testimonial2,
+      name: t.home.testimonial2Name,
+      role: t.home.testimonial2Role,
+      company: t.home.testimonial2Company,
+    },
+    {
+      quote: t.home.testimonial3,
+      name: t.home.testimonial3Name,
+      role: t.home.testimonial3Role,
+      company: t.home.testimonial3Company,
+    },
+  ]
+
   return (
     <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 text-center">
-          <p className="eyebrow">What Our Clients Say</p>
-          <h2 className="section-heading mt-3">Trusted by Contractors Across Kuwait</h2>
+          <p className="eyebrow">{t.home.testimonialsEyebrow}</p>
+          <h2 className="section-heading mt-3">{t.home.testimonialsTitle}</h2>
         </div>
       </ScrollReveal>
       <div className="grid gap-6 md:grid-cols-3 md:gap-8">

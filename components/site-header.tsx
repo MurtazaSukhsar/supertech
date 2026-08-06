@@ -1,12 +1,17 @@
-﻿'use client'
+'use client'
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { categories } from '@/lib/products'
+import { categoryTranslationsAr } from '@/lib/products-ar'
 import { useQuote } from '@/context/quote-context'
+import { useI18n } from '@/components/i18n-provider'
+import { LanguageSwitcher } from '@/components/language-switcher'
+import { EASE_OUT, springPop, staggerContainer, staggerItem } from '@/lib/motion'
 
 function ShoppingBagIcon({ className }: { className?: string }) {
   return (
@@ -37,6 +42,11 @@ export function SiteHeader() {
   const pathname = usePathname()
 
   const { totalCount, openDrawer } = useQuote()
+  const { t, locale, isRtl, href } = useI18n()
+  const shouldReduce = useReducedMotion()
+
+  const categoryName = (slug: string, fallback: string) =>
+    locale === 'ar' ? (categoryTranslationsAr[slug]?.name ?? fallback) : fallback
 
   useEffect(() => {
     setMobileOpen(false)
@@ -65,10 +75,13 @@ export function SiteHeader() {
     e.preventDefault()
     const q = query.trim()
     if (q) {
-      router.push(`/search?q=${encodeURIComponent(q)}`)
+      router.push(`${href('/search')}?q=${encodeURIComponent(q)}`)
       setMobileOpen(false)
     }
   }
+
+  const navLinkClass =
+    'nav-underline relative text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full'
 
   return (
     <header
@@ -89,10 +102,10 @@ export function SiteHeader() {
       {/* Main nav */}
       <div className="border-b border-border">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-3 md:px-8 lg:px-12">
-          <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Super Tech home">
+          <Link href={href('/')} className="flex shrink-0 items-center gap-3" aria-label={t.nav.homeAriaLabel}>
             <Image
               src="/images/logo.webp"
-              alt="Super Tech International Construction Materials Co. logo"
+              alt={t.footer.logoAlt}
               width={360}
               height={188}
               className={`w-auto object-contain transition-all duration-300 ${
@@ -103,12 +116,9 @@ export function SiteHeader() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
-            <Link
-              href="/"
-              className="relative text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
-            >
-              Home
+          <nav className="hidden items-center gap-7 lg:flex" aria-label={t.nav.mainNavigation}>
+            <Link href={href('/')} className={navLinkClass}>
+              {t.nav.home}
             </Link>
             <div
               className="relative"
@@ -117,17 +127,19 @@ export function SiteHeader() {
               onMouseLeave={() => setDropdownOpen(false)}
             >
               <Link
-                href="/products"
-                className="relative flex items-center gap-1 text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+                href={href('/products')}
+                className={`${navLinkClass} flex items-center gap-1`}
               >
-                Products
+                {t.nav.products}
                 <ChevronDown
                   className={`size-4 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
               </Link>
               <div
-                className={`absolute left-0 top-full z-50 mt-1 w-72 rounded-xl border border-border bg-popover p-2 shadow-xl transition-all duration-200 origin-top ${
+                className={`absolute top-full z-50 mt-1 w-72 rounded-xl border border-border bg-popover p-2 shadow-xl transition-all duration-200 origin-top ${
+                  isRtl ? 'right-0' : 'left-0'
+                } ${
                   dropdownOpen
                     ? 'scale-100 opacity-100'
                     : 'pointer-events-none scale-95 opacity-0'
@@ -136,70 +148,83 @@ export function SiteHeader() {
                 {categories.map((cat) => (
                   <Link
                     key={cat.slug}
-                    href={`/categories/${cat.slug}`}
+                    href={href(`/categories/${cat.slug}`)}
                     className="block rounded-lg px-3.5 py-2.5 text-sm font-medium text-popover-foreground transition-colors hover:bg-accent-light hover:text-primary"
                   >
-                    {cat.name}
+                    {categoryName(cat.slug, cat.name)}
                   </Link>
                 ))}
               </div>
             </div>
             {[
-              { href: '/about', label: 'About Us' },
-              { href: '/blog', label: 'Blog' },
-              { href: '/faq', label: 'FAQ' },
-              { href: '/contact', label: 'Contact' },
+              { href: '/about', label: t.nav.about },
+              { href: '/blog', label: t.nav.blog },
+              { href: '/faq', label: t.nav.faq },
+              { href: '/contact', label: t.nav.contact },
             ].map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="relative text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
-              >
+              <Link key={link.href} href={href(link.href)} className={navLinkClass}>
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Search + Quote Basket + CTA */}
-          <div className="flex items-center gap-3">
+          {/* Search + Language + Quote Basket + CTA */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <form onSubmit={submitSearch} role="search" className="relative hidden md:block">
               <Search
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
+                  isRtl ? 'right-3' : 'left-3'
+                }`}
                 aria-hidden="true"
               />
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search products..."
-                aria-label="Search products"
-                className="h-10 w-40 rounded-lg border border-input bg-secondary pl-9 pr-3 text-sm outline-none transition-all focus:w-52 focus:border-accent focus:bg-background focus:shadow-sm focus:shadow-accent/10 lg:w-48 lg:focus:w-60"
+                placeholder={t.nav.searchPlaceholder}
+                aria-label={t.nav.searchAriaLabel}
+                className={`h-10 w-40 rounded-lg border border-input bg-secondary text-sm outline-none transition-all focus:w-52 focus:border-accent focus:bg-background focus:shadow-sm focus:shadow-accent/10 lg:w-48 lg:focus:w-60 ${
+                  isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3'
+                }`}
               />
             </form>
+
+            <LanguageSwitcher className="hidden sm:inline-flex" />
 
             {/* Quote Basket Trigger Button */}
             <button
               type="button"
               onClick={openDrawer}
               className="relative inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-secondary px-3.5 text-sm font-semibold text-foreground transition-all hover:border-accent hover:bg-background shadow-sm"
-              aria-label={`Open Quote Basket, ${totalCount} items`}
+              aria-label={`${t.nav.openQuoteBasket}, ${totalCount} ${t.nav.items}`}
             >
               <ShoppingBagIcon className="size-4 text-accent" aria-hidden="true" />
-              <span className="hidden sm:inline">Quote Basket</span>
+              <span className="hidden sm:inline">{t.nav.quoteBasket}</span>
               {totalCount > 0 ? (
-                <span className="flex size-5 items-center justify-center rounded-full bg-accent text-[10px] font-extrabold text-accent-foreground shadow-sm">
-                  {totalCount}
-                </span>
+                /* `key` on the count makes the badge re-mount and pop each time
+                   an item is added, so the basket visibly reacts. */
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={totalCount}
+                    initial={shouldReduce ? { opacity: 0 } : { scale: 0.4, opacity: 0 }}
+                    animate={shouldReduce ? { opacity: 1 } : { scale: 1, opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={springPop}
+                    className="flex size-5 items-center justify-center rounded-full bg-accent text-[10px] font-extrabold text-accent-foreground shadow-sm"
+                  >
+                    {totalCount}
+                  </motion.span>
+                </AnimatePresence>
               ) : (
                 <span className="hidden lg:inline text-xs text-muted-foreground">(0)</span>
               )}
             </button>
 
             <Link
-              href="/contact"
+              href={href('/contact')}
               className="hidden h-10 items-center rounded-lg btn-primary px-5 text-sm lg:inline-flex"
             >
-              Get a Quote
+              {t.common.getQuote}
             </Link>
 
             {/* Mobile toggle */}
@@ -208,7 +233,7 @@ export function SiteHeader() {
               onClick={() => setMobileOpen((v) => !v)}
               className="inline-flex size-10 items-center justify-center rounded-lg border border-border lg:hidden"
               aria-expanded={mobileOpen}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
             >
               {mobileOpen ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
             </button>
@@ -216,77 +241,117 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={`border-b border-border bg-background lg:hidden transition-all duration-300 origin-top ${
-          mobileOpen
-            ? 'max-h-screen opacity-100 overflow-y-auto'
-            : 'max-h-0 opacity-0 overflow-hidden border-b-0'
-        }`}
-      >
+      {/* Mobile menu.
+          Height is animated to `auto` rather than toggling a `max-h-screen`
+          class. The old approach eased toward a max-height the content never
+          reached, so the panel snapped shut and the timing drifted with the
+          number of categories. */}
+      <AnimatePresence initial={false}>
+        {mobileOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={shouldReduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            animate={shouldReduce ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
+            exit={shouldReduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: EASE_OUT }}
+            className="overflow-hidden border-b border-border bg-background lg:hidden"
+          >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-4 md:px-8">
           <form onSubmit={submitSearch} role="search" className="relative mb-4 md:hidden">
             <Search
-              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
+                isRtl ? 'right-3' : 'left-3'
+              }`}
               aria-hidden="true"
             />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search products..."
-              aria-label="Search products"
-              className="h-11 w-full rounded-lg border border-input bg-secondary pl-9 pr-3 text-sm outline-none focus:border-accent focus:bg-background"
+              placeholder={t.nav.searchPlaceholder}
+              aria-label={t.nav.searchAriaLabel}
+              className={`h-11 w-full rounded-lg border border-input bg-secondary text-sm outline-none focus:border-accent focus:bg-background ${
+                isRtl ? 'pr-9 pl-3' : 'pl-9 pr-3'
+              }`}
             />
           </form>
-          <nav className="flex flex-col" aria-label="Mobile navigation">
-            <Link href="/" className="border-b border-border py-3.5 text-sm font-semibold">
-              Home
-            </Link>
-            <p className="pb-1 pt-3.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Products
-            </p>
-            {categories.map((cat) => (
+          <motion.nav
+            className="flex flex-col"
+            aria-label={t.nav.mobileNavigation}
+            variants={staggerContainer(0.04, 0.06)}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={staggerItem}>
               <Link
-                key={cat.slug}
-                href={`/categories/${cat.slug}`}
-                className="py-2.5 pl-3 text-sm font-medium text-foreground"
+                href={href('/')}
+                className="block border-b border-border py-3.5 text-sm font-semibold"
               >
-                {cat.name}
+                {t.nav.home}
               </Link>
+            </motion.div>
+            <motion.p
+              variants={staggerItem}
+              className="pb-1 pt-3.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+            >
+              {t.nav.products}
+            </motion.p>
+            {categories.map((cat) => (
+              <motion.div key={cat.slug} variants={staggerItem}>
+                <Link
+                  href={href(`/categories/${cat.slug}`)}
+                  className={`block py-2.5 text-sm font-medium text-foreground ${isRtl ? 'pr-3' : 'pl-3'}`}
+                >
+                  {categoryName(cat.slug, cat.name)}
+                </Link>
+              </motion.div>
             ))}
-            <Link href="/about" className="border-t border-border py-3.5 text-sm font-semibold">
-              About Us
-            </Link>
-            <Link href="/blog" className="border-t border-border py-3.5 text-sm font-semibold">
-              Blog
-            </Link>
-            <Link href="/faq" className="border-t border-border py-3.5 text-sm font-semibold">
-              FAQ
-            </Link>
-            <Link href="/contact" className="border-t border-border py-3.5 text-sm font-semibold">
-              Contact
-            </Link>
-            <button
+            {[
+              { to: '/about', label: t.nav.about },
+              { to: '/blog', label: t.nav.blog },
+              { to: '/faq', label: t.nav.faq },
+              { to: '/contact', label: t.nav.contact },
+            ].map((link) => (
+              <motion.div key={link.to} variants={staggerItem}>
+                <Link
+                  href={href(link.to)}
+                  className="block border-t border-border py-3.5 text-sm font-semibold"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+
+            <motion.div variants={staggerItem} className="mt-4 sm:hidden">
+              <LanguageSwitcher className="w-full justify-center" />
+            </motion.div>
+
+            <motion.button
+              variants={staggerItem}
               type="button"
+              whileTap={shouldReduce ? undefined : { scale: 0.97 }}
               onClick={() => {
                 setMobileOpen(false)
                 openDrawer()
               }}
-              className="mt-4 flex h-12 items-center justify-center gap-2 rounded-lg bg-secondary text-sm font-bold text-foreground border border-border"
+              className="mt-2 flex h-12 items-center justify-center gap-2 rounded-lg bg-secondary text-sm font-bold text-foreground border border-border"
             >
               <ShoppingBagIcon className="size-4 text-accent" />
-              View Quote Basket ({totalCount})
-            </button>
-            <Link
-              href="/contact"
-              className="mt-2 inline-flex h-12 items-center justify-center rounded-lg btn-primary text-sm"
-            >
-              Get a Quote
-            </Link>
-          </nav>
+              {t.nav.viewQuoteBasket} ({totalCount})
+            </motion.button>
+            <motion.div variants={staggerItem}>
+              <Link
+                href={href('/contact')}
+                className="mt-2 inline-flex h-12 w-full items-center justify-center rounded-lg btn-primary text-sm"
+              >
+                {t.common.getQuote}
+              </Link>
+            </motion.div>
+          </motion.nav>
         </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

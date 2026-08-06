@@ -18,14 +18,14 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="flex w-full items-start gap-4 p-6 text-left transition-colors hover:bg-surface-alt/50"
+                className="flex w-full items-start gap-4 p-6 text-start transition-colors hover:bg-surface-alt/50"
                 aria-expanded={isOpen}
               >
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
                   <HelpCircle className="size-5 text-accent" aria-hidden="true" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="font-sans text-base font-bold text-foreground pr-8">
+                  <h2 className="font-sans text-base font-bold text-foreground pe-8">
                     {faq.question}
                   </h2>
                 </div>
@@ -41,7 +41,7 @@ export function FaqAccordion({ faqs }: { faqs: Faq[] }) {
                 style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
               >
                 <div className="overflow-hidden">
-                  <p className="px-6 pb-6 pl-20 text-sm leading-relaxed text-muted-foreground">
+                  <p className="px-6 pb-6 ps-20 text-sm leading-relaxed text-muted-foreground">
                     {faq.answer}
                   </p>
                 </div>

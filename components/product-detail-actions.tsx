@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { MessageCircle, Check } from 'lucide-react'
 import type { Product } from '@/lib/products'
+import { useI18n } from '@/components/i18n-provider'
 import { useQuote } from '@/context/quote-context'
 import { contactInfo } from '@/lib/products'
 
@@ -26,6 +27,7 @@ function ShoppingBagIcon({ className }: { className?: string }) {
 }
 
 export function ProductDetailActions({ product }: { product: Product }) {
+  const { t } = useI18n()
   const { addItem } = useQuote()
 
   // Extract size options from specs if available
@@ -118,8 +120,8 @@ export function ProductDetailActions({ product }: { product: Product }) {
           }`}
         >
           <ShoppingBagIcon className="size-4 sm:size-5" aria-hidden="true" />
-          <span className="hidden sm:inline">{addedAnimation ? 'Added to Quote Basket!' : 'Add to Quote Basket'}</span>
-          <span className="sm:hidden">{addedAnimation ? 'Added!' : 'Add to Basket'}</span>
+          <span className="hidden sm:inline">{addedAnimation ? t.quote.addedToBasket : t.quote.addToBasket}</span>
+          <span className="sm:hidden">{addedAnimation ? t.quote.addedShort : t.quote.addShort}</span>
         </button>
 
         <button
@@ -128,7 +130,7 @@ export function ProductDetailActions({ product }: { product: Product }) {
           className="flex h-14 flex-1 items-center justify-center gap-1.5 sm:gap-2.5 rounded-lg bg-[#25D366] text-xs sm:text-base font-extrabold text-white shadow-md shadow-[#25D366]/20 transition-all hover:opacity-95"
         >
           <MessageCircle className="size-4 sm:size-5" aria-hidden="true" />
-          <span className="hidden sm:inline">Request via WhatsApp</span>
+          <span className="hidden sm:inline">{t.quote.requestViaWhatsApp}</span>
           <span className="sm:hidden">WhatsApp</span>
         </button>
       </div>

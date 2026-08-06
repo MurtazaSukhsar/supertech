@@ -5,9 +5,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Mail } from 'lucide-react'
 import type { Product } from '@/lib/products'
+import { useI18n } from '@/components/i18n-provider'
 import { InStockBadge } from '@/components/in-stock-badge'
 
 export function StickyProductBar({ product }: { product: Product }) {
+  const { t, href } = useI18n()
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -56,12 +58,12 @@ export function StickyProductBar({ product }: { product: Product }) {
         {/* Right: Compact CTAs */}
         <div className="flex items-center gap-3 shrink-0">
           <Link
-            href={`/contact?product=${encodeURIComponent(product.name)}`}
+            href={`${href('/contact')}?product=${encodeURIComponent(product.name)}`}
             className="inline-flex h-9 items-center gap-2 rounded-lg btn-primary px-4 text-xs font-semibold"
           >
             <Mail className="size-3.5" aria-hidden="true" />
-            <span className="hidden sm:inline">Request Quote</span>
-            <span className="sm:hidden">Quote</span>
+            <span className="hidden sm:inline">{t.common.requestQuote}</span>
+            <span className="sm:hidden">{t.common.getQuote}</span>
           </Link>
         </div>
       </div>

@@ -6,24 +6,27 @@ import { ArrowLeft, CalendarDays } from 'lucide-react'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CtaBanner } from '@/components/home/cta-banner'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { blogPosts, getBlogPost, siteUrl } from '@/lib/content'
-import { contactInfo } from '@/lib/products'
+import { blogPosts, siteUrl } from '@/lib/content'
+import { getBlogPostLocalized } from '@/lib/content-i18n'
+import { getDictionary } from '@/lib/i18n'
+import { localePath, locales, type Locale } from '@/lib/i18n/config'
 
 type BlogPostPageProps = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }))
+  return locales.flatMap((locale) => blogPosts.map((post) => ({ locale, slug: post.slug })))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const post = getBlogPost(slug)
+  const { locale, slug } = await params
+  const t = getDictionary(locale)
+  const post = getBlogPostLocalized(slug, locale as Locale)
 
   if (!post) {
     return {
-      title: 'Blog Post Not Found',
+      title: t.blog.notFound,
     }
   }
 
@@ -31,7 +34,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `/${locale}/blog/${post.slug}`,
+      languages: {
+        en: `/en/blog/${post.slug}`,
+        ar: `/ar/blog/${post.slug}`,
+        'x-default': `/en/blog/${post.slug}`,
+      },
     },
     openGraph: {
       title: post.title,
@@ -44,10 +52,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params
-  const post = getBlogPost(slug)
+  const { locale: rawLocale, slug } = await params
+  const locale = rawLocale as Locale
+  const t = getDictionary(rawLocale)
+  const post = getBlogPostLocalized(slug, locale)
 
   if (!post) notFound()
+
+  const href = (path: string) => localePath(locale, path)
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -57,15 +69,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     image: `${siteUrl}${post.image}`,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
+    inLanguage: locale,
     author: {
       '@type': 'Organization',
-      name: contactInfo.companyName,
+      name: t.meta.siteName,
     },
     publisher: {
       '@type': 'Organization',
-      name: contactInfo.companyName,
+      name: t.meta.siteName,
     },
-    mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: `${siteUrl}/${locale}/blog/${post.slug}`,
   }
 
   return (
@@ -84,7 +97,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="mt-6 flex flex-wrap items-center gap-4 text-sm font-semibold text-primary-foreground/70">
               <span className="inline-flex items-center gap-2">
                 <CalendarDays className="size-4" aria-hidden="true" />
-                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                {new Date(post.publishedAt).toLocaleDateString(locale === 'ar' ? 'ar-KW' : 'en-US', {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric',
@@ -96,7 +109,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </section>
 
           <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:px-8 md:py-20 lg:px-12">
-          <Breadcrumbs crumbs={[{ label: 'Blog', href: '/blog' }, { label: post.title }]} />
+          <Breadcrumbs crumbs={[{ label: t.blog.breadcrumb, href: '/blog' }, { label: post.title }]} />
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
             <div>
@@ -122,28 +135,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </ScrollReveal>
 
               <Link
-                href="/blog"
+                href={href('/blog')}
                 className="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-accent transition-colors hover:text-accent-hover"
               >
-                <ArrowLeft className="size-4" aria-hidden="true" />
-                Back to Blog
+                <ArrowLeft className="rtl-flip size-4" aria-hidden="true" />
+                {t.blog.backToBlog}
               </Link>
             </div>
 
             <ScrollReveal delay={200}>
               <aside className="h-fit rounded-2xl border border-border bg-secondary p-8">
-                <p className="eyebrow">Need Pricing?</p>
+                <p className="eyebrow">{t.blog.sideEyebrow}</p>
                 <h2 className="mt-4 text-xl font-800 uppercase tracking-tight text-foreground">
-                  Request a Material Quote
+                  {t.blog.sideTitle}
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Send product names, specs, quantities, and delivery location for a fast quote.
+                  {t.blog.sideDesc}
                 </p>
                 <Link
-                  href="/contact"
+                  href={href('/contact')}
                   className="mt-7 inline-flex h-12 w-full items-center justify-center rounded-lg btn-primary text-sm"
                 >
-                  Contact Sales
+                  {t.blog.sideCta}
                 </Link>
               </aside>
             </ScrollReveal>

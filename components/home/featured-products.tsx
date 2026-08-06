@@ -5,11 +5,14 @@ import Link from 'next/link'
 import { motion, type MotionValue, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
-import { getFeaturedProducts, getCategoryColor } from '@/lib/products'
+import { getCategoryColor } from '@/lib/products'
+import { getFeaturedProductsLocalized } from '@/lib/catalog'
+import { useI18n } from '@/components/i18n-provider'
 import { StackRevealCard } from '@/components/home/stack-reveal-card'
 
-const FEATURED = getFeaturedProducts().slice(0, 6)
-const SEGMENTS = FEATURED.length - 1
+const FEATURED_EN = getFeaturedProductsLocalized('en').slice(0, 6)
+const FEATURED_AR = getFeaturedProductsLocalized('ar').slice(0, 6)
+const SEGMENTS = FEATURED_EN.length - 1
 
 // Each card holds on top for this share of its segment, then slides away.
 // The source design used 0.62 for a timed video; scrolling feels better with
@@ -19,6 +22,8 @@ const PAUSE = 0.45
 const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v))
 
 export function FeaturedProducts() {
+  const { t, locale, href } = useI18n()
+  const FEATURED = locale === 'ar' ? FEATURED_AR : FEATURED_EN
   const container = useRef<HTMLDivElement>(null)
   const [flyDistance, setFlyDistance] = useState(1100)
 
@@ -55,9 +60,9 @@ export function FeaturedProducts() {
           style={{ y: headerY, opacity: headerOpacity }}
           className="flex shrink-0 flex-col items-center text-center"
         >
-          <p className="eyebrow">Best Sellers</p>
+          <p className="eyebrow">{t.home.featuredEyebrow}</p>
           <h2 className="mt-2.5 text-balance text-2xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-[42px]">
-            Featured Products
+            {t.home.featuredTitle}
           </h2>
         </motion.div>
 
@@ -84,11 +89,11 @@ export function FeaturedProducts() {
           </div>
 
           <Link
-            href="/products"
+            href={href('/products')}
             className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border bg-card px-6 text-xs font-bold uppercase tracking-wider text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            Browse All Products
-            <ArrowRight className="size-4" aria-hidden="true" />
+            {t.home.featuredCta}
+            <ArrowRight className="rtl-flip size-4" aria-hidden="true" />
           </Link>
         </div>
       </div>

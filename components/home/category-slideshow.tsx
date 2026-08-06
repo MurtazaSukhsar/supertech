@@ -2,16 +2,18 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { getAllProducts } from '@/lib/products'
+import { getProducts } from '@/lib/catalog'
+import { useI18n } from '@/components/i18n-provider'
 
 export function CategorySlideshow() {
-  const activeProducts = getAllProducts()
+  const { locale, href } = useI18n()
+  const activeProducts = getProducts(locale)
   
   // Clean product showcase images from across all categories
   const showcaseProducts = activeProducts.map(p => ({
     name: p.name,
     image: p.images[0] || '/placeholder.svg',
-    href: `/products/${p.id}`
+    href: href(`/products/${p.id}`)
   })).slice(0, 25) // limit to 25 to avoid overwhelming the DOM
 
   // Duplicate array for seamless infinite marquee loop

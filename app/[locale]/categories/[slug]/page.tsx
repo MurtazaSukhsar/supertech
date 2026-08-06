@@ -1,30 +1,42 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { categories, getCategory, getProductsByCategory } from '@/lib/products'
+import { categories } from '@/lib/products'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CategoryIcon } from '@/components/category-icon'
 import { CategoryProductGrid } from '@/components/category-product-grid'
+import { getCategoryLocalized, getProductsByCategoryLocalized } from '@/lib/catalog'
+import { getDictionary } from '@/lib/i18n'
+import { locales, type Locale } from '@/lib/i18n/config'
 
 export function generateStaticParams() {
-  return categories.map((cat) => ({ slug: cat.slug }))
+  return locales.flatMap((locale) => categories.map((cat) => ({ locale, slug: cat.slug })))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
-  const { slug } = await params
-  const category = getCategory(slug)
+  const { locale, slug } = await params
+  const t = getDictionary(locale)
+  const category = getCategoryLocalized(slug, locale as Locale)
   if (!category) return {}
+
+  const title = `${category.name} — ${t.categories.supplierIn}`
+
   return {
-    title: `${category.name} Supplier in Kuwait`,
-    description: `${category.description} Request bulk pricing and delivery from Super Tech Kuwait.`,
+    title,
+    description: `${category.description} ${t.categories.requestBulkPricing}`,
     alternates: {
-      canonical: `/categories/${category.slug}`,
+      canonical: `/${locale}/categories/${category.slug}`,
+      languages: {
+        en: `/en/categories/${category.slug}`,
+        ar: `/ar/categories/${category.slug}`,
+        'x-default': `/en/categories/${category.slug}`,
+      },
     },
     openGraph: {
-      title: `${category.name} Supplier in Kuwait`,
+      title,
       description: category.description,
       images: [category.image],
     },
@@ -34,13 +46,14 @@ export async function generateMetadata({
 export default async function CategoryPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }) {
-  const { slug } = await params
-  const category = getCategory(slug)
+  const { locale, slug } = await params
+  const t = getDictionary(locale)
+  const category = getCategoryLocalized(slug, locale as Locale)
   if (!category) notFound()
 
-  const products = getProductsByCategory(slug)
+  const products = getProductsByCategoryLocalized(slug, locale as Locale)
 
   return (
     <>
@@ -77,7 +90,9 @@ export default async function CategoryPage({
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:px-8 md:py-16 lg:px-12">
         <div className="mb-10">
-          <Breadcrumbs crumbs={[{ label: 'Products', href: '/products' }, { label: category.name }]} />
+          <Breadcrumbs
+            crumbs={[{ label: t.products.breadcrumb, href: '/products' }, { label: category.name }]}
+          />
         </div>
         <CategoryProductGrid products={products} />
       </div>

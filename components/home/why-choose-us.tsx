@@ -3,41 +3,24 @@
 import { ShieldCheck, Handshake, Truck, BadgeCheck } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TiltCard } from '@/components/tilt-card'
-
-const reasons = [
-  {
-    icon: ShieldCheck,
-    title: 'Premium Quality',
-    description:
-      'Every product is sourced from certified manufacturers and inspected before it reaches your site.',
-  },
-  {
-    icon: Handshake,
-    title: 'Reliable Service',
-    description:
-      'A dedicated account team that understands your project timelines and never leaves you waiting.',
-  },
-  {
-    icon: Truck,
-    title: 'Fast Delivery',
-    description:
-      'Same-day and next-day delivery across Kuwait, with bulk logistics handled end to end.',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'Trusted by Professionals',
-    description:
-      'Contractors, MEP firms, and facility managers across Kuwait rely on Super Tech every day.',
-  },
-]
+import { useI18n } from '@/components/i18n-provider'
 
 export function WhyChooseUs() {
+  const { t } = useI18n()
+
+  const reasons = [
+    { icon: ShieldCheck, title: t.home.whyPremiumTitle, description: t.home.whyPremiumDesc },
+    { icon: Handshake, title: t.home.whyReliableTitle, description: t.home.whyReliableDesc },
+    { icon: Truck, title: t.home.whyFastTitle, description: t.home.whyFastDesc },
+    { icon: BadgeCheck, title: t.home.whyTrustedTitle, description: t.home.whyTrustedDesc },
+  ]
+
   return (
     <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 flex flex-col items-center gap-3 text-center">
-          <p className="eyebrow">Our Promise</p>
-          <h2 className="section-heading">Why Choose Super Tech</h2>
+          <p className="eyebrow">{t.home.whyEyebrow}</p>
+          <h2 className="section-heading">{t.home.whyTitle}</h2>
         </div>
       </ScrollReveal>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 md:gap-8">

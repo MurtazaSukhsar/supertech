@@ -4,22 +4,25 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
-import { categories } from '@/lib/products'
+import { getCategories } from '@/lib/catalog'
+import { useI18n } from '@/components/i18n-provider'
 import { CategoryIcon } from '@/components/category-icon'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { TiltCard } from '@/components/tilt-card'
 
 export function CategoryGrid() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null)
+  const { t, locale, href } = useI18n()
+  const categories = getCategories(locale)
 
   return (
     <section className="section-pad mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
       <ScrollReveal variant="fade-up">
         <div className="mb-14 flex flex-col items-start gap-3">
-          <p className="eyebrow">Our Range</p>
-          <h2 className="section-heading">Product Categories</h2>
+          <p className="eyebrow">{t.home.categoriesEyebrow}</p>
+          <h2 className="section-heading">{t.home.categoriesTitle}</h2>
           <p className="section-subheading">
-            Eight specialist divisions covering everything your project needs, all under one roof.
+            {t.home.categoriesSubtitle}
           </p>
         </div>
       </ScrollReveal>
@@ -44,7 +47,7 @@ export function CategoryGrid() {
               >
                 <TiltCard className="group h-full overflow-hidden border border-border shadow-md transition-all duration-300 hover:shadow-2xl">
                   <Link
-                    href={`/categories/${cat.slug}`}
+                    href={href(`/categories/${cat.slug}`)}
                     className="relative flex h-full flex-col overflow-hidden"
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
@@ -76,7 +79,7 @@ export function CategoryGrid() {
                           )}
                         </div>
                         <ArrowRight
-                          className="mb-1 size-6 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1.5"
+                          className="rtl-flip mb-1 size-6 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1.5"
                           aria-hidden="true"
                         />
                       </div>

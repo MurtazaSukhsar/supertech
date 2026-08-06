@@ -1,7 +1,11 @@
-﻿import Link from 'next/link'
+'use client'
+
+import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { categories, contactInfo } from '@/lib/products'
+import { categoryTranslationsAr } from '@/lib/products-ar'
+import { useI18n } from '@/components/i18n-provider'
 
 function InstagramIcon({ className }: { className?: string }) {
   return (
@@ -12,40 +16,42 @@ function InstagramIcon({ className }: { className?: string }) {
 }
 
 export function SiteFooter() {
+  const { t, locale, href } = useI18n()
+
+  const categoryName = (slug: string, fallback: string) =>
+    locale === 'ar' ? (categoryTranslationsAr[slug]?.name ?? fallback) : fallback
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-20 lg:px-12">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand col */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="inline-block" aria-label="Super Tech home">
+            <Link href={href('/')} className="inline-block" aria-label={t.nav.homeAriaLabel}>
               <div className="inline-flex rounded-xl bg-white p-3 sm:p-3.5 shadow-md">
                 <Image
                   src="/images/logo.webp"
-                  alt="Super Tech logo"
+                  alt={t.footer.logoAlt}
                   width={320}
                   height={167}
                   className="h-18 sm:h-22 w-auto object-contain"
                 />
               </div>
             </Link>
-            <p className="text-sm leading-relaxed text-primary-foreground/75">
-              Kuwait&apos;s reliable supplier for air-conditioning materials, hardware, hand and power tools,
-              construction materials, and industrial equipment.
-            </p>
+            <p className="text-sm leading-relaxed text-primary-foreground/75">{t.footer.blurb}</p>
           </div>
 
           {/* Categories */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider">Product Categories</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider">{t.footer.productCategories}</h3>
             <ul className="mt-5 flex flex-col gap-3">
               {categories.map((cat) => (
                 <li key={cat.slug}>
                   <Link
-                    href={`/categories/${cat.slug}`}
+                    href={href(`/categories/${cat.slug}`)}
                     className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                   >
-                    {cat.name}
+                    {categoryName(cat.slug, cat.name)}
                   </Link>
                 </li>
               ))}
@@ -54,26 +60,38 @@ export function SiteFooter() {
 
           {/* Quick links */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider">Quick Links</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider">{t.footer.quickLinks}</h3>
             <ul className="mt-5 flex flex-col gap-3">
               <li>
-                <Link href="/about" className="text-sm text-primary-foreground/70 transition-colors hover:text-accent">
-                  About Us
+                <Link
+                  href={href('/about')}
+                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  {t.nav.about}
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-sm text-primary-foreground/70 transition-colors hover:text-accent">
-                  Blog
+                <Link
+                  href={href('/blog')}
+                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  {t.nav.blog}
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm text-primary-foreground/70 transition-colors hover:text-accent">
-                  FAQ
+                <Link
+                  href={href('/faq')}
+                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  {t.nav.faq}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-primary-foreground/70 transition-colors hover:text-accent">
-                  Request a Quote
+                <Link
+                  href={href('/contact')}
+                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  {t.common.requestQuote}
                 </Link>
               </li>
             </ul>
@@ -81,7 +99,7 @@ export function SiteFooter() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider">Contact Us</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider">{t.footer.contactUs}</h3>
             <ul className="mt-5 flex flex-col gap-4">
               <li>
                 <a
@@ -89,7 +107,7 @@ export function SiteFooter() {
                   className="flex items-start gap-3 text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                 >
                   <Phone className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                  {contactInfo.phone}
+                  <span className="ltr-embed">{contactInfo.phone}</span>
                 </a>
               </li>
               <li>
@@ -100,7 +118,7 @@ export function SiteFooter() {
                   className="flex items-start gap-3 text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                 >
                   <Mail className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                  {contactInfo.email}
+                  <span className="ltr-embed">{contactInfo.email}</span>
                 </a>
               </li>
               <li>
@@ -111,7 +129,7 @@ export function SiteFooter() {
                   className="flex items-start gap-3 text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                 >
                   <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                  {contactInfo.address}
+                  {t.common.address}
                 </a>
               </li>
             </ul>
@@ -120,7 +138,7 @@ export function SiteFooter() {
                 href={contactInfo.instagramHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label={t.a11y.instagram}
                 className="flex size-10 items-center justify-center rounded-xl bg-primary-foreground/8 transition-all hover:bg-accent hover:scale-105"
               >
                 <InstagramIcon className="size-4" aria-hidden="true" />
@@ -131,7 +149,7 @@ export function SiteFooter() {
 
         <div className="mt-16 border-t border-primary-foreground/10 pt-8">
           <p className="text-center text-xs text-primary-foreground/50">
-            © {new Date().getFullYear()} {contactInfo.companyName} All rights reserved.
+            © {new Date().getFullYear()} {t.common.companyName} {t.footer.rightsReserved}
           </p>
         </div>
       </div>
