@@ -196,7 +196,7 @@ export const en = {
     eyebrow: 'Who We Are',
     title: 'Built to Supply Kuwait’s Builders',
     breadcrumb: 'About Us',
-    imageAlt: 'Super Tech warehouse and showroom facility in Kuwait',
+    imageAlt: 'Super Tech warehouse and shop facility in Kuwait',
     sectionTitle: 'A Trusted Supply Partner Since Day One',
     para1:
       'Super Tech International Construction Materials Co. is a Kuwait-based supplier serving contractors, MEP companies, facility managers, and industrial operations across the country. We specialize in air-conditioning materials, hardware supplies, hand and power tools, construction materials, and industrial equipment.',
@@ -445,6 +445,8 @@ export const en = {
 
   a11y: {
     whatsappFloat: 'Chat with us on WhatsApp',
+    whatsappFloatMessage:
+      'Hello Super Tech Intl, I visited your website and I would like to know more about your products and prices.',
     scrollTop: 'Scroll to top',
     previous: 'Previous',
     next: 'Next',

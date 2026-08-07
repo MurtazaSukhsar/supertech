@@ -433,6 +433,8 @@ export const ar: Dictionary = {
 
   a11y: {
     whatsappFloat: 'تواصل معنا عبر واتساب',
+    whatsappFloatMessage:
+      'مرحباً سوبر تك، لقد زرت موقعكم الإلكتروني وأود معرفة المزيد عن منتجاتكم وأسعاركم.',
     scrollTop: 'العودة إلى الأعلى',
     previous: 'السابق',
     next: 'التالي',

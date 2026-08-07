@@ -99,19 +99,19 @@ const enQuickReplies: QuickReply[] = [
   {
     id: 'location',
     label: '📍 Location & Hours',
-    question: 'Where is your showroom and what are the working hours?',
+    question: 'Where is your shop and what are the working hours?',
     answer:
-      'Our main office & showroom is located in **Shuwaikh Industrial Area, Kuwait City**.\n\n🕒 **Working Hours:**\n• Saturday to Thursday: 8:00 AM - 5:00 PM\n• Friday: Closed',
+      'Our main office & shop is located in **Shuwaikh Industrial Area, Kuwait City**.\n\n🕒 **Working Hours:**\n• Saturday to Thursday: 8:00 AM - 5:00 PM\n• Friday: Closed',
     actions: [
       { label: '🗺️ Google Maps Location', href: contactInfo.googleMapsUrl, external: true },
-      { label: '📞 Call Showroom', href: contactInfo.phoneHref, external: true },
+      { label: '📞 Call shop', href: contactInfo.phoneHref, external: true },
     ],
   },
   {
     id: 'contact',
     label: '📞 Contact Support',
     question: 'How can I reach customer support or sales?',
-    answer: `You can reach the Super Tech support and sales team directly:\n\n• **Phone:** ${contactInfo.phone}\n• **Email:** ${contactInfo.email}\n• **Showroom:** Shuwaikh Industrial Area, Kuwait`,
+    answer: `You can reach the Super Tech support and sales team directly:\n\n• **Phone:** ${contactInfo.phone}\n• **Email:** ${contactInfo.email}\n• **shop:** Shuwaikh Industrial Area, Kuwait`,
     actions: [
       {
         label: '💬 WhatsApp Chat',
@@ -125,13 +125,13 @@ const enQuickReplies: QuickReply[] = [
 
 const enContent: ChatbotContent = {
   fabLabel: 'Open support chat',
-  headerTitle: 'Super Tech Assistant',
+  headerTitle: 'SuperTechIntl Chatbot',
   headerStatus: 'Online • Auto-Answers',
   closeLabel: 'Close chat',
   inputPlaceholder: 'Type your question...',
   sendLabel: 'Send message',
   welcome:
-    'Hi there! Welcome to Super Tech. I can quickly answer your questions about quotes, delivery, products, showroom location, or contact details. Click a pretyped option below or type your question!',
+    'Hi there! Welcome to Super Tech. I can quickly answer your questions about quotes, delivery, products, shop location, or contact details. Click a pretyped option below or type your question!',
   welcomeWhatsApp: '💬 Chat on WhatsApp',
   menuPrompt: 'Here are the quick topics you can choose from:',
   showMenu: '↩️ Show Main Menu',
@@ -161,7 +161,7 @@ const enContent: ChatbotContent = {
     {
       replyIndex: 3,
       keywords: [
-        'location', 'map', 'showroom', 'address', 'where', 'place', 'office', 'site',
+        'location', 'map', 'shop', 'address', 'where', 'place', 'office', 'site',
         'hour', 'time', 'open', 'close', 'saturday', 'thursday', 'friday', 'work day',
       ],
     },
@@ -257,7 +257,7 @@ const arQuickReplies: QuickReply[] = [
 
 const arContent: ChatbotContent = {
   fabLabel: 'فتح محادثة الدعم',
-  headerTitle: 'مساعد سوبر تك',
+  headerTitle: 'روبوت دردشة SuperTechIntl',
   headerStatus: 'متصل • ردود آلية',
   closeLabel: 'إغلاق المحادثة',
   inputPlaceholder: 'اكتب سؤالك...',
@@ -303,7 +303,7 @@ const arContent: ChatbotContent = {
       keywords: [
         'موقع', 'خريطة', 'معرض', 'عنوان', 'وين', 'اين', 'أين', 'مكتب', 'الشويخ',
         'ساعات', 'دوام', 'وقت', 'مفتوح', 'مغلق', 'السبت', 'الخميس', 'الجمعة',
-        'location', 'map', 'address', 'showroom', 'hours',
+        'location', 'map', 'address', 'shop', 'hours',
       ],
     },
     {

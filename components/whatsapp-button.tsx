@@ -7,22 +7,34 @@ import { useI18n } from '@/components/i18n-provider'
 export function WhatsAppButton() {
   const { t, isRtl } = useI18n()
   const [visible, setVisible] = useState(false)
+  const [chatbotOpen, setChatbotOpen] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 2000)
     return () => clearTimeout(timer)
   }, [])
 
+  // Hide while the chatbot window is open so it never covers the send button
+  useEffect(() => {
+    const handler = (e: Event) => {
+      setChatbotOpen(Boolean((e as CustomEvent<{ open: boolean }>).detail?.open))
+    }
+    window.addEventListener('chatbot:toggle', handler)
+    return () => window.removeEventListener('chatbot:toggle', handler)
+  }, [])
+
   return (
     <a
-      href={contactInfo.whatsappHref}
+      href={`${contactInfo.whatsappHref}?text=${encodeURIComponent(t.a11y.whatsappFloatMessage)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.a11y.whatsappFloat}
       className={`fixed bottom-4 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg shadow-[#25D366]/25 transition-all duration-500 hover:scale-110 hover:shadow-xl hover:shadow-[#25D366]/30 sm:bottom-5 md:size-16 ${
         isRtl ? 'left-4 sm:left-5' : 'right-4 sm:right-5'
       } ${
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+        visible && !chatbotOpen
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-4 opacity-0 pointer-events-none'
       }`}
     >
       <svg viewBox="0 0 32 32" className="size-7 fill-white md:size-8" aria-hidden="true">

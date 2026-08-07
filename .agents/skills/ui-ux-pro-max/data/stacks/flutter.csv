@@ -1,7 +1,7 @@
 No,Category,Guideline,Description,Do,Don't,Code Good,Code Bad,Severity,Docs URL
 1,Widgets,Use StatelessWidget when possible,Immutable widgets are simpler,StatelessWidget for static UI,StatefulWidget for everything,class MyWidget extends StatelessWidget,class MyWidget extends StatefulWidget (static),Medium,https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html
 2,Widgets,Keep widgets small,Single responsibility principle,Extract widgets into smaller pieces,Large build methods,Column(children: [Header() Content()]),500+ line build method,Medium,
-3,Widgets,Use const constructors,Compile-time constants for performance,const MyWidget() when possible,Non-const for static widgets,const Text('Hello'),Text('Hello') for literals,High,https://dart.dev/guides/language/language-tour#constant-constructors
+3,Widgets,Use const constructors,Compile-time constants for performance,const MyWidget() when possible,Non-const for static widgets,const Text('shop'),Text('Hello') for literals,High,https://dart.dev/guides/language/language-tour#constant-constructors
 4,Widgets,Prefer composition over inheritance,Combine widgets using children,Compose widgets,Extend widget classes,Container(child: MyContent()),class MyContainer extends Container,Medium,
 5,State,Use setState correctly,Minimal state in StatefulWidget,setState for UI state changes,setState for business logic,setState(() { _counter++; }),Complex logic in setState,Medium,https://api.flutter.dev/flutter/widgets/State/setState.html
 6,State,Avoid setState in build,Never call setState during build,setState in callbacks only,setState in build method,onPressed: () => setState(() {}),build() { setState(); },High,

@@ -11,25 +11,17 @@ import {
   type QuickReply,
 } from '@/lib/chatbot-content'
 
-// Custom Bot SVG icon to bypass type resolution issues in some environment scopes
-function BotIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M12 8V4H8" />
-      <rect width="16" height="12" x="4" y="8" rx="2" />
-      <path d="M2 14h2" />
-      <path d="M20 14h2" />
-      <path d="M15 13v2" />
-      <path d="M9 13v2" />
-    </svg>
+// Answers are authored with **markdown bold**; render those spans as real <strong>
+// instead of leaking the asterisks into the bubble.
+function renderRichText(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith('**') && part.endsWith('**') && part.length > 4 ? (
+      <strong key={i} className="font-bold">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      <span key={i}>{part}</span>
+    ),
   )
 }
 
@@ -84,6 +76,11 @@ export function Chatbot() {
     const timer = setTimeout(() => setVisible(true), 2500)
     return () => clearTimeout(timer)
   }, [])
+
+  // Tell the floating WhatsApp button to step aside while the chat window is open
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('chatbot:toggle', { detail: { open: isOpen } }))
+  }, [isOpen])
 
   // Initialize welcome message when chatbot first opens
   useEffect(() => {
@@ -215,23 +212,34 @@ export function Chatbot() {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between bg-primary p-4 text-white">
+        <div className="flex items-center justify-between bg-primary px-4 py-3.5 text-white">
           <div className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-full bg-white/10 ring-2 ring-white/20">
-              <BotIcon className="size-6 text-white" />
+            <div className="flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white ring-2 ring-white/30 shadow-sm">
+              {/* Plain <img> on purpose: the project runs images unoptimized, and next/image
+                  emits a different srcSet on the client than on the server here. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/logo.webp"
+                alt={c.headerTitle}
+                width={88}
+                height={46}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-9 object-contain"
+              />
             </div>
-            <div>
-              <h3 className="font-sans text-sm font-bold leading-tight">{c.headerTitle}</h3>
+            <div className="min-w-0">
+              <h3 className="font-sans text-[15px] font-bold leading-tight truncate">{c.headerTitle}</h3>
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-[11px] font-medium text-white/80">{c.headerStatus}</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-[11px] font-medium text-white/75 truncate">{c.headerStatus}</span>
               </div>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
             aria-label={c.closeLabel}
-            className="rounded-lg p-1.5 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+            className="shrink-0 rounded-full bg-white/10 p-2 text-white hover:bg-white/25 transition-colors"
           >
             <X className="size-5" />
           </button>
@@ -240,24 +248,19 @@ export function Chatbot() {
         {/* Message Stream */}
         <div
           data-lenis-prevent
-          className="flex-1 overflow-y-auto bg-surface-alt/40 p-4 space-y-4 chatbot-messages"
+          className="flex-1 overflow-y-auto p-4 space-y-3 chatbot-messages chatbot-doodle"
         >
           {messages.map((msg) => (
             <div key={msg.id} className="space-y-2">
-              <div className={`flex items-start gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                {msg.sender === 'bot' && (
-                  <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5">
-                    <BotIcon className="size-4" />
-                  </div>
-                )}
+              <div className={`flex items-start ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm shadow-sm leading-relaxed ${
+                  className={`relative max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed shadow-[0_1px_1.5px_rgba(11,20,26,0.16)] ${
                     msg.sender === 'user'
-                      ? 'bg-primary text-white rounded-tr-none'
-                      : 'bg-white border border-border text-foreground rounded-tl-none'
+                      ? 'bubble-out bg-primary text-white rounded-se-none'
+                      : 'bubble-in bg-white text-foreground rounded-ss-none'
                   }`}
                 >
-                  <p className="whitespace-pre-line">{msg.text}</p>
+                  <p className="whitespace-pre-line">{renderRichText(msg.text)}</p>
                   
                   {/* Message Action Links (e.g. WhatsApp, Email, Categories) */}
                   {msg.actions && msg.actions.length > 0 && (
@@ -295,7 +298,7 @@ export function Chatbot() {
 
               {/* Pretyped Quick Reply Buttons */}
               {msg.sender === 'bot' && msg.showQuickReplies && (
-                <div className="ps-9 pe-4 py-1 space-y-2">
+                <div className="ps-1 pe-4 py-1 space-y-2">
                   <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1">
                     <Sparkles className="size-3 text-accent" />
                     {c.menuPrompt}
@@ -318,11 +321,8 @@ export function Chatbot() {
 
           {/* Typing Indicator */}
           {isTyping && (
-            <div className="flex items-start gap-2.5 justify-start">
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5">
-                <BotIcon className="size-4" />
-              </div>
-              <div className="bg-white border border-border rounded-2xl rounded-tl-none px-4 py-3 shadow-sm flex items-center gap-1">
+            <div className="flex items-start justify-start">
+              <div className="bubble-in relative bg-white rounded-xl rounded-ss-none px-4 py-3 shadow-[0_1px_1.5px_rgba(11,20,26,0.16)] flex items-center gap-1">
                 <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/60 animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/60 animate-bounce" style={{ animationDelay: '150ms' }} />
                 <span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/60 animate-bounce" style={{ animationDelay: '300ms' }} />
@@ -334,24 +334,62 @@ export function Chatbot() {
         </div>
 
         {/* Input Form */}
-        <form onSubmit={handleSubmit} className="border-t border-border p-3.5 bg-white flex items-center gap-2">
+        <form onSubmit={handleSubmit} className="border-t border-border/70 px-3 py-3 bg-white flex items-center gap-2">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder={c.inputPlaceholder}
-            className="flex-1 rounded-xl border border-border bg-surface-alt px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200"
+            className="flex-1 min-w-0 rounded-full border border-border bg-surface-alt px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/15 focus:border-primary/50 transition-all duration-200"
           />
           <button
             type="submit"
             disabled={!inputValue.trim() || isTyping}
             aria-label={c.sendLabel}
-            className="flex size-10 items-center justify-center rounded-xl bg-primary text-white shadow-md shadow-primary/20 transition-all duration-200 hover:scale-105 hover:bg-primary-hover active:scale-95 disabled:scale-100 disabled:opacity-40 disabled:pointer-events-none"
+            className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-md shadow-primary/25 transition-all duration-200 hover:scale-105 hover:bg-primary-hover active:scale-95 disabled:scale-100 disabled:opacity-40 disabled:pointer-events-none"
           >
-            <Send className="rtl-flip size-4" />
+            <Send className="rtl-flip size-[18px] translate-x-[1px]" />
           </button>
         </form>
         <style>{`
+          /* WhatsApp-style doodle backdrop, tinted with the brand navy */
+          .chatbot-doodle {
+            background-color: #EDE9E1;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='none' stroke='%230a2472' stroke-opacity='0.10' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='22' cy='24' r='8'/%3E%3Cpath d='M52 18h18v14H58l-6 6z'/%3E%3Cpath d='M96 16l6 12-6 12-6-12z'/%3E%3Cpath d='M120 22h12M126 16v12'/%3E%3Cpath d='M14 62h16v12H14z'/%3E%3Cpath d='M46 56l10 6-10 6z'/%3E%3Ccircle cx='84' cy='64' r='9'/%3E%3Cpath d='M112 58c6 0 10 4 10 9s-4 9-10 9-10-4-10-9'/%3E%3Cpath d='M18 104c4-6 12-6 16 0'/%3E%3Ccircle cx='26' cy='114' r='3'/%3E%3Cpath d='M52 100h16v16H52z'/%3E%3Cpath d='M56 104h8v8h-8z'/%3E%3Cpath d='M90 100l8 8-8 8-8-8z'/%3E%3Cpath d='M116 100v16M110 108h12'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat;
+          }
+
+          /* Bubble tails */
+          .bubble-in::before,
+          .bubble-out::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 12px solid transparent;
+          }
+          .bubble-in::before {
+            left: -8px;
+            border-right: 9px solid #ffffff;
+          }
+          .bubble-out::before {
+            right: -8px;
+            border-left: 9px solid var(--primary);
+          }
+          [dir='rtl'] .bubble-in::before {
+            left: auto;
+            right: -8px;
+            border-right: 0;
+            border-left: 9px solid #ffffff;
+          }
+          [dir='rtl'] .bubble-out::before {
+            right: auto;
+            left: -8px;
+            border-left: 0;
+            border-right: 9px solid var(--primary);
+          }
+
           .chatbot-messages::-webkit-scrollbar {
             width: 5px;
           }
