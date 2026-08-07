@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { blogPosts, siteUrl } from '@/lib/content'
 import { categories, products } from '@/lib/products'
 import { areas } from '@/lib/seo/locations'
-import { locales } from '@/lib/i18n/config'
+import { defaultLocale, locales } from '@/lib/i18n/config'
 
 /**
  * Every URL is emitted once per locale, and each entry carries `alternates` so
@@ -13,7 +13,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
   function languages(path: string) {
-    return Object.fromEntries(locales.map((locale) => [locale, `${siteUrl}/${locale}${path}`]))
+    return {
+      ...Object.fromEntries(locales.map((locale) => [locale, `${siteUrl}/${locale}${path}`])),
+      /**
+       * Tells Google which version to serve when a visitor's language matches
+       * neither `en` nor `ar` — without it, searchers outside those two
+       * languages get an arbitrary pick. The page-level metadata already
+       * declares this; the sitemap was the one place still missing it.
+       */
+      'x-default': `${siteUrl}/${defaultLocale}${path}`,
+    }
   }
 
   function entry(
