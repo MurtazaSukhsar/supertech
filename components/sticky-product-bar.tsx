@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import Link from 'next/link'
 import { Mail } from 'lucide-react'
 import type { Product } from '@/lib/products'

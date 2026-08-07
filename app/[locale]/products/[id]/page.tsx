@@ -17,6 +17,7 @@ import {
   getProductLocalized,
   getRelatedProductsLocalized,
 } from '@/lib/catalog'
+import { description as metaDescription, title as metaTitle } from '@/lib/seo/meta'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, locales, type Locale } from '@/lib/i18n/config'
 
@@ -34,11 +35,11 @@ export async function generateMetadata({
   const product = getProductLocalized(id, locale as Locale)
   if (!product) return {}
 
-  const title = `${product.name} ${t.products.inKuwait}`
+  const title = metaTitle(`${product.name} ${t.products.inKuwait}`, t.meta.titleTemplate)
 
   return {
     title,
-    description: `${product.description} ${t.products.metaSuffix}`,
+    description: metaDescription(product.description, t.products.metaSuffix),
     alternates: {
       canonical: `/${locale}/products/${product.id}`,
       languages: {

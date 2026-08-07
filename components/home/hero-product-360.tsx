@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 
 const AUTO_SPEED = 0.09 // degrees per frame
 const DRAG_SENSITIVITY = 0.35 // degrees per px of pointer travel

@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { Image } from '@/components/site-image'
+import { Download, Mail, MapPin, Phone } from 'lucide-react'
+import { CATALOGUE_PATH } from '@/components/catalogue-download'
 import { categories, contactInfo } from '@/lib/products'
 import { categoryTranslationsAr } from '@/lib/products-ar'
 import { useI18n } from '@/components/i18n-provider'
@@ -85,6 +86,25 @@ export function SiteFooter() {
                 >
                   {t.nav.faq}
                 </Link>
+              </li>
+              {/* Sitewide link so the area pages are crawled from every page. */}
+              <li>
+                <Link
+                  href={href('/hardware-shop')}
+                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  {t.locations.breadcrumb}
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={CATALOGUE_PATH}
+                  download="Super-Tech-Product-Catalogue.pdf"
+                  className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 transition-colors hover:text-accent"
+                >
+                  <Download className="size-3.5 shrink-0" aria-hidden="true" />
+                  {t.catalogue.footerLink}
+                </a>
               </li>
               <li>
                 <Link

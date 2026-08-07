@@ -5,6 +5,7 @@ import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CategoryIcon } from '@/components/category-icon'
 import { CategoryProductGrid } from '@/components/category-product-grid'
 import { getCategoryLocalized, getProductsByCategoryLocalized } from '@/lib/catalog'
+import { description as metaDescription, title as metaTitle } from '@/lib/seo/meta'
 import { getDictionary } from '@/lib/i18n'
 import { locales, type Locale } from '@/lib/i18n/config'
 
@@ -22,11 +23,16 @@ export async function generateMetadata({
   const category = getCategoryLocalized(slug, locale as Locale)
   if (!category) return {}
 
-  const title = `${category.name} — ${t.categories.supplierIn}`
+  // "Copper Pipes in Kuwait" outranks "Copper Pipes — Supplier in Kuwait":
+  // shorter, and it survives Google's title truncation with the brand intact.
+  const title = metaTitle(
+    `${category.name} ${t.categories.titleSuffix}`,
+    t.meta.titleTemplate,
+  )
 
   return {
     title,
-    description: `${category.description} ${t.categories.requestBulkPricing}`,
+    description: metaDescription(category.description, t.categories.requestBulkPricing),
     alternates: {
       canonical: `/${locale}/categories/${category.slug}`,
       languages: {

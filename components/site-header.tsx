@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import { useRouter, usePathname } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
@@ -112,6 +112,7 @@ export function SiteHeader() {
                 scrolled ? 'h-10 sm:h-12 md:h-16 lg:h-18' : 'h-12 sm:h-16 md:h-22 lg:h-28'
               }`}
               priority
+              suppressHydrationWarning
             />
           </Link>
 

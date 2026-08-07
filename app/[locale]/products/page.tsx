@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { CatalogueDownload } from '@/components/catalogue-download'
 import { CategoryProductGrid } from '@/components/category-product-grid'
 import { getProducts } from '@/lib/catalog'
 import { getDictionary } from '@/lib/i18n'
@@ -42,13 +43,22 @@ export default async function ProductsPage({
       {/* Products hero banner */}
       <section className="bg-primary">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:px-8 md:py-24 lg:px-12">
-          <div>
-            <h1 className="text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-4xl lg:text-5xl">
-              {t.products.title}
-            </h1>
-            <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-primary-foreground/75 md:text-base md:leading-relaxed">
-              {t.products.subtitle}
-            </p>
+          {/*
+            Centred against the heading block rather than bottom-aligned: the
+            text column is two lines taller than the button, so `items-end`
+            left it stranded away from anything it relates to.
+          */}
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h1 className="text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-4xl lg:text-5xl">
+                {t.products.title}
+              </h1>
+              <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-primary-foreground/75 md:text-base md:leading-relaxed">
+                {t.products.subtitle}
+              </p>
+            </div>
+            {/* Buyers who want the whole range offline are already here. */}
+            <CatalogueDownload className="shrink-0 self-start lg:self-auto" />
           </div>
         </div>
       </section>

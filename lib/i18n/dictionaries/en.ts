@@ -1,25 +1,56 @@
 export const en = {
   meta: {
     siteName: 'Super Tech International Construction Materials Co.',
-    titleDefault: 'Super Tech Int’l Construction Materials Co. | Kuwait',
-    titleTemplate: '%s | Super Tech Int’l Construction Materials Co.',
+    /**
+     * Local-intent titles lead with what a searcher types ("hardware shop",
+     * "Kuwait"), not with the legal company name. Brand goes last so the
+     * keyword survives Google's ~60-character title truncation.
+     */
+    titleDefault: 'Hardware Shop in Kuwait | AC Materials & Tools | Super Tech',
+    titleTemplate: '%s | Super Tech Kuwait',
     description:
-      'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand & power tools, and construction materials. Request a quote today.',
+      'Hardware shop in Shuwaikh Industrial, Kuwait. AC materials, copper pipe, hand & power tools, plumbing and electrical supplies. Call +965 6506 1752.',
     keywords: [
+      'hardware shop Kuwait',
+      'hardware store Kuwait',
+      'hardware shop near me',
+      'hardware store near me Kuwait',
+      'hardware shop Shuwaikh',
       'construction materials Kuwait',
       'air conditioning materials Kuwait',
+      'AC spare parts Kuwait',
+      'copper pipe supplier Kuwait',
       'hardware supplier Kuwait',
       'power tools Kuwait',
+      'hand tools shop Kuwait',
+      'plumbing materials Kuwait',
+      'electrical materials Kuwait',
       'industrial equipment Kuwait',
-      'HVAC materials supplier',
+      'HVAC materials supplier Kuwait',
+      'building materials Shuwaikh',
+      'tools shop Kuwait City',
     ],
     ogDescription:
-      'Kuwait-based supplier of HVAC materials, hardware, tools, and construction materials.',
+      'Hardware shop in Shuwaikh Industrial, Kuwait — AC materials, tools, plumbing, electrical and construction supplies for walk-in customers and contractors.',
     schemaDescription:
-      'Kuwait-based supplier of air-conditioning materials, hardware supplies, hand and power tools, and construction materials.',
+      'Super Tech is a hardware shop and construction materials supplier in Shuwaikh Industrial Area, Kuwait. We stock air-conditioning materials, copper pipes, insulation, refrigerants, duct accessories, hand and power tools, clamps, plumbing and electrical supplies for walk-in customers, contractors and bulk buyers across Kuwait.',
     streetAddress: 'Shuwaikh Industrial Area',
     addressLocality: 'Kuwait City',
     areaServed: 'Kuwait',
+    /** Governorates + high-traffic areas used for schema areaServed and location pages. */
+    areasServed: [
+      'Kuwait City',
+      'Shuwaikh',
+      'Hawalli',
+      'Salmiya',
+      'Farwaniya',
+      'Ahmadi',
+      'Jahra',
+      'Mubarak Al-Kabeer',
+      'Fahaheel',
+      'Sabhan',
+      'Shuwaikh Industrial Area',
+    ],
   },
 
   common: {
@@ -159,9 +190,9 @@ export const en = {
   },
 
   about: {
-    metaTitle: 'About Us',
+    metaTitle: 'About Our Hardware Shop in Kuwait',
     metaDescription:
-      'Learn about Super Tech International Construction Materials Co., a Kuwait-based supplier of air-conditioning materials, hardware, tools, and construction materials.',
+      'Super Tech is a hardware shop and construction materials supplier in Shuwaikh Industrial Area, Kuwait — AC materials, tools, plumbing and electrical supplies.',
     eyebrow: 'Who We Are',
     title: 'Built to Supply Kuwait’s Builders',
     breadcrumb: 'About Us',
@@ -177,10 +208,9 @@ export const en = {
   },
 
   products: {
-    metaTitle:
-      'All Air-Conditioning Materials, Hardware, Tools & Construction Supplies | Kuwait',
+    metaTitle: 'Hardware, AC Materials & Tools in Kuwait',
     metaDescription:
-      'Browse our full collection of copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, cement, and steel at Super Tech Kuwait.',
+      'Copper pipe pancake coils, rubber insulation, Honeywell refrigerants, hand & power tools, clamps, plumbing and electrical supplies — in stock in Shuwaikh.',
     title: 'All Products',
     subtitle:
       'Browse our complete catalog of industrial materials, tools, A/C supplies, and construction hardware. Use the filters to find specific specifications and brands.',
@@ -232,7 +262,47 @@ export const en = {
 
   categories: {
     supplierIn: 'Supplier in Kuwait',
-    requestBulkPricing: 'Request bulk pricing and delivery from Super Tech Kuwait.',
+    /** Short title tail — keeps category titles inside Google's 60-char cut. */
+    titleSuffix: 'in Kuwait',
+    requestBulkPricing:
+      'In stock at our Shuwaikh Industrial hardware shop. Request bulk pricing and delivery anywhere in Kuwait.',
+  },
+
+  catalogue: {
+    download: 'Download Full Catalogue',
+    eyebrow: 'Full Product Range',
+    title: 'Take the Catalogue With You',
+    subtitle:
+      'Every product in this catalogue with photos, specifications and brands \u2014 in one PDF you can share with your team or print for the site office.',
+    footerLink: 'Product Catalogue (PDF)',
+  },
+
+  locations: {
+    indexMetaTitle: 'Hardware Shop Areas We Serve in Kuwait',
+    indexMetaDescription:
+      'Hardware, AC materials and tools delivered across Kuwait — Shuwaikh, Kuwait City, Hawalli, Salmiya, Farwaniya, Ahmadi, Jahra and Fahaheel.',
+    indexEyebrow: 'Areas We Serve',
+    indexTitle: 'Hardware Shop Serving All of Kuwait',
+    indexSubtitle:
+      'Our shop is in Shuwaikh Industrial Area and we deliver across every governorate. Pick your area to see what we stock for it and how delivery works.',
+    breadcrumb: 'Areas We Serve',
+    titlePrefix: 'Hardware Shop in',
+    eyebrow: 'Local Supply',
+    heroSuffix: 'Kuwait',
+    distanceLabel: 'from our Shuwaikh shop',
+    governorateLabel: 'Governorate',
+    whatWeSupply: 'What This Area Orders Most',
+    deliveryTitle: 'Delivery & Collection',
+    highlightsTitle: 'Why Buyers Here Choose Super Tech',
+    categoriesTitle: 'Product Categories Available',
+    categoriesSubtitle: 'Every category below is stocked and delivered to this area.',
+    ctaTitle: 'Need Materials Delivered Here?',
+    ctaSubtitle:
+      'Send your material list with quantities. We confirm availability, pricing and a delivery slot in one reply.',
+    visitShop: 'Visit the Shop',
+    otherAreas: 'Other Areas We Serve',
+    approx: 'approx.',
+    km: 'km',
   },
 
   search: {
@@ -248,7 +318,7 @@ export const en = {
   },
 
   blog: {
-    metaTitle: 'Blog',
+    metaTitle: 'Buying Guides for Kuwait Contractors',
     metaDescription:
       'Buying guides and practical advice for air-conditioning materials, hardware supplies, construction materials, tools, and industrial equipment in Kuwait.',
     eyebrow: 'Resource Center',
@@ -269,9 +339,9 @@ export const en = {
   },
 
   faq: {
-    metaTitle: 'FAQ',
+    metaTitle: 'Hardware Shop FAQ — Kuwait',
     metaDescription:
-      'Frequently asked questions about Super Tech Kuwait, product supply, bulk quotes, air-conditioning materials, hardware, tools, delivery, and project orders.',
+      'Opening hours, our Shuwaikh Industrial location, bulk quotes, delivery across Kuwait and the product ranges we stock — answered.',
     eyebrow: 'FAQ',
     title: 'Questions Contractors Ask Before Ordering',
     subtitle:
@@ -284,9 +354,9 @@ export const en = {
   },
 
   contact: {
-    metaTitle: 'Contact Us',
+    metaTitle: 'Contact & Shop Location in Shuwaikh',
     metaDescription:
-      'Get in touch with Super Tech International Construction Materials Co. in Kuwait for quotes, bulk orders, and product inquiries.',
+      'Visit our hardware shop in Shuwaikh Industrial Area, Kuwait City. Directions, opening hours, phone +965 6506 1752 and WhatsApp quote requests.',
     eyebrow: 'Get In Touch',
     title: 'Contact Super Tech',
     subtitle:

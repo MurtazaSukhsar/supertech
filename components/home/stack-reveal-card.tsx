@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import { motion, type MotionValue, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 

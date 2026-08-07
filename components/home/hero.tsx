@@ -1,11 +1,18 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowRight, CheckCircle2, ShieldCheck, Sparkles, Building2, Truck, Wrench } from 'lucide-react'
+import { Image } from '@/components/site-image'
+import { ArrowRight, ShieldCheck, Truck } from 'lucide-react'
 
-import { HeroProductCarousel } from '@/components/home/hero-product-carousel'
 import { useI18n } from '@/components/i18n-provider'
+
+// Render the animated carousel (and its images) client-only to avoid
+// server/client srcSet hydration mismatches from the animated layout.
+const HeroProductCarousel = dynamic(
+  () => import('@/components/home/hero-product-carousel').then((m) => m.HeroProductCarousel),
+  { ssr: false },
+)
 
 export function Hero() {
   const { t, href, isRtl } = useI18n()
@@ -20,6 +27,7 @@ export function Hero() {
         priority
         sizes="100vw"
         className="ken-burns object-cover opacity-30 mix-blend-overlay"
+        suppressHydrationWarning
       />
       <div className={`absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/70 ${isRtl ? 'bg-gradient-to-l' : ''}`}
         aria-hidden="true" />

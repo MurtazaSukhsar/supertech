@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import { ArrowRight, Layers, Plus } from 'lucide-react'
 import { getCategoryColor, type Product } from '@/lib/products'
 import { getCategoryLocalized } from '@/lib/catalog'

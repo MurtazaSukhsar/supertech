@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { blogPosts, siteUrl } from '@/lib/content'
 import { categories, products } from '@/lib/products'
+import { areas } from '@/lib/seo/locations'
 import { locales } from '@/lib/i18n/config'
 
 /**
@@ -30,12 +31,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   }
 
-  const staticRoutes = ['', '/about', '/contact', '/faq', '/blog', '/products'].flatMap((route) =>
-    entry(route, now, 'weekly', route === '' ? 1 : 0.8),
-  )
+  const staticRoutes = [
+    '',
+    '/about',
+    '/contact',
+    '/faq',
+    '/blog',
+    '/products',
+    '/hardware-shop',
+  ].flatMap((route) => entry(route, now, 'weekly', route === '' ? 1 : 0.8))
 
   const categoryRoutes = categories.flatMap((category) =>
     entry(`/categories/${category.slug}`, now, 'weekly', 0.85),
+  )
+
+  /**
+   * Area pages sit high in the sitemap because they are the pages targeting
+   * "hardware shop in <area>" — the queries with the clearest buying intent.
+   */
+  const areaRoutes = areas.flatMap((area) =>
+    entry(`/hardware-shop/${area.slug}`, now, 'weekly', 0.85),
   )
 
   const productRoutes = products.flatMap((product) =>
@@ -46,5 +61,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(`/blog/${post.slug}`, new Date(post.publishedAt), 'monthly', 0.75),
   )
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...blogRoutes]
+  return [...staticRoutes, ...categoryRoutes, ...areaRoutes, ...productRoutes, ...blogRoutes]
 }

@@ -3,7 +3,7 @@ import { Hero } from '@/components/home/hero'
 import { CategorySlideshow } from '@/components/home/category-slideshow'
 import { TrustBadges } from '@/components/home/trust-badges'
 import { CategoryGrid } from '@/components/home/category-grid'
-import { FeaturedProducts } from '@/components/home/featured-products'
+import { FeaturedProductsClient } from '@/components/home/featured-products-client'
 import { StatsCounter } from '@/components/home/stats-counter'
 import { WhyChooseUs } from '@/components/home/why-choose-us'
 import { Testimonials } from '@/components/home/testimonials'
@@ -20,7 +20,9 @@ export async function generateMetadata({
   const t = getDictionary(locale)
 
   return {
-    title: t.products.metaTitle,
+    // `absolute` stops the layout template from appending the brand twice —
+    // the homepage title already carries it.
+    title: { absolute: t.meta.titleDefault },
     description: t.meta.description,
     alternates: {
       canonical: `/${locale}`,
@@ -36,7 +38,7 @@ export default function HomePage() {
       <CategorySlideshow />
       <TrustBadges />
       <CategoryGrid />
-      <FeaturedProducts />
+      <FeaturedProductsClient />
       <StatsCounter />
       <WhyChooseUs />
       <Testimonials />

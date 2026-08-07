@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import { ArrowRight } from 'lucide-react'
 import { getCategories } from '@/lib/catalog'
 import { useI18n } from '@/components/i18n-provider'

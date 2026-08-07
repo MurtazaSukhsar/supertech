@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import { Image } from '@/components/site-image'
 import { ArrowRight } from 'lucide-react'
 
 import { getFeaturedProducts, getCategory, getCategoryColor } from '@/lib/products'

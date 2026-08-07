@@ -14,7 +14,12 @@ import { LoadingScreen } from '@/components/loading-screen'
 import { I18nProvider } from '@/components/i18n-provider'
 import { ScrollProgress } from '@/components/scroll-progress'
 import { siteUrl } from '@/lib/content'
-import { contactInfo } from '@/lib/products'
+import {
+  localBusinessSchema,
+  organizationSchema,
+  schemaGraph,
+  websiteSchema,
+} from '@/lib/seo/schema'
 import { getDictionary } from '@/lib/i18n'
 import { getDir, isLocale, localeConfig, locales, type Locale } from '@/lib/i18n/config'
 import '../globals.css'
@@ -94,23 +99,15 @@ export default async function LocaleLayout({
   const dir = getDir(locale)
   const isRtl = dir === 'rtl'
 
-  const localBusinessSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: t.meta.siteName,
-    description: t.meta.schemaDescription,
-    url: `${siteUrl}/${locale}`,
-    telephone: contactInfo.phone,
-    email: contactInfo.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: t.meta.streetAddress,
-      addressLocality: t.meta.addressLocality,
-      addressCountry: 'KW',
-    },
-    areaServed: t.meta.areaServed,
-    inLanguage: locale,
-  }
+  /**
+   * Emitted on every page as a single @graph so Google merges the shop,
+   * company and site into one entity rather than three competing ones.
+   */
+  const siteSchema = schemaGraph([
+    localBusinessSchema(locale, t),
+    organizationSchema(t),
+    websiteSchema(locale, t),
+  ])
 
   return (
     <html
@@ -135,7 +132,7 @@ export default async function LocaleLayout({
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+          dangerouslySetInnerHTML={{ __html: siteSchema }}
         />
         <I18nProvider locale={locale} dictionary={t}>
           <LoadingScreen />
