@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { categories } from '@/lib/products'
+import { getCategories } from '@/lib/products'
 import { CategoryIcon } from '@/components/category-icon'
 
 
@@ -24,7 +24,8 @@ export function ScrollShowcase() {
       const progress = Math.min(1, Math.max(0, traveled / total))
 
       progressRef.current = progress
-      setActiveIdx(Math.min(categories.length - 1, Math.floor(progress * categories.length)))
+      const cats = getCategories()
+      setActiveIdx(Math.min(cats.length - 1, Math.floor(progress * cats.length)))
     }
 
     handleScroll()
@@ -57,7 +58,7 @@ export function ScrollShowcase() {
           </p>
 
           <div className="mt-10 flex flex-col gap-1 md:max-w-sm">
-            {categories.map((cat, i) => (
+            {getCategories().map((cat, i) => (
               <div
                 key={cat.slug}
                 className={`flex items-center gap-4 rounded-xl px-4 py-3.5 transition-all duration-500 ${

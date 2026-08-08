@@ -8,6 +8,7 @@ import { getCategoryLocalized, getProductsByCategoryLocalized } from '@/lib/cata
 import { description as metaDescription, title as metaTitle } from '@/lib/seo/meta'
 import { getDictionary } from '@/lib/i18n'
 import { locales, type Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => categories.map((cat) => ({ locale, slug: cat.slug })))
@@ -18,6 +19,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale, slug } = await params
   const t = getDictionary(locale)
   const category = getCategoryLocalized(slug, locale as Locale)
@@ -54,6 +56,7 @@ export default async function CategoryPage({
 }: {
   params: Promise<{ locale: string; slug: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale, slug } = await params
   const t = getDictionary(locale)
   const category = getCategoryLocalized(slug, locale as Locale)

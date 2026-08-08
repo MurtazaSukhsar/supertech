@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { blogPosts, siteUrl } from '@/lib/content'
-import { categories, products } from '@/lib/products'
+import { getAllProducts, getCategories } from '@/lib/products'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 import { areas } from '@/lib/seo/locations'
 import { defaultLocale, locales } from '@/lib/i18n/config'
 
@@ -9,7 +10,13 @@ import { defaultLocale, locales } from '@/lib/i18n/config'
  * Google sees the en/ar pair as one page in two languages rather than as
  * duplicate content.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // The sitemap doesn't go through the locale layout, so it primes its own copy
+  // of the catalogue — otherwise new products would never get listed.
+  await primeSiteDataSafely()
+
+  const categories = getCategories()
+  const products = getAllProducts()
   const now = new Date()
 
   function languages(path: string) {

@@ -6,6 +6,7 @@ import { Image } from '@/components/site-image'
 import { ArrowRight, ShieldCheck, Truck } from 'lucide-react'
 
 import { useI18n } from '@/components/i18n-provider'
+import { siteImages } from '@/lib/products'
 
 // Render the animated carousel (and its images) client-only to avoid
 // server/client srcSet hydration mismatches from the animated layout.
@@ -21,7 +22,7 @@ export function Hero() {
     <section className="relative isolate overflow-hidden bg-primary py-16 sm:py-20 md:py-28 lg:py-32">
       {/* Full-Bleed Jobsite & Warehouse Background Image */}
       <Image
-        src="/images/hero-warehouse.webp"
+        src={siteImages.heroBackground}
         alt={t.home.heroImageAlt}
         fill
         priority

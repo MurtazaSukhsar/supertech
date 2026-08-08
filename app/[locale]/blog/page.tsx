@@ -7,12 +7,14 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 import { getBlogPosts } from '@/lib/content-i18n'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, type Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -31,6 +33,7 @@ export default async function BlogPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
   const blogPosts = getBlogPosts(locale as Locale)

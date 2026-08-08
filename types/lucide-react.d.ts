@@ -14,6 +14,28 @@ declare module 'lucide-react' {
   const icons: { [key: string]: LucideIcon }
   export default icons
 
+  export const AlertTriangle: LucideIcon
+  export const Copy: LucideIcon
+  export const Fan: LucideIcon
+  export const FolderTree: LucideIcon
+  export const Images: LucideIcon
+  export const ImageIcon: LucideIcon
+  export const LayoutDashboard: LucideIcon
+  export const Loader2: LucideIcon
+  export const LogOut: LucideIcon
+  export const Package: LucideIcon
+  export const Save: LucideIcon
+  export const Settings: LucideIcon
+  export const Star: LucideIcon
+  export const Type: LucideIcon
+  export const ChevronUp: LucideIcon
+  export const Droplets: LucideIcon
+  export const PenTool: LucideIcon
+  export const Zap: LucideIcon
+  export const Waves: LucideIcon
+  export const Box: LucideIcon
+  export const Paperclip: LucideIcon
+  export const Building: LucideIcon
   export const ArrowLeft: LucideIcon
   export const ArrowRight: LucideIcon
   export const BadgeCheck: LucideIcon

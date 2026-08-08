@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 import { useI18n } from '@/components/i18n-provider'
+import { siteImages } from '@/lib/products'
 
 const MIN_DURATION = 900 // keep the brand moment on screen at least this long
 const MAX_DURATION = 7000 // hard fallback so a stuck asset never blocks the site
@@ -150,7 +151,7 @@ export function LoadingScreen() {
           {/* Plain <img> on purpose: skips the image optimizer hop so the mark paints instantly.
               multiply blending knocks out the JPEG's white box, so it reads as transparent. */}
           <img
-            src="/images/logo.webp"
+            src={siteImages.logo}
             alt={t.meta.siteName}
             className="st-loader__logo"
             decoding="async"

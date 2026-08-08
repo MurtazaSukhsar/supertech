@@ -5,12 +5,15 @@ import { CategoryProductGrid } from '@/components/category-product-grid'
 import { getProducts } from '@/lib/catalog'
 import { getDictionary } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
+import { siteImages } from '@/lib/products'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -24,7 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: t.products.metaTitle,
       description: t.products.metaDescription,
-      images: ['/images/hero-warehouse.webp'],
+      images: [siteImages.heroBackground],
     },
   }
 }
@@ -34,6 +37,7 @@ export default async function ProductsPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
   const products = getProducts(locale as Locale)

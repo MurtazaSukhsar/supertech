@@ -5,12 +5,14 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 import { searchProductsLocalized } from '@/lib/catalog'
 import { getDictionary } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -28,6 +30,7 @@ export default async function SearchPage({
   params: Promise<{ locale: string }>
   searchParams: Promise<{ q?: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const { q = '' } = await searchParams
   const t = getDictionary(locale)

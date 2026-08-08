@@ -13,6 +13,8 @@ import { localePath, locales, type Locale } from '@/lib/i18n/config'
 import { areas, getArea } from '@/lib/seo/locations'
 import { geo } from '@/lib/seo/business'
 import { breadcrumbSchema, localBusinessId, schemaGraph } from '@/lib/seo/schema'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
+import { siteImages } from '@/lib/products'
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => areas.map((area) => ({ locale, area: area.slug })))
@@ -23,6 +25,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; area: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale, area: slug } = await params
   const t = getDictionary(locale)
   const area = getArea(slug)
@@ -46,7 +49,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description: content.metaDescription,
-      images: ['/images/hero-warehouse.webp'],
+      images: [siteImages.heroBackground],
     },
   }
 }
@@ -56,6 +59,7 @@ export default async function AreaPage({
 }: {
   params: Promise<{ locale: string; area: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale: rawLocale, area: slug } = await params
   const locale = rawLocale as Locale
   const t = getDictionary(rawLocale)

@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "clamps",
+    "name": "Clamps & Supports",
+    "shortName": "Clamps",
+    "description": "Various clamps and supports for piping, ductwork, and electrical conduits.",
+    "icon": "paperclip",
+    "image": "/images/products/gi-universal-clamp.webp",
+    "subcategories": [
+      "Pipe Supports & Clamps",
+      "Structural Supports & Framing"
+    ]
+  },
+  {
+    "slug": "air-conditioning",
+    "name": "Air-Conditioning Materials",
+    "shortName": "A/C Materials",
+    "description": "Copper pipes, insulation, refrigerants, dampers, access valves, flexible ducts, and materials for professional HVAC installation.",
+    "icon": "wind",
+    "image": "/images/products/copper-coil.webp",
+    "subcategories": [
+      "Copper Pipes & Coils",
+      "Copper Pipes & Fittings",
+      "Brass Fittings & Valves",
+      "Duct Accessories & Hardware",
+      "Duct Sealants & Coatings",
+      "Duct Tapes & Accessories",
+      "Flexible Ducts",
+      "Refrigeration Components",
+      "Pipe Supports & Clamps"
+    ]
+  },
+  {
+    "slug": "hardware",
+    "name": "Hardware Supplies",
+    "shortName": "Hardware",
+    "description": "Galvanized fasteners, conduit couplings, electrical sockets, jute hemp, test plugs, clips, and plumbing hardware.",
+    "icon": "wrench",
+    "image": "/images/products/galvanized-fasteners.webp",
+    "subcategories": [
+      "Fasteners & Fittings"
+    ]
+  },
+  {
+    "slug": "tools",
+    "name": "Hand & Power Tools",
+    "shortName": "Tools",
+    "description": "Professional-grade hand tools and power tools from trusted brands built for daily jobsite performance.",
+    "icon": "drill",
+    "image": "/images/products/cordless-drill.webp",
+    "subcategories": [
+      "Power Tools",
+      "Hand Tools"
+    ]
+  },
+  {
+    "slug": "construction",
+    "name": "Construction Materials",
+    "shortName": "Construction",
+    "description": "Slotted unistrut channels, UPVC pipe fittings, drop-in anchors, paint brushes, wrapping tapes, and solvent thinners.",
+    "icon": "building",
+    "image": "/images/products/slotted-channel.webp",
+    "subcategories": [
+      "Structural Supports & Framing",
+      "Anchoring & Fasteners",
+      "Tapes & Surface Protection",
+      "Chemicals & Cleaners",
+      "Painting & Surface Prep"
+    ]
+  },
+  {
+    "slug": "plumbing",
+    "name": "Plumbing Supplies",
+    "shortName": "Plumbing",
+    "description": "UPVC pressure & drainage fittings, test plugs, gauge cock valves, jute hemp, thread sealants, and plumbing materials.",
+    "icon": "droplets",
+    "image": "/images/products/upvc-fitting.webp",
+    "subcategories": [
+      "Plumbing & Drainage",
+      "Plumbing Supplies",
+      "Plumbing & Testing Equipment",
+      "Plumbing & Valves"
+    ]
+  },
+  {
+    "slug": "electric",
+    "name": "Electrical Supplies",
+    "shortName": "Electrical",
+    "description": "Galvanized conduit couplings, industrial plugs & sockets, spring conduit clips, cable containment, and electrical hardware.",
+    "icon": "zap",
+    "image": "/images/products/industrial-socket.webp",
+    "subcategories": [
+      "Electrical Supplies",
+      "Fasteners & Clamps"
+    ]
+  },
+  {
+    "slug": "duct-accessories",
+    "name": "Duct Accessories",
+    "shortName": "Duct Accessories",
+    "description": "Flexible ducts, volume control dampers, duct sealants, adhesives, acoustic insulation, vibration hangers, and ductwork hardware.",
+    "icon": "fan",
+    "image": "/images/products/insulated-flexible-duct.webp",
+    "subcategories": [
+      "Flexible Ducts",
+      "Duct Sealants & Coatings",
+      "Duct Tapes & Accessories",
+      "Duct Accessories & Hardware",
+      "Duct Accessories & Insulation"
+    ]
+  }
+]

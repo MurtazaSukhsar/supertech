@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Phone, Mail, MapPin, Clock, ArrowRight, Sparkles } from 'lucide-react'
-import { contactInfo } from '@/lib/products'
+import { contactInfo, siteImages } from '@/lib/products'
 import { useI18n } from '@/components/i18n-provider'
 import {
   getAutoResponse,
@@ -219,7 +219,7 @@ export function Chatbot() {
                   emits a different srcSet on the client than on the server here. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/logo.webp"
+                src={siteImages.logo}
                 alt={c.headerTitle}
                 width={88}
                 height={46}

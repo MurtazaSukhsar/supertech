@@ -9,12 +9,14 @@ import { getDictionary } from '@/lib/i18n'
 import { localePath, type Locale } from '@/lib/i18n/config'
 import { areas } from '@/lib/seo/locations'
 import { breadcrumbSchema, schemaGraph } from '@/lib/seo/schema'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -37,6 +39,7 @@ export default async function LocationsIndexPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale: rawLocale } = await params
   const locale = rawLocale as Locale
   const t = getDictionary(rawLocale)

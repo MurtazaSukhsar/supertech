@@ -46,6 +46,26 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // The admin panel is single-language and lives outside the locale segments.
+  // The real check is `requireAdmin()` in each page, which verifies the JWT
+  // with Supabase; this is only a cheap bounce for visitors with no session
+  // cookie at all, so an unauthenticated hit never boots a page render.
+  if (pathname.startsWith('/admin')) {
+    if (pathname === '/admin/login') return NextResponse.next()
+
+    const hasSupabaseSession = request.cookies
+      .getAll()
+      .some((cookie) => cookie.name.startsWith('sb-') && cookie.name.includes('auth-token'))
+
+    if (!hasSupabaseSession) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/admin/login'
+      url.search = `?next=${encodeURIComponent(pathname)}`
+      return NextResponse.redirect(url)
+    }
+    return NextResponse.next()
+  }
+
   const hasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
   )

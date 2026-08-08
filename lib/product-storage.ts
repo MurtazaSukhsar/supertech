@@ -1,94 +1,69 @@
-import { products as staticProducts, Product } from './products'
+import type { Category, ContactInfo, Product, SiteImages } from './products'
+import siteSeed from '@/data/site.json'
 
-const STORAGE_KEY = 'supertech_custom_products_v1'
-const DELETED_KEY = 'supertech_deleted_product_ids_v1'
+/**
+ * Runtime cache for everything the catalogue helpers read.
+ *
+ * The problem this solves: roughly twenty components call synchronous helpers
+ * like `getAllProducts()` or read `contactInfo.phone` during render. Supabase
+ * is async. Rather than turn all of them into async server components — and
+ * lose the client ones entirely — the live data is loaded once per request by
+ * the layout and pushed in here, and the helpers read through it.
+ *
+ * `contactInfo` and `siteImages` are mutated in place rather than reassigned,
+ * because modules that imported them hold the original reference. Assigning a
+ * new object would update this module and nothing else.
+ *
+ * Sharing this across requests is safe: the catalogue is the same for every
+ * visitor, so there is no per-user state to leak.
+ */
 
-export function getStoredCustomProducts(): Product[] {
-  if (typeof window === 'undefined') return []
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch (e) {
-    console.error('Failed to read custom products from localStorage', e)
-    return []
-  }
+export type ArabicData = {
+  categories: Record<string, { name: string; shortName: string; description: string }>
+  subcategories: Record<string, string>
+  specKeys: Record<string, string>
+  products: Record<string, { name: string; description: string; specs?: Record<string, string> }>
 }
 
-export function getDeletedProductIds(): string[] {
-  if (typeof window === 'undefined') return []
-  try {
-    const raw = localStorage.getItem(DELETED_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch (e) {
-    console.error('Failed to read deleted product IDs', e)
-    return []
-  }
+let runtimeProducts: Product[] | null = null
+let runtimeCategories: Category[] | null = null
+let runtimeArabic: ArabicData | null = null
+
+/** Seeded from the committed JSON so the site still renders before the first load. */
+export const contactInfo: ContactInfo = { ...(siteSeed.contact as unknown as ContactInfo) }
+export const siteImages: SiteImages = { ...(siteSeed.images as unknown as SiteImages) }
+
+export function getRuntimeProducts(): Product[] | null {
+  return runtimeProducts
 }
 
-export function getAllActiveProducts(): Product[] {
-  const custom = getStoredCustomProducts()
-  const deletedIds = new Set(getDeletedProductIds())
-
-  // Overwrite static products with custom edited ones if IDs match
-  const customMap = new Map(custom.map((p) => [p.id, p]))
-
-  const mergedStatic = staticProducts
-    .filter((p) => !deletedIds.has(p.id))
-    .map((p) => customMap.get(p.id) || p)
-
-  // Append new custom products that were not in static list
-  const staticIds = new Set(staticProducts.map((p) => p.id))
-  const newCustom = custom.filter((p) => !staticIds.has(p.id) && !deletedIds.has(p.id))
-
-  return [...mergedStatic, ...newCustom]
+export function getRuntimeCategories(): Category[] | null {
+  return runtimeCategories
 }
 
-export function saveProductToStorage(product: Product): Product[] {
-  if (typeof window === 'undefined') return []
-  try {
-    const custom = getStoredCustomProducts()
-    const index = custom.findIndex((p) => p.id === product.id)
-    if (index >= 0) {
-      custom[index] = product
-    } else {
-      custom.push(product)
-    }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(custom))
-    // Also remove from deleted IDs if re-saved
-    const deleted = getDeletedProductIds().filter((id) => id !== product.id)
-    localStorage.setItem(DELETED_KEY, JSON.stringify(deleted))
-  } catch (e) {
-    console.error('Failed to save product to localStorage', e)
-  }
-  return getAllActiveProducts()
+export function getRuntimeArabic(): ArabicData | null {
+  return runtimeArabic
 }
 
-export function deleteProductFromStorage(productId: string): Product[] {
-  if (typeof window === 'undefined') return []
-  try {
-    // Remove from custom list
-    const custom = getStoredCustomProducts().filter((p) => p.id !== productId)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(custom))
-
-    // Mark as deleted
-    const deleted = getDeletedProductIds()
-    if (!deleted.includes(productId)) {
-      deleted.push(productId)
-      localStorage.setItem(DELETED_KEY, JSON.stringify(deleted))
-    }
-  } catch (e) {
-    console.error('Failed to delete product from localStorage', e)
-  }
-  return getAllActiveProducts()
+export function primeRuntimeSiteData(next: {
+  products?: Product[] | null
+  categories?: Category[] | null
+  contact?: Partial<ContactInfo> | null
+  images?: Partial<SiteImages> | null
+  translationsAr?: ArabicData | null
+}): void {
+  if (next.products?.length) runtimeProducts = next.products
+  if (next.categories?.length) runtimeCategories = next.categories
+  if (next.translationsAr) runtimeArabic = next.translationsAr
+  if (next.contact && Object.keys(next.contact).length > 0) Object.assign(contactInfo, next.contact)
+  if (next.images && Object.keys(next.images).length > 0) Object.assign(siteImages, next.images)
 }
 
-export function resetStorageToDefault(): Product[] {
-  if (typeof window === 'undefined') return staticProducts
-  try {
-    localStorage.removeItem(STORAGE_KEY)
-    localStorage.removeItem(DELETED_KEY)
-  } catch (e) {
-    console.error('Failed to reset localStorage', e)
-  }
-  return staticProducts
+/** Back-compat alias used by the client provider. */
+export const setRuntimeCatalog = primeRuntimeSiteData
+
+export function clearRuntimeCatalog(): void {
+  runtimeProducts = null
+  runtimeCategories = null
+  runtimeArabic = null
 }

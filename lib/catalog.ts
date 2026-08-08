@@ -10,8 +10,8 @@
  * translated — they are used for routing, filtering, and lookups.
  */
 import {
-  categories as enCategories,
-  products as enProducts,
+  getCategories as getEnCategories,
+  getAllProducts as getEnAllProducts,
   getCategory as getEnCategory,
   getProduct as getEnProduct,
   getProductsByCategory as getEnProductsByCategory,
@@ -91,7 +91,7 @@ export function localizeProduct(product: Product, locale: Locale): LocalizedProd
 /* ------------------------------------------------------------------ */
 
 export function getCategories(locale: Locale): LocalizedCategory[] {
-  return enCategories.map((category) => localizeCategory(category, locale))
+  return getEnCategories().map((category) => localizeCategory(category, locale))
 }
 
 export function getCategoryLocalized(slug: string, locale: Locale): LocalizedCategory | undefined {
@@ -100,7 +100,7 @@ export function getCategoryLocalized(slug: string, locale: Locale): LocalizedCat
 }
 
 export function getProducts(locale: Locale): LocalizedProduct[] {
-  return enProducts.map((product) => localizeProduct(product, locale))
+  return getEnAllProducts().map((product) => localizeProduct(product, locale))
 }
 
 export function getProductLocalized(id: string, locale: Locale): LocalizedProduct | undefined {
@@ -138,7 +138,7 @@ export function searchProductsLocalized(query: string, locale: Locale): Localize
 
   const arabicHits =
     locale === 'ar' || /[؀-ۿ]/.test(q)
-      ? enProducts.filter((product) => {
+      ? getEnAllProducts().filter((product) => {
           if (seen.has(product.id)) return false
           const tr = productTranslationsAr[product.id]
           if (!tr) return false

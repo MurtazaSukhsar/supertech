@@ -10,6 +10,7 @@ import { blogPosts, siteUrl } from '@/lib/content'
 import { getBlogPostLocalized } from '@/lib/content-i18n'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, locales, type Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 type BlogPostPageProps = {
   params: Promise<{ locale: string; slug: string }>
@@ -20,6 +21,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale, slug } = await params
   const t = getDictionary(locale)
   const post = getBlogPostLocalized(slug, locale as Locale)
@@ -52,6 +54,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  await primeSiteDataSafely()
   const { locale: rawLocale, slug } = await params
   const locale = rawLocale as Locale
   const t = getDictionary(rawLocale)

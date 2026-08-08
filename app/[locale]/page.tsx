@@ -10,12 +10,14 @@ import { Testimonials } from '@/components/home/testimonials'
 import { SeoContent } from '@/components/home/seo-content'
 import { CtaBanner } from '@/components/home/cta-banner'
 import { getDictionary } from '@/lib/i18n'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -31,7 +33,11 @@ export async function generateMetadata({
   }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // The homepage renders client components that read the catalogue
+  // synchronously, so the data has to be in place before this returns.
+  await primeSiteDataSafely()
+
   return (
     <>
       <Hero />

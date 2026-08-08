@@ -20,6 +20,7 @@ import {
 import { description as metaDescription, title as metaTitle } from '@/lib/seo/meta'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, locales, type Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => products.map((p) => ({ locale, id: p.id })))
@@ -30,6 +31,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; id: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale, id } = await params
   const t = getDictionary(locale)
   const product = getProductLocalized(id, locale as Locale)
@@ -61,6 +63,7 @@ export default async function ProductPage({
 }: {
   params: Promise<{ locale: string; id: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale: rawLocale, id } = await params
   const locale = rawLocale as Locale
   const t = getDictionary(rawLocale)

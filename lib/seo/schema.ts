@@ -4,7 +4,7 @@
  */
 
 import { siteUrl } from '@/lib/content'
-import { categories, contactInfo } from '@/lib/products'
+import { categories, contactInfo, siteImages } from '@/lib/products'
 import type { Dictionary } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n/config'
 import {
@@ -17,6 +17,16 @@ import {
   priceRange,
   sameAs,
 } from './business'
+
+/**
+ * Schema.org requires absolute URLs. Cloudinary URLs already are; a local
+ * `/images/...` path (pre-migration, or the seed fallback) still needs the
+ * site origin prefixed.
+ */
+function absoluteImage(path: string): string {
+  return path.startsWith('http') ? path : `${siteUrl}${path}`
+}
+
 
 /**
  * A stable @id for the shop. Every other schema block references this node
@@ -82,11 +92,11 @@ export function localBusinessSchema(locale: Locale, t: Dictionary, pageUrl?: str
     description: t.meta.schemaDescription,
     slogan: t.common.tagline,
     url: pageUrl ?? `${siteUrl}/${locale}`,
-    logo: `${siteUrl}/images/logo.webp`,
+    logo: absoluteImage(siteImages.logo),
     image: [
-      `${siteUrl}/images/hero-warehouse.webp`,
-      `${siteUrl}/images/about-facility.webp`,
-      `${siteUrl}/images/hero-hvac-worker.webp`,
+      absoluteImage(siteImages.heroBackground),
+      absoluteImage(siteImages.aboutFacility),
+      absoluteImage(siteImages.ctaBackground),
     ],
     telephone: contactInfo.phone,
     email: contactInfo.email,
@@ -149,7 +159,7 @@ export function organizationSchema(t: Dictionary) {
     url: siteUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${siteUrl}/images/logo.webp`,
+      url: absoluteImage(siteImages.logo),
     },
     description: t.meta.schemaDescription,
     sameAs,

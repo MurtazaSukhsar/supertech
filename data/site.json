@@ -1,0 +1,19 @@
+{
+  "contact": {
+    "companyName": "Super Tech International Construction Materials Co.",
+    "tagline": "Suppliers of All Air-Conditioning Materials, Hardware & Tools",
+    "email": "supertechcm@gmail.com",
+    "phone": "+965 65061752",
+    "phoneHref": "tel:+96565061752",
+    "whatsappHref": "https://wa.me/96565061752",
+    "instagramHref": "https://www.instagram.com/supertechint?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "address": "Shuwaikh Industrial Area, Kuwait City, Kuwait",
+    "googleMapsUrl": "https://maps.app.goo.gl/82yxw5UwSk57wctz9"
+  },
+  "images": {
+    "logo": "/images/logo.webp",
+    "heroBackground": "/images/hero-warehouse.webp",
+    "aboutFacility": "/images/about-facility.webp",
+    "ctaBackground": "/images/hero-hvac-worker.webp"
+  }
+}

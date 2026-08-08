@@ -5,12 +5,14 @@ import { Breadcrumbs } from '@/components/breadcrumbs'
 import { ContactForm } from '@/components/contact-form'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { getDictionary } from '@/lib/i18n'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -31,6 +33,7 @@ export default async function ContactPage({
   params: Promise<{ locale: string }>
   searchParams: Promise<{ product?: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const { product = '' } = await searchParams
   const t = getDictionary(locale)

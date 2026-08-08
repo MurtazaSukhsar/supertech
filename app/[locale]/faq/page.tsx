@@ -10,12 +10,14 @@ import { getFaqs } from '@/lib/content-i18n'
 import { contactInfo } from '@/lib/products'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, type Locale } from '@/lib/i18n/config'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -34,6 +36,7 @@ export default async function FaqPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
   const faqs = getFaqs(locale as Locale)

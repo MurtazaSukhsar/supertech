@@ -21,8 +21,10 @@ import {
   websiteSchema,
 } from '@/lib/seo/schema'
 import { getDictionary } from '@/lib/i18n'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 import { getDir, isLocale, localeConfig, locales, type Locale } from '@/lib/i18n/config'
 import '../globals.css'
+import { siteImages } from '@/lib/products'
 
 // Use system font configuration to allow isolated offline build compilation without requesting Google Fonts
 const inter = {
@@ -41,6 +43,7 @@ export async function generateMetadata({
   const { locale } = await params
   if (!isLocale(locale)) return {}
 
+  await primeSiteDataSafely()
   const t = getDictionary(locale)
   const config = localeConfig[locale]
 
@@ -70,7 +73,7 @@ export async function generateMetadata({
       siteName: t.meta.siteName,
       title: t.meta.titleDefault,
       description: t.meta.ogDescription,
-      images: ['/images/hero-warehouse.webp'],
+      images: [siteImages.heroBackground],
     },
     generator: 'v0.app',
   }
@@ -93,6 +96,20 @@ export default async function LocaleLayout({
 }>) {
   const { locale: rawLocale } = await params
   if (!isLocale(rawLocale)) notFound()
+
+  // Load the catalogue, site settings, and page-text overrides once, before
+  // anything renders, so the synchronous helpers below see live data.
+  const snapshot = await primeSiteDataSafely()
+
+  // Client components resolve their own copy of the catalogue module, so the
+  // live data has to cross the boundary explicitly.
+  const clientSiteData = snapshot && {
+    products: snapshot.products,
+    categories: snapshot.categories,
+    contact: snapshot.site.contact,
+    images: snapshot.site.images,
+    translationsAr: snapshot.translationsAr,
+  }
 
   const locale = rawLocale as Locale
   const t = getDictionary(locale)
@@ -134,7 +151,7 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: siteSchema }}
         />
-        <I18nProvider locale={locale} dictionary={t}>
+        <I18nProvider locale={locale} dictionary={t} siteData={clientSiteData}>
           <LoadingScreen />
           <SmoothScroll />
           <ScrollProgress />

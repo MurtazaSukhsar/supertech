@@ -1,0 +1,1159 @@
+[
+  {
+    "id": "aeroduct-flexible-connector",
+    "name": "Aeroduct Flexible Duct Connector Roll",
+    "category": "duct-accessories",
+    "subcategory": "Flexible Ducts",
+    "brand": "Aeroduct",
+    "images": [
+      "/images/products/aeroduct-flexible-connector.webp"
+    ],
+    "description": "Aeroduct heavy-duty flexible duct connector roll engineered for HVAC acoustic vibration isolation between air handling units and sheet metal ductwork.",
+    "specs": {
+      "Brand": "Aeroduct",
+      "Material": "Galvanized Steel & Heavy Canvas / Neoprene",
+      "Application": "Vibration isolation & duct acoustic connection",
+      "Roll Length": "28 Meter Roll"
+    },
+    "featured": true
+  },
+  {
+    "id": "fischer-drop-in-anchor-box",
+    "name": "Fischer EA II Heavy Duty Drop-In Anchor Box",
+    "category": "hardware",
+    "subcategory": "Anchoring & Fasteners",
+    "brand": "Fischer",
+    "images": [
+      "/images/products/fischer-drop-in-anchor-box.webp"
+    ],
+    "description": "Fischer EA II internal thread steel drop-in anchor set for heavy pipe suspension, unistrut channels, and concrete ceiling fixings.",
+    "specs": {
+      "Brand": "Fischer",
+      "Material": "Zinc-Plated Carbon Steel",
+      "Application": "Concrete ceiling & MEP channel anchoring",
+      "Sizes": "M6, M8, M10, M12, M16"
+    }
+  },
+  {
+    "id": "weldfix-upvc-cement",
+    "name": "Weldfix UPVC & CPVC Solvent Cement",
+    "category": "plumbing",
+    "subcategory": "Plumbing Supplies",
+    "brand": "Weldfix",
+    "images": [
+      "/images/products/weldfix-upvc-cement.webp"
+    ],
+    "description": "Weldfix high-strength solvent cement for fast, pressure-tight bonding of UPVC, PVC, and CPVC pressure pipes and fittings. Meets ASTM D-2564 standards.",
+    "specs": {
+      "Brand": "Weldfix",
+      "Standards": "ASTM D-2564 / ASTM F-493",
+      "Available Sizes": "1/4 Pint (118ml), 1 Pint (473ml)",
+      "Application": "UPVC & CPVC pipe joint solvent welding"
+    },
+    "featured": true
+  },
+  {
+    "id": "brass-flare-nut",
+    "name": "Brass Flare Nut",
+    "category": "hardware",
+    "subcategory": "Brass Fittings & Valves",
+    "brand": "ST",
+    "images": [
+      "/images/products/brass-flare-nut.webp"
+    ],
+    "description": "Heavy duty forged brass flare nut for connecting copper refrigeration tubing to air conditioning compressor valves and split units.",
+    "specs": {
+      "Available Sizes": "1/4\", 3/8\", 1/2\", 5/8\"",
+      "Material": "Forged Brass C37700",
+      "Pressure Rating": "Up to 700 PSI (R410A/R32 Compatible)",
+      "Standard": "SAE J513"
+    }
+  },
+  {
+    "id": "combination-wrench-set",
+    "name": "24-Piece Chrome Vanadium Combination Wrench Set",
+    "category": "tools",
+    "subcategory": "Hand Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/wrench-set.webp"
+    ],
+    "description": "Full 24-piece metric and SAE combination spanner set forged from Cr-V steel with Maxi-Drive profile to prevent fastener rounding under high torque.",
+    "specs": {
+      "Sizes": "6mm – 32mm metric",
+      "Material": "Chrome Vanadium Steel",
+      "Finish": "Full Polish Chrome",
+      "Storage": "Roll-up heavy-duty canvas pouch"
+    }
+  },
+  {
+    "id": "rubber-lined-clamp",
+    "name": "Rubber Lined Pipe Clamp",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "brand": "ST",
+    "images": [
+      "/images/products/rubber-lined-clamp.webp"
+    ],
+    "description": "Acoustic EPDM rubber-lined galvanized pipe clamp for vibration dampening and noise isolation in chilled water and domestic water supply lines.",
+    "specs": {
+      "Available Sizes": "1/2\", 3/4\", 1\", 1-1/4\", 1-1/2\", 2\", 3\", 4\", 6\", 8\"",
+      "Lining": "EPDM Rubber Insulation",
+      "Material": "Galvanized Steel",
+      "Noise Reduction": "Up to 18 dB"
+    },
+    "featured": true
+  },
+  {
+    "id": "rubber-cork-pad",
+    "name": "Rubber Cork Anti-Vibration Pad",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/rubber-cork-pad.webp"
+    ],
+    "description": "High-density rubber cork composite pad for under-equipment vibration dampening on chillers, pumps, and compressors.",
+    "specs": {
+      "Available Sizes": "4\"x4\"x7/8\", 4\"x4\"x2\", 3\"x3\"x7/8\"",
+      "Material": "Neoprene Rubber & Natural Cork Composite"
+    }
+  },
+  {
+    "id": "gi-unistrut-channel-bracket",
+    "name": "GI Unistrut Cantilever Framing Bracket",
+    "category": "construction",
+    "subcategory": "Structural Supports & Framing",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-unistrut-channel-bracket.webp"
+    ],
+    "description": "Hot-dip galvanized steel cantilever arm support bracket for mounting unistrut channels, heavy ductwork, and cable trays to walls.",
+    "specs": {
+      "Available Lengths": "150mm, 300mm, 450mm, 600mm",
+      "Material": "Hot-Dip Galvanized Steel (HDG)",
+      "Application": "Heavy MEP pipe rack & duct wall mounting"
+    }
+  },
+  {
+    "id": "brass-gate-valve",
+    "name": "Brass Heavy-Duty Gate Valve",
+    "category": "plumbing",
+    "subcategory": "Plumbing & Valves",
+    "brand": "ST",
+    "images": [
+      "/images/products/brass-gate-valve.webp"
+    ],
+    "description": "Forged brass heavy-duty inline gate valve with red cast iron handwheel for reliable fluid shutoff control in water, HVAC, and plumbing lines.",
+    "specs": {
+      "Available Sizes": "1/2\", 3/4\", 1\", 1-1/4\", 1-1/2\", 2\"",
+      "Material": "Forged Brass Body (CW617N)",
+      "Pressure Rating": "PN20 / 300 PSI",
+      "Application": "HVAC chilled water & plumbing shutoff valve"
+    }
+  },
+  {
+    "id": "gi-electric-conduit-pipe",
+    "name": "GI Electric Conduit Pipe",
+    "category": "electric",
+    "subcategory": "Electrical Supplies",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-electric-conduit-pipe.webp"
+    ],
+    "description": "Class 4 hot-dip galvanized rigid steel electrical conduit pipe for surface and underground cable protection.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\", 1-1/2\"",
+      "Standard": "BS 31 / BS 4568 / BS EN 61386",
+      "Material": "Hot-Dip Galvanized Rigid Steel"
+    }
+  },
+  {
+    "id": "copper-fitting",
+    "name": "Wrot Copper Fittings Set",
+    "category": "air-conditioning",
+    "subcategory": "Copper Pipes & Fittings",
+    "images": [
+      "/images/products/copper-fitting.webp"
+    ],
+    "description": "Precision-manufactured wrot copper solder fittings including 90° elbows, 45° elbows, tees, couplings, reducers, and flare adapters. Engineered for pressure-tight solder joints in HVAC, refrigeration, and plumbing installations.",
+    "specs": {
+      "Sizes": "1/4\", 1/2\", 3/8\", 5/8\", 3/4\", 7/8\", 1-1/8\", 1-3/8\", 1-5/8\"",
+      "Material": "High-purity C12200 Deoxidized Copper",
+      "Standard": "ASME B16.22 / EN 1254",
+      "Origin": "China",
+      "Application": "Air conditioning & refrigeration solder connections"
+    }
+  },
+  {
+    "id": "socket-wrench-set",
+    "name": "94-Piece 1/2\" & 1/4\" Drive Socket Wrench Tool Set",
+    "category": "tools",
+    "subcategory": "Hand Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/wrench-set.webp"
+    ],
+    "description": "Professional 94-piece Chrome Vanadium socket and ratchet wrench tool set in a heavy-duty blow-molded case. Ideal for MEP installation, automotive, and plant maintenance.",
+    "specs": {
+      "Piece Count": "94 Pieces",
+      "Material": "Drop-Forged Chrome Vanadium Steel (Cr-V)",
+      "Drive Sizes": "1/2\" & 1/4\" Ratchet Drives",
+      "Includes": "Metric & SAE Sockets, Deep Sockets, Extensions, Universal Joints",
+      "Case": "Impact-Resistant Blow Mold Storage Case"
+    },
+    "featured": true
+  },
+  {
+    "id": "gi-channel-clamp",
+    "name": "GI Channel Clamp",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-channel-clamp.webp"
+    ],
+    "description": "Galvanized strut channel clamp designed for securing pipes directly onto 41x41mm and 41x21mm unistrut metal framing channels.",
+    "specs": {
+      "Available Sizes": "1/2\", 3/4\", 1\", 1-1/2\", 2\"",
+      "Material": "Electro-Galvanized Steel",
+      "Compatibility": "Standard 41mm Strut Channels"
+    }
+  },
+  {
+    "id": "spring-hanger-mount",
+    "name": "Spring Hanger Mount (10mm Hole)",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/spring-hanger-mount.webp"
+    ],
+    "description": "Compact steel spring hanger for isolated ceiling suspension of air handling units, fan coil units, and ductwork.",
+    "specs": {
+      "Available Sizes": "50mm, 30mm with 10mm Rod Hole",
+      "Application": "HVAC Fan & Duct Vibration Isolation"
+    }
+  },
+  {
+    "id": "pvc-pipe-wrapping-tape",
+    "name": "Shurtape PVC Pipe Anti-Corrosion Wrapping Tape",
+    "category": "construction",
+    "subcategory": "Tapes & Surface Protection",
+    "brand": "Shurtape",
+    "images": [
+      "/images/products/pvc-pipe-wrapping-tape.webp"
+    ],
+    "description": "Heavy-duty unplasticized non-adhesive PVC pipe wrapping tape engineered for wrapping underground chilled water lines, steel pipes, and copper tubing to protect against soil corrosion, moisture ingress, and chemical degradation.",
+    "specs": {
+      "Brand": "Shurtape",
+      "Width": "2 inches (50mm)",
+      "Material": "Heavy-duty Non-Adhesive PVC Film",
+      "Color": "Black / Black-Yellow",
+      "Application": "Underground pipe corrosion protection & copper line jacketing"
+    }
+  },
+  {
+    "id": "jute-kutkut",
+    "name": "Egyptian Plumbing Jute Fibre (Kutkut Hemp)",
+    "category": "plumbing",
+    "subcategory": "Plumbing Supplies",
+    "images": [
+      "/images/products/jute-kutkut.webp"
+    ],
+    "description": "Premium natural Egyptian jute fiber (kutkut plumbing hemp) used in combination with pipe jointing paste for thread sealing on cast iron, galvanized steel, and brass pipe fittings in plumbing installations.",
+    "specs": {
+      "Material": "100% Natural Egyptian Long-Fibre Jute",
+      "Origin": "Egypt",
+      "Packaging": "Bundled hanks / coils",
+      "Application": "Threaded pipe joint sealing & plumbing fit-outs"
+    }
+  },
+  {
+    "id": "electric-gi-saddle",
+    "name": "Electric GI Saddle Clamp",
+    "category": "clamps",
+    "subcategory": "Electrical Supplies",
+    "brand": "ST",
+    "images": [
+      "/images/products/electric-gi-saddle.webp"
+    ],
+    "description": "Half and full galvanized iron saddle clamps for fixing electrical conduits and PVC pipes against walls and ceilings.",
+    "specs": {
+      "Available Sizes": "20mm, 25mm, 38mm, 50mm",
+      "Material": "Galvanized Pressed Steel"
+    }
+  },
+  {
+    "id": "filter-dryer",
+    "name": "Refrigeration Liquid Line Filter Drier",
+    "category": "air-conditioning",
+    "subcategory": "Refrigeration Components",
+    "images": [
+      "/images/products/filter-dryer.webp"
+    ],
+    "description": "High-capacity liquid line filter drier designed to absorb moisture, acid, and solid contaminants from HVAC and refrigeration systems. Protects thermal expansion valves and compressor mechanisms from premature wear and corrosion.",
+    "specs": {
+      "Sizes": "1/4\" up to 7/8\" (Flare & ODF Solder)",
+      "Desiccant Core": "Molecular Sieve & Activated Alumina",
+      "Max Working Pressure": "500 PSI / 35 bar",
+      "Origin": "Mexico"
+    },
+    "featured": true
+  },
+  {
+    "id": "insulated-screwdriver-set",
+    "name": "1000V VDE Insulated Screwdriver Set (7-Piece)",
+    "category": "tools",
+    "subcategory": "Hand Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/wrench-set.webp"
+    ],
+    "description": "VDE certified 1000V insulated screwdriver set engineered for safe live electrical installation and panel assembly work. Tested to IEC 60900 standards.",
+    "specs": {
+      "Voltage Rating": "1000V AC / 1500V DC VDE Certified",
+      "Piece Count": "7 Screwdrivers (Slotted & Phillips)",
+      "Standard": "IEC 60900 / DIN EN 60900",
+      "Handle": "Ergonomic Anti-Slip Soft-Grip Handle"
+    }
+  },
+  {
+    "id": "spring-hanger-70kg",
+    "name": "Spring Hanger Vibration Isolator (70kg)",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/spring-hanger-70kg.webp"
+    ],
+    "description": "Suspended spring hanger vibration isolator designed to absorb structural vibration from suspended HVAC ducts and inline fans.",
+    "specs": {
+      "Load Capacity": "70 kg",
+      "Hole Size": "12 mm Threaded Rod Hole",
+      "Spring Material": "High-Tensile Powder Coated Steel"
+    }
+  },
+  {
+    "id": "gi-drop-in-anchor",
+    "name": "Fischer Galvanized Steel Drop-In Anchor",
+    "category": "hardware",
+    "subcategory": "Anchoring & Fasteners",
+    "brand": "Fischer",
+    "images": [
+      "/images/products/fasteners-set.webp"
+    ],
+    "description": "Fischer internal thread drop-in expansion anchor manufactured from galvanized steel. Ideal for flush mounting in concrete to secure threaded suspension rods, HVAC duct hangers, and pipe cradles.",
+    "specs": {
+      "Brand": "Fischer",
+      "Sizes": "Up to 12mm (M6, M8, M10, M12)",
+      "Material": "Galvanized Carbon Steel",
+      "Installation": "Internal expander plug flush installation in concrete",
+      "Application": "HVAC duct hangers & heavy pipe suspension"
+    }
+  },
+  {
+    "id": "cock-valves",
+    "name": "Brass Gauge Cock Valve",
+    "category": "plumbing",
+    "subcategory": "Plumbing & Valves",
+    "images": [
+      "/images/products/brass-union.webp"
+    ],
+    "description": "Heavy-duty forged brass gauge cock shut-off valve designed for isolating pressure gauges and regulating airflow/liquid lines on plumbing, HVAC, and industrial piping manifolds.",
+    "specs": {
+      "Sizes": "1/4\" and 1/2\" NPT Male/Female",
+      "Material": "Forged Brass Body with T-Handle",
+      "Working Pressure": "200 PSI WOG",
+      "Application": "Pressure gauge isolation & piping manifold flow control"
+    }
+  },
+  {
+    "id": "industrial-socket",
+    "name": "Industrial Plug & Socket Connector Set",
+    "category": "electric",
+    "subcategory": "Electrical Supplies",
+    "images": [
+      "/images/products/industrial-socket.webp"
+    ],
+    "description": "Heavy-duty CEE industrial plug and socket connectors engineered for high-power distribution on construction job sites, industrial workshops, and temporary site power boards. Impact-resistant and weatherproof.",
+    "specs": {
+      "Rating": "16A / 32A / 63A",
+      "Voltage Range": "220V - 415V (3P+E / 3P+N+E)",
+      "Enclosure Rating": "IP44 Weatherproof / IP67 Waterproof",
+      "Application": "Construction power distribution, welders, HVAC machinery"
+    }
+  },
+  {
+    "id": "pvc-packing-strap",
+    "name": "High-Tensile PVC Packing Strapping Roll",
+    "category": "air-conditioning",
+    "subcategory": "Packaging & Duct Strapping",
+    "images": [
+      "/images/products/pvc-packing-strap.webp"
+    ],
+    "description": "High-strength flexible plastic packing strap roll used for bundling sheet metal ductwork, securing palletized HVAC materials, binding pipe bundles, and jobsite material packaging.",
+    "specs": {
+      "Width": "5/8\" (16mm)",
+      "Roll Sizes": "Small roll & Large commercial coil options",
+      "Material": "High-density Polypropylene / PVC compound",
+      "Application": "Pallet strapping, duct bundling, & cargo securing"
+    }
+  },
+  {
+    "id": "rotary-hammer-drill",
+    "name": "Heavy Duty SDS-Plus Rotary Hammer Drill (800W)",
+    "category": "tools",
+    "subcategory": "Power Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/cordless-drill.webp"
+    ],
+    "description": "Industrial-grade SDS-Plus 3-mode rotary hammer drill engineered for high-impact drilling and chiseling into concrete, masonry, and steel. Features safety clutch and vibration control.",
+    "specs": {
+      "Power Input": "800 Watts",
+      "Impact Energy": "3.0 Joules",
+      "Max Concrete Drilling": "26 mm",
+      "Modes": "Drilling, Hammer Drilling, Chiseling",
+      "Chuck Type": "SDS-Plus Quick Change"
+    },
+    "featured": true
+  },
+  {
+    "id": "gi-u-clamp-saddle",
+    "name": "GI U Clamp Saddle",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-u-clamp-saddle.webp"
+    ],
+    "description": "Galvanized steel U-bolt clamp saddle for securing heavy steel pipes, conduits, and copper risers to structural surfaces.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\", 1-1/4\", 1-1/2\", 2\", 4\"",
+      "Material": "Electro-Galvanized Steel",
+      "Application": "Surface Mounted Pipe & Conduit Clamping"
+    }
+  },
+  {
+    "id": "cotton-canvas-cloth",
+    "name": "Cotton Canvas Cloth",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/cotton-canvas-cloth.webp"
+    ],
+    "description": "Premium heavy-duty woven cotton canvas cloth used as a protective outer jacketing and vapor barrier covering for thermal insulation on HVAC air ducts and chilled water piping. Delivers high tensile strength, excellent adhesive absorption, and a smooth protective finish.",
+    "specs": {
+      "Roll Dimensions": "36\" x 18m",
+      "Weight / Density": "6 oz & 8 oz options",
+      "Origin": "Pakistan & India",
+      "Brand": "ST",
+      "Application": "Duct thermal insulation protection & lagging wrapper"
+    }
+  },
+  {
+    "id": "gi-beam-clamp",
+    "name": "GI Beam Clamp",
+    "category": "clamps",
+    "subcategory": "Structural Supports & Framing",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-beam-clamp.webp"
+    ],
+    "description": "Malleable iron galvanized structural beam clamp for attaching threaded rods to steel I-beams without drilling or welding.",
+    "specs": {
+      "Available Sizes": "8mm, 10mm, 12mm Threaded Rod Hole",
+      "Material": "Malleable Cast Iron (Galvanized)",
+      "Load Capacity": "Up to 450 kg",
+      "Standard": "MSS SP-69"
+    }
+  },
+  {
+    "id": "test-plug",
+    "name": "Brass Pressure & Temperature Test Plug (Pete's Plug)",
+    "category": "plumbing",
+    "subcategory": "Plumbing & Testing Equipment",
+    "images": [
+      "/images/products/test-plug.webp"
+    ],
+    "description": "Solid brass 1/4\" NPT pressure test plug (Pete's Plug) fitted with self-closing dual neoprene internal seals. Allows technician to quickly insert pressure/temperature probes without fluid leakage.",
+    "specs": {
+      "Thread Size": "1/4\" NPT Male Thread",
+      "Material": "Solid Machined Brass with Neoprene Elastomer Core",
+      "Pressure Rating": "500 PSI Maximum",
+      "Application": "Chilled water loop & hydronic system testing port"
+    }
+  },
+  {
+    "id": "electric-brass-adaptor",
+    "name": "Electric Brass Adaptor",
+    "category": "electric",
+    "subcategory": "Electrical Supplies",
+    "brand": "ST",
+    "images": [
+      "/images/products/electric-brass-adaptor.webp"
+    ],
+    "description": "Precision machined brass electrical conduit male/female adaptor for securing flexible and rigid metal conduits to junction boxes and enclosures.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\", 1-1/2\"",
+      "Material": "High-Grade Extruded Brass",
+      "Thread Standard": "BS 4568 / Metric",
+      "Protection Class": "IP66 Rated"
+    }
+  },
+  {
+    "id": "wooden-support",
+    "name": "Hardwood Insulated Pipe Support Blocks",
+    "category": "air-conditioning",
+    "subcategory": "Pipe Supports & Clamps",
+    "images": [
+      "/images/products/wooden-support.webp"
+    ],
+    "description": "High-density treated hardwood pipe support blocks designed to support insulated copper tubing and chilled water lines without compressing thermal insulation. Prevents thermal bridging, sweating, and moisture condensation.",
+    "specs": {
+      "Sizes": "All pipe sizes (1/4\" to 4\"+)",
+      "Material": "Seasoned Treated Hardwood / Phenolic Resin",
+      "Subcategory": "Clamps & Supports",
+      "Application": "Chilled water & refrigerant pipe suspension"
+    }
+  },
+  {
+    "id": "angle-grinder-5in",
+    "name": "5\" Angle Grinder 1100W",
+    "category": "tools",
+    "subcategory": "Power Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/angle-grinder.webp"
+    ],
+    "description": "High-output 1100W angle grinder designed for cutting steel rebar, grinding welds, and masonry slotting with restart protection and burst-proof guard.",
+    "specs": {
+      "Power": "1100 Watts",
+      "Disc": "125 mm (5 inch)",
+      "Speed": "11,000 RPM",
+      "Voltage": "220-240V"
+    }
+  },
+  {
+    "id": "gi-universal-clamp",
+    "name": "GI Universal Pipe Clamp",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-universal-clamp.webp"
+    ],
+    "description": "Heavy-duty galvanized iron universal pipe clamp for MEP, HVAC, and plumbing pipe installations. Features dual screw clamping mechanism and zinc plating.",
+    "specs": {
+      "Available Sizes": "1\", 1-1/4\", 1-1/2\", 2\", 2-1/2\", 3\", 4\", 6\"",
+      "Material": "Electro-Galvanized Iron (GI)",
+      "Application": "MEP & HVAC Pipe Hangers",
+      "Origin": "UAE / China"
+    },
+    "featured": true
+  },
+  {
+    "id": "rubber-waffle-sheet-thin",
+    "name": "Rubber Waffle Isolation Sheet (3/8\")",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/rubber-waffle-sheet-thin.webp"
+    ],
+    "description": "Cross-ribbed neoprene rubber waffle pad sheet providing high deflection acoustic isolation under mechanical equipment.",
+    "specs": {
+      "Available Sizes": "18\" x 18\" x 3/8\"",
+      "Material": "Heavy Duty Oil-Resistant Neoprene Rubber"
+    }
+  },
+  {
+    "id": "slotted-channel",
+    "name": "Slotted Metal Strut Channel (Unistrut Profile)",
+    "category": "construction",
+    "subcategory": "Structural Supports & Framing",
+    "images": [
+      "/images/products/slotted-channel.webp"
+    ],
+    "description": "Cold-formed slotted structural steel framing channels (unistrut profile) with pre-galvanized finish. Provides versatile overhead support framing for hanging HVAC ductwork, heavy pipe runs, electrical cable trays, and equipment.",
+    "specs": {
+      "Profiles": "27x18mm, 41x21mm, 41x41mm",
+      "Length": "3 meter standard length",
+      "Material": "Pre-Galvanized Structural Steel",
+      "Pattern": "Continuous slotted back for quick bolt alignment"
+    },
+    "featured": true
+  },
+  {
+    "id": "metal-clip",
+    "name": "Galvanized Spring Metal Conduit Clip",
+    "category": "electric",
+    "subcategory": "Fasteners & Clamps",
+    "images": [
+      "/images/products/metal-clip.webp"
+    ],
+    "description": "Heavy-gauge galvanized steel spring clip saddle designed for securing electrical conduits, copper tubes, and small steel pipes to masonry walls, metal studs, or unistrut channels.",
+    "specs": {
+      "Size": "5/8\" diameter",
+      "Material": "Galvanized Spring Steel",
+      "Finish": "Zinc-Plated Rust Resistant",
+      "Application": "Conduit & copper tube wall attachment"
+    }
+  },
+  {
+    "id": "copper-coil",
+    "name": "Seamless Soft Copper Pipe Coil",
+    "category": "air-conditioning",
+    "subcategory": "Copper Pipes & Coils",
+    "images": [
+      "/images/products/copper-coil.webp"
+    ],
+    "description": "Seamless soft copper pancake coil manufactured to ASTM B280 international standards for air conditioning and refrigeration field service. Fully annealed for easy hand bending, flaring, and installation in residential and commercial split A/C refrigerant lines.",
+    "specs": {
+      "Sizes": "1/4\", 1/2\", 3/8\", 5/8\", 3/4\", 7/8\", 1-1/8\", 1-3/8\", 1-5/8\"",
+      "Standard": "ASTM B280 / EN 12735-1",
+      "Origin": "Vietnam",
+      "Type": "Soft Annealed Pancake Coil",
+      "Application": "Split A/C refrigerant lines (R410A, R32, R22)"
+    },
+    "featured": true
+  },
+  {
+    "id": "circular-saw-7in",
+    "name": "7-1/4\" Industrial Circular Saw (1400W)",
+    "category": "tools",
+    "subcategory": "Power Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/angle-grinder.webp"
+    ],
+    "description": "Powerful 1400W 7-1/4 inch handheld circular saw designed for precise straight ripping and cross-cutting of plywood, hardwood, formwork, and plastic sheets.",
+    "specs": {
+      "Blade Diameter": "7-1/4\" (185mm)",
+      "Power Input": "1400 Watts",
+      "Cutting Depth @ 90°": "64 mm",
+      "Bevel Capacity": "0° to 45°",
+      "No-Load Speed": "5500 RPM"
+    }
+  },
+  {
+    "id": "pvc-flexible-duct",
+    "name": "Heavy Duty PVC Flexible Air Duct",
+    "category": "duct-accessories",
+    "subcategory": "Flexible Ducts",
+    "images": [
+      "/images/products/pvc-flexible-duct.webp"
+    ],
+    "description": "Non-insulated flexible duct fabricated from tough PVC foil laminate reinforced with a high-tensile spring steel wire helix. Offers outstanding tear resistance, chemical resistance, and smooth internal airflow for exhaust and supply air drops.",
+    "specs": {
+      "Sizes": "4\" up to 16\" diameter",
+      "Core Material": "PVC Foil Laminate with Steel Spring Wire Core",
+      "Color": "Grey / Black",
+      "Operating Temp": "-20°C to +80°C",
+      "Application": "Fume extraction, bathroom exhaust, ventilation drops"
+    }
+  },
+  {
+    "id": "pvc-coated-flexible-conduit",
+    "name": "PVC Coated Flexible Conduit Pipe",
+    "category": "electric",
+    "subcategory": "Electrical Supplies",
+    "brand": "ST",
+    "images": [
+      "/images/products/pvc-coated-flexible-conduit.webp"
+    ],
+    "description": "Liquid-tight PVC coated flexible galvanized steel conduit for weatherproof outdoor and industrial electrical wiring runs.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\", 1-1/2\"",
+      "Material": "Galvanized Steel Core with Black PVC Jacket",
+      "IP Rating": "IP67 Liquid Tight"
+    }
+  },
+  {
+    "id": "access-valves",
+    "name": "Refrigeration Service Access Valve 1/4\"",
+    "category": "air-conditioning",
+    "subcategory": "Refrigeration Components & Valves",
+    "images": [
+      "/images/products/access-valves.webp"
+    ],
+    "description": "Standard 1/4\" SAE flare refrigeration service access valve (Schrader valve) complete with removable internal core, 1/4\" copper tube tail, and knurled brass cap with core remover tool.",
+    "specs": {
+      "Connection Size": "1/4\" SAE Flare x 1/4\" OD Copper Tube",
+      "Material": "Solid Forged Brass Body & Pure Copper Tail",
+      "Internal Core": "Removable High-Pressure Stainless Core",
+      "Application": "A/C refrigerant charging, vacuum evacuation, & pressure testing"
+    },
+    "featured": true
+  },
+  {
+    "id": "heavy-duty-pliers-set",
+    "name": "4-Piece Industrial Pliers Set",
+    "category": "tools",
+    "subcategory": "Hand Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/wrench-set.webp"
+    ],
+    "description": "Heavy-duty 4-piece forged pliers set including 8\" combination pliers, 8\" long nose pliers, 7\" diagonal side cutters, and 10\" adjustable water pump pliers.",
+    "specs": {
+      "Piece Count": "4 Pliers Set",
+      "Material": "Induction-Hardened Chrome Vanadium Steel",
+      "Handles": "Bi-Material Heavy Duty Grip Handles",
+      "Includes": "Combination, Long Nose, Diagonal Cutter, Water Pump Pliers"
+    }
+  },
+  {
+    "id": "nbr-insulation-roll",
+    "name": "NBR Rubber Insulation Roll (GoFlex)",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "GoFlex",
+    "images": [
+      "/images/products/nbr-insulation-roll.webp"
+    ],
+    "description": "Flexible NBR closed-cell synthetic rubber insulation sheet roll for wrapping large HVAC ductwork, tanks, and large diameter pipes.",
+    "specs": {
+      "Dimensions": "1/2\" Thickness x 1mtr Width x 14mtr Length",
+      "Fire Rating": "Class 0 / Class 1 (BS 476 Part 6/7)",
+      "Brand": "GoFlex Aeroflex NBR"
+    }
+  },
+  {
+    "id": "electric-brass-male-bush",
+    "name": "Electric Brass Male Bush",
+    "category": "electric",
+    "subcategory": "Electrical Supplies",
+    "brand": "ST",
+    "images": [
+      "/images/products/electric-brass-male-bush.webp"
+    ],
+    "description": "Short pattern brass male bush for electrical conduit entry into switchgear panels and steel trunking boxes.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\", 1-1/2\"",
+      "Material": "Solid Machined Brass",
+      "Standard": "BS 4568 Part 2"
+    }
+  },
+  {
+    "id": "copper-pipe",
+    "name": "Copper Pipe",
+    "category": "air-conditioning",
+    "subcategory": "Copper Pipes & Coils",
+    "images": [
+      "/images/products/copper-pipe.webp"
+    ],
+    "description": "Seamless hard-drawn copper tubes engineered for high-pressure HVAC, chilled water, and refrigeration systems. Available in Type L and Type K wall thicknesses providing high tensile strength, superior corrosion resistance, and high burst pressure reliability.",
+    "specs": {
+      "Sizes": "1/4\", 1/2\", 3/8\", 5/8\", 3/4\", 7/8\", 1-1/8\", 1-3/8\", 1-5/8\"",
+      "Wall Thickness": "Type L (Standard) & Type K (Heavy Duty)",
+      "Standard": "ASTM B88 / ASTM B280",
+      "Length": "6 meter straight lengths",
+      "Application": "Commercial HVAC chilled water & refrigerant piping"
+    }
+  },
+  {
+    "id": "laser-distance-meter",
+    "name": "100m Digital Laser Distance Meter",
+    "category": "tools",
+    "subcategory": "Hand Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/cordless-drill.webp"
+    ],
+    "description": "High-precision 100-meter digital laser rangefinder distance meter featuring indirect Pythagorean measurements, area calculation, volume calculation, and backlit LCD.",
+    "specs": {
+      "Measuring Range": "0.05m to 100m",
+      "Accuracy": "±1.5 mm",
+      "Functions": "Distance, Area, Volume, Continuous, Pythagoras",
+      "IP Rating": "IP54 Dust & Splash Water Resistant"
+    }
+  },
+  {
+    "id": "aluminium-rivet",
+    "name": "Aluminium Blind Pop Rivets",
+    "category": "hardware",
+    "subcategory": "Duct Accessories & Fasteners",
+    "images": [
+      "/images/products/aluminium-rivet.webp"
+    ],
+    "description": "Precision-engineered aluminium blind pop rivets featuring high-strength steel mandrels. Ideal for fast, permanent mechanical joining of sheet metal ductwork, aluminum cladding, and ventilation duct flanges.",
+    "specs": {
+      "Sizes": "4x8mm, 4x10mm, 4x12mm, 5x12mm",
+      "Body Material": "High-Purity Aluminium Alloy",
+      "Mandrel": "Zinc-Plated Carbon Steel",
+      "Origin": "India",
+      "Packaging": "1000 pcs per box"
+    }
+  },
+  {
+    "id": "gi-conduit-fitting",
+    "name": "GI \"G\" CLAMP",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "brand": "ST",
+    "images": [
+      "/images/products/gi-conduit-fitting.webp"
+    ],
+    "description": "Malleable iron galvanized electrical conduit junction box for heavy duty commercial and industrial wiring runs.",
+    "specs": {
+      "Available Sizes": "3/4\", 1\"",
+      "Material": "Galvanized Malleable Iron",
+      "Finish": "Hot-Dip Galvanized"
+    }
+  },
+  {
+    "id": "brass-union",
+    "name": "Extruded Brass Flare Union Coupling",
+    "category": "air-conditioning",
+    "subcategory": "Brass Fittings & Valves",
+    "images": [
+      "/images/products/brass-union.webp"
+    ],
+    "description": "Precision-machined extruded brass flare union coupling designed to connect two copper lines with gas-tight metal-to-metal 45° SAE flare seals. Built to withstand high-pressure refrigerant gases.",
+    "specs": {
+      "Sizes": "All standard sizes (1/4\" to 3/4\" SAE flare)",
+      "Material": "Heavy Extruded Brass (CW617N / C36000)",
+      "Pressure Rating": "Up to 700 PSI R410A / R32 compatible",
+      "Application": "Split unit air conditioner copper pipe jointing"
+    }
+  },
+  {
+    "id": "impact-driver-20v",
+    "name": "20V Cordless Brushless Impact Driver",
+    "category": "tools",
+    "subcategory": "Power Tools",
+    "brand": "ST",
+    "images": [
+      "/images/products/cordless-drill.webp"
+    ],
+    "description": "High-torque 20V brushless impact driver delivering 200Nm of fastening torque for heavy structural screws, duct hanging, and MEP framing assembly.",
+    "specs": {
+      "Voltage": "20V Max Lithium-Ion",
+      "Max Torque": "200 Nm",
+      "No-Load Speed": "0-3200 RPM",
+      "Chuck": "1/4\" Hex Quick Release",
+      "Motor": "Brushless Heavy Duty"
+    }
+  },
+  {
+    "id": "rubber-metal-pad",
+    "name": "Rubber Metal Isolation Pad",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/rubber-metal-pad.webp"
+    ],
+    "description": "Steel-reinforced elastomeric isolation pad engineered for heavy equipment inertia bases and generator set mounting.",
+    "specs": {
+      "Available Sizes": "100x100x40mm, 150x150x40mm",
+      "Material": "Vulcanized EPDM Rubber with Steel Plate Insert"
+    }
+  },
+  {
+    "id": "rubber-waffle-sheet",
+    "name": "Rubber Waffle Isolation Sheet (3/4\")",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/rubber-waffle-sheet.webp"
+    ],
+    "description": "Heavy duty 3/4 inch thick ribbed elastomeric waffle vibration isolation pad sheet for HVAC chillers and air handling units.",
+    "specs": {
+      "Available Sizes": "18\" x 18\" x 3/4\"",
+      "Material": "Molded Neoprene Elastomer"
+    }
+  },
+  {
+    "id": "aluminum-clip",
+    "name": "Lightweight Aluminum Securing Clip",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Hardware",
+    "images": [
+      "/images/products/aluminum-clip.webp"
+    ],
+    "description": "Lightweight corrosion-resistant aluminum clips designed for mounting light-gauge flexible duct drops, securing foil insulation outer wraps, and organizing wire runs inside HVAC enclosures.",
+    "specs": {
+      "Size": "1/2\"",
+      "Material": "Commercial Grade Aluminum",
+      "Application": "Securing flexible ducts & foil insulation jackets"
+    }
+  },
+  {
+    "id": "spring-hanger-isolator",
+    "name": "Spring Hanger Vibration Isolator",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/spring-hanger-isolator.webp"
+    ],
+    "description": "Heavy capacity spring hanger mount for isolating low-frequency mechanical vibration in heavy piping and HVAC ductwork.",
+    "specs": {
+      "Load Capacity": "50kg, 100kg, 150kg",
+      "Features": "Powder Coated Steel Spring with Neoprene Cup"
+    }
+  },
+  {
+    "id": "rubber-foam-insulation",
+    "name": "Rubber Foam Pipe Insulation Tube",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "Aeroduct",
+    "images": [
+      "/images/products/rubber-foam-insulation.webp"
+    ],
+    "description": "Closed-cell elastomeric NBR rubber foam insulation tube for copper refrigerant lines and chilled water pipes.",
+    "specs": {
+      "Wall Thickness": "3/8\", 3/4\"",
+      "Available Sizes": "1/4\" Upto 2-1/8\" Pipe Diameter",
+      "Thermal Conductivity": "0.034 W/m·K at 0°C"
+    }
+  },
+  {
+    "id": "flexible-duct-connector",
+    "name": "Flexible Duct Connector (Canvas & Neoprene)",
+    "category": "duct-accessories",
+    "subcategory": "Flexible Ducts",
+    "brand": "Aeroduct",
+    "images": [
+      "/images/products/flexible-duct-connector.webp"
+    ],
+    "description": "Acoustic flexible duct connector roll made of heavy galvanized steel metal strip lock-seamed to durable canvas or neoprene fabric.",
+    "specs": {
+      "Available Sizes": "4\" & 6\" Metal Width",
+      "Fabric Options": "Heavy Duty Canvas & Fire-Retardant Neoprene",
+      "Temperature Range": "-30°C to +120°C"
+    }
+  },
+  {
+    "id": "duct-sealant",
+    "name": "Water-Based Elastomeric HVAC Duct Sealant",
+    "category": "duct-accessories",
+    "subcategory": "Duct Sealants & Coatings",
+    "images": [
+      "/images/products/duct-sealant.webp"
+    ],
+    "description": "Premium water-based elastomeric duct joint sealant specially formulated for sealing high, medium, and low pressure sheet metal ductwork systems. Cures into a flexible, air-tight, flame-resistant seal.",
+    "specs": {
+      "Packaging": "5kg Gallon Container",
+      "Base": "Water-based Elastomeric Acrylic Polymer",
+      "Standards": "UL 181A-M & UL 181B-M Compliant",
+      "Color": "Grey",
+      "Application": "Sheet metal duct joint & flange air sealing"
+    },
+    "featured": true
+  },
+  {
+    "id": "hvac-damper-fittings",
+    "name": "HVAC Volume Control Damper Regulator Fittings",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Hardware",
+    "brand": "ST",
+    "images": [
+      "/images/products/hvac-damper-fittings.webp"
+    ],
+    "description": "Heavy-duty galvanized steel volume control damper quadrant regulators, dial handles, spring pins, and brass bearing hardware. Essential for fabricating, installing, and adjusting airflow volume dampers in duct distribution systems.",
+    "specs": {
+      "Brand": "ST",
+      "Material": "Galvanized Steel & Solid Brass Bearings",
+      "Components": "Quadrants, Dial Regulators, Retainer Pin Set",
+      "Origin": "India",
+      "Application": "Airflow volume damper fabrication & adjustment"
+    }
+  },
+  {
+    "id": "galvanized-corner",
+    "name": "Galvanized Duct Flange Corners (TDF/TDC)",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories",
+    "images": [
+      "/images/products/galvanized-corner.webp"
+    ],
+    "description": "Stamped galvanized steel duct flange corners engineered for TDF/TDC transverse duct flange connection systems. Ensures rigid, square, leak-free corner seals on rectangular sheet metal ducts.",
+    "specs": {
+      "Size": "35mm (Standard TDC/TDF profile)",
+      "Material": "Hot-Dip Galvanized Steel",
+      "Thickness": "1.0mm - 1.2mm gauge",
+      "Application": "Rectangular air duct flange connection corners"
+    }
+  },
+  {
+    "id": "duct-adhesives",
+    "name": "HVAC Duct Contact Adhesive",
+    "category": "duct-accessories",
+    "subcategory": "Duct Sealants & Coatings",
+    "images": [
+      "/images/products/duct-adhesives.webp"
+    ],
+    "description": "High-strength solvent-based contact adhesive engineered for bonding rubber foam sheet insulation, acoustic liners, glass wool insulation, and canvas wrapping to sheet metal air conditioning ducts.",
+    "specs": {
+      "Packaging": "15kg Heavy-Duty Drum",
+      "Type": "Solvent-Based Synthetic Rubber Contact Adhesive",
+      "Tack Time": "Fast-drying high immediate bond strength",
+      "Temperature Range": "-20°C to 90°C",
+      "Application": "Duct thermal insulation & acoustic liner bonding"
+    }
+  },
+  {
+    "id": "spring-mount-isolator",
+    "name": "Heavy Duty Spring Mount Isolator",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "ST",
+    "images": [
+      "/images/products/spring-mount-isolator.webp"
+    ],
+    "description": "Floor-mounted heavy spring vibration isolator designed for cooling towers, chillers, and large industrial pumps.",
+    "specs": {
+      "Load Capacity": "150kg, 200kg",
+      "Mounting": "Base Plate with Threaded Levelling Bolt"
+    }
+  },
+  {
+    "id": "insulated-flexible-duct",
+    "name": "Thermally Insulated Flexible Duct",
+    "category": "duct-accessories",
+    "subcategory": "Flexible Ducts",
+    "images": [
+      "/images/products/insulated-flexible-duct.webp"
+    ],
+    "description": "High-performance insulated flexible air duct featuring a multi-ply aluminum inner core wrapped in high-density fiberglass wool insulation and protected by a durable reinforced metalized outer jacket. Prevents condensation and reduces HVAC noise transmission.",
+    "specs": {
+      "Sizes": "4\" up to 16\" diameter",
+      "Standard Length": "25 ft (7.6m)",
+      "Insulation": "Glass fiber thermal blanket",
+      "Origin": "UAE",
+      "Application": "HVAC air diffuser drops & ventilation ducting"
+    },
+    "featured": true
+  },
+  {
+    "id": "aluminum-strap",
+    "name": "Aluminum Insulation Strapping Roll",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Hardware",
+    "images": [
+      "/images/products/aluminum-strap.webp"
+    ],
+    "description": "Commercial-grade aluminum strapping roll designed for securing sheet metal cladding, pipe insulation jackets, and fiberglass duct wraps. Weatherproof, corrosion-resistant, and easy to cut and tension.",
+    "specs": {
+      "Dimensions": "1/2\" width, 10 lbs coil weight",
+      "Material": "Pure Aluminum Alloy",
+      "Finish": "Smooth Mill Finish",
+      "Application": "HVAC thermal insulation banding & aluminum cladding securing"
+    }
+  },
+  {
+    "id": "aeroduct-banding",
+    "name": "Aeroduct Galvanized Steel Banding Coil",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Hardware",
+    "brand": "Aeroduct",
+    "images": [
+      "/images/products/aeroduct-banding.webp"
+    ],
+    "description": "Heavy-duty galvanized steel banding tape designed for securing thermal insulation, pipe jacketing, acoustic liners, and flexible duct connections. Supplied in continuous dispenser coils for quick field installation.",
+    "specs": {
+      "Brand": "Aeroduct",
+      "Dimensions": "9mm width x 30m coil length",
+      "Material": "Galvanized Steel",
+      "Packaging": "30 meter dispenser roll",
+      "Application": "Pipe insulation strapping & duct cladding fixing"
+    }
+  },
+  {
+    "id": "av-rubber-mount",
+    "name": "Anti-Vibration (AV) Rubber Mount",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "images": [
+      "/images/products/anti-rubber.webp"
+    ],
+    "description": "Heavy-duty anti-vibration rubber mounts designed to isolate high-frequency vibration and reduce noise from HVAC units, fans, pumps, and motors. Ensures equipment stability and extends operational lifespan.",
+    "specs": {
+      "Sizes": "Small and Big",
+      "Material": "High-Density Neoprene Rubber",
+      "Application": "HVAC vibration isolation and noise reduction",
+      "Feature": "Threaded metal insert for secure mounting"
+    }
+  },
+  {
+    "id": "pvc-pipe",
+    "name": "PVC Pipe",
+    "category": "plumbing",
+    "subcategory": "Plumbing & Drainage",
+    "images": [
+      "/images/products/pvc-pipe.webp"
+    ],
+    "description": "High-quality PVC pipes designed for robust plumbing, drainage, and fluid transport applications.",
+    "specs": {
+      "Material": "Polyvinyl Chloride (PVC)",
+      "Application": "Plumbing, drainage, and conduit systems",
+      "Durability": "Corrosion and chemical resistant"
+    }
+  },
+  {
+    "id": "gi-clevis-hanger",
+    "name": "GI Clevis Hanger",
+    "category": "clamps",
+    "subcategory": "Pipe Supports & Clamps",
+    "images": [
+      "/images/products/gi-clevis-hanger.webp"
+    ],
+    "description": "Galvanized iron clevis hanger designed for suspension of non-insulated stationary pipe lines.",
+    "specs": {
+      "Available Sizes": "2-1/2\", 3\", 4\", 6\", 8\"",
+      "Material": "Galvanized Steel"
+    }
+  },
+  {
+    "id": "shurtape-aluminium-tape",
+    "name": "Shurtape Aluminium Tape",
+    "category": "air-conditioning",
+    "subcategory": "Adhesives & Tapes",
+    "brand": "Shurtape",
+    "images": [
+      "/images/products/aluminium-tape.webp"
+    ],
+    "description": "High-quality aluminium tape designed for HVAC and duct sealing applications.",
+    "specs": {
+      "Available Size": "3\"",
+      "Material": "Aluminium Foil"
+    }
+  },
+  {
+    "id": "foam-gasket-diamond",
+    "name": "Diamond Foam Gasket",
+    "category": "duct-accessories",
+    "subcategory": "Duct Accessories & Insulation",
+    "brand": "Diamond",
+    "images": [
+      "/images/products/foam-gasket.webp"
+    ],
+    "description": "High-quality adhesive foam gasket tape for duct sealing and insulation.",
+    "specs": {
+      "Available Size": "3mm, 6mm",
+      "Material": "Foam"
+    }
+  },
+  {
+    "id": "foster-30-36",
+    "name": "Airmaster Ductcoat 30-36 (Foster)",
+    "category": "duct-accessories",
+    "subcategory": "Duct Sealants & Coatings",
+    "brand": "airmaster",
+    "images": [
+      "/images/products/foster-30-36.webp"
+    ],
+    "description": "Advanced formulation A/C duct insulation coating, fungal proof, fire resistant, and washable.",
+    "specs": {
+      "Application": "A/C duct thermal insulation",
+      "Type": "Exterior Coating"
+    }
+  }
+]

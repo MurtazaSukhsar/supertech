@@ -6,7 +6,7 @@ import { Image } from '@/components/site-image'
 import { useRouter, usePathname } from 'next/navigation'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
-import { categories } from '@/lib/products'
+import { getCategories, siteImages } from '@/lib/products'
 import { categoryTranslationsAr } from '@/lib/products-ar'
 import { useQuote } from '@/context/quote-context'
 import { useI18n } from '@/components/i18n-provider'
@@ -104,7 +104,7 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-3 md:px-8 lg:px-12">
           <Link href={href('/')} className="flex shrink-0 items-center gap-3" aria-label={t.nav.homeAriaLabel}>
             <Image
-              src="/images/logo.webp"
+              src={siteImages.logo}
               alt={t.footer.logoAlt}
               width={360}
               height={188}
@@ -146,7 +146,7 @@ export function SiteHeader() {
                     : 'pointer-events-none scale-95 opacity-0'
                 }`}
               >
-                {categories.map((cat) => (
+                {getCategories().map((cat) => (
                   <Link
                     key={cat.slug}
                     href={href(`/categories/${cat.slug}`)}
@@ -297,7 +297,7 @@ export function SiteHeader() {
             >
               {t.nav.products}
             </motion.p>
-            {categories.map((cat) => (
+            {getCategories().map((cat) => (
               <motion.div key={cat.slug} variants={staggerItem}>
                 <Link
                   href={href(`/categories/${cat.slug}`)}

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Image } from '@/components/site-image'
 import { Download, Mail, MapPin, Phone } from 'lucide-react'
 import { CATALOGUE_PATH } from '@/components/catalogue-download'
-import { categories, contactInfo } from '@/lib/products'
+import { getCategories, contactInfo, siteImages } from '@/lib/products'
 import { categoryTranslationsAr } from '@/lib/products-ar'
 import { useI18n } from '@/components/i18n-provider'
 
@@ -31,7 +31,7 @@ export function SiteFooter() {
             <Link href={href('/')} className="inline-block" aria-label={t.nav.homeAriaLabel}>
               <div className="inline-flex rounded-xl bg-white p-3 sm:p-3.5 shadow-md">
                 <Image
-                  src="/images/logo.webp"
+                  src={siteImages.logo}
                   alt={t.footer.logoAlt}
                   width={320}
                   height={167}
@@ -46,7 +46,7 @@ export function SiteFooter() {
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider">{t.footer.productCategories}</h3>
             <ul className="mt-5 flex flex-col gap-3">
-              {categories.map((cat) => (
+              {getCategories().map((cat) => (
                 <li key={cat.slug}>
                   <Link
                     href={href(`/categories/${cat.slug}`)}

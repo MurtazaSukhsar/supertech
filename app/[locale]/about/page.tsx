@@ -8,12 +8,15 @@ import { AnimatedCounter } from '@/components/animated-counter'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, type Locale } from '@/lib/i18n/config'
+import { siteImages } from '@/lib/products'
+import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
 
@@ -32,6 +35,7 @@ export default async function AboutPage({
 }: {
   params: Promise<{ locale: string }>
 }) {
+  await primeSiteDataSafely()
   const { locale } = await params
   const t = getDictionary(locale)
   const href = (path: string) => localePath(locale as Locale, path)
@@ -61,7 +65,7 @@ export default async function AboutPage({
           <ScrollReveal>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border">
               <Image
-                src="/images/about-facility.webp"
+                src={siteImages.aboutFacility}
                 alt={t.about.imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
