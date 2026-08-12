@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Send, MessageCircle } from 'lucide-react'
+import emailjs from '@emailjs/browser'
+import { Send, MessageCircle, Loader2 } from 'lucide-react'
 import { contactInfo } from '@/lib/products'
 import { useQuote } from '@/context/quote-context'
 import { useI18n } from '@/components/i18n-provider'
@@ -26,6 +27,11 @@ function ShoppingBagIcon({ className }: { className?: string }) {
   )
 }
 
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? ''
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? ''
+const EMAILJS_AUTOREPLY_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID ?? ''
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? ''
+
 export function ContactForm({ initialProduct = '' }: { initialProduct?: string }) {
   const { t } = useI18n()
   const searchParams = useSearchParams()
@@ -37,7 +43,7 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
   const [phone, setPhone] = useState('')
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [submitType, setSubmitType] = useState<'email' | 'whatsapp'>('email')
 
   useEffect(() => {
@@ -52,22 +58,70 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
     }
   }, [isBasketQuote, initialProduct, items, getFormattedQuoteText, t])
 
-  function handleSubmit(e: React.FormEvent) {
+  function resetForm() {
+    setName('')
+    setEmail('')
+    setPhone('')
+    setSubject('')
+    setMessage('')
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
-    
+    if (status === 'sending') return
+
+    const resolvedSubject = subject || t.form.bulkQuoteRequest
+
     if (submitType === 'whatsapp') {
-      const waBody = `*${subject || t.form.bulkQuoteRequest}*\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
+      const waBody = `*${resolvedSubject}*\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\n${message}`
       window.open(`${contactInfo.whatsappHref}?text=${encodeURIComponent(waBody)}`, '_blank')
-    } else {
-      window.open(
-        `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email}&su=${encodeURIComponent(
-          subject || t.form.bulkQuoteRequest
-        )}&body=${encodeURIComponent(body)}`,
-        '_blank'
-      )
+      setStatus('sent')
+      return
     }
-    setSent(true)
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      console.error('EmailJS environment variables are not configured.')
+      setStatus('error')
+      return
+    }
+
+    const params = {
+      from_name: name,
+      from_email: email,
+      reply_to: email,
+      phone: phone || '—',
+      subject: resolvedSubject,
+      message,
+      to_email: contactInfo.email,
+      sent_at: new Date().toLocaleString('en-GB', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Kuwait',
+      }),
+    }
+
+    setStatus('sending')
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params, {
+        publicKey: EMAILJS_PUBLIC_KEY,
+      })
+      setStatus('sent')
+      resetForm()
+
+      // Confirmation to the customer. Deliberately not awaited into the success
+      // path: if it fails, the enquiry still reached us, so the visitor should
+      // not be shown an error.
+      if (EMAILJS_AUTOREPLY_TEMPLATE_ID) {
+        emailjs
+          .send(EMAILJS_SERVICE_ID, EMAILJS_AUTOREPLY_TEMPLATE_ID, params, {
+            publicKey: EMAILJS_PUBLIC_KEY,
+          })
+          .catch((err) => console.error('EmailJS auto-reply failed:', err))
+      }
+    } catch (err) {
+      console.error('EmailJS send failed:', err)
+      setStatus('error')
+    }
   }
 
   const inputClass =
@@ -163,23 +217,37 @@ export function ContactForm({ initialProduct = '' }: { initialProduct?: string }
         <button
           type="submit"
           onClick={() => setSubmitType('email')}
-          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg btn-primary px-6 text-sm font-bold"
+          disabled={status === 'sending'}
+          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg btn-primary px-6 text-sm font-bold disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <Send className="size-4" aria-hidden="true" />
-          {t.form.sendEmail}
+          {status === 'sending' ? (
+            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+          ) : (
+            <Send className="size-4" aria-hidden="true" />
+          )}
+          {status === 'sending' ? t.form.sending : t.form.sendEmail}
         </button>
         <button
           type="submit"
           onClick={() => setSubmitType('whatsapp')}
-          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg bg-[#25D366] text-white hover:bg-[#128C7E] px-6 text-sm font-bold transition-colors"
+          disabled={status === 'sending'}
+          className="inline-flex h-13 flex-1 items-center justify-center gap-2.5 rounded-lg bg-[#25D366] text-white hover:bg-[#128C7E] px-6 text-sm font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
         >
           <MessageCircle className="size-4" aria-hidden="true" />
           {t.form.sendWhatsApp}
         </button>
       </div>
-      {sent && (
+      {status === 'sent' && (
         <p role="status" className="text-sm font-medium text-accent">
           {t.form.sentTitle}
+        </p>
+      )}
+      {status === 'error' && (
+        <p role="alert" className="text-sm font-medium text-destructive">
+          {t.form.errorTitle}{' '}
+          <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer" className="underline">
+            {t.form.sendWhatsApp}
+          </a>
         </p>
       )}
     </form>
