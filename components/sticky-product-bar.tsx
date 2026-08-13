@@ -13,8 +13,18 @@ export function StickyProductBar({ product }: { product: Product }) {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
+    // Same dead-zone fix as SiteHeader's `scrolled` toggle: a single 480px
+    // line makes this bar slide in and out repeatedly while scroll position
+    // hovers near it, which is exactly the wiggle you saw. A 40px buffer
+    // between the show/hide thresholds stops it from re-triggering on
+    // every small wobble.
     function onScroll() {
-      setShow(window.scrollY > 480)
+      const y = window.scrollY
+      setShow((prev) => {
+        if (y > 500) return true
+        if (y < 460) return false
+        return prev
+      })
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)

@@ -65,8 +65,20 @@ export function SiteHeader() {
   }, [])
 
   useEffect(() => {
+    // A single 40px threshold flips `scrolled` back and forth on every tiny
+    // wobble of scroll position near that line (trackpad momentum, a mouse
+    // wheel tick, even sub-pixel rounding) — and since scrolled toggles a
+    // transition-all across height/padding/logo size, each flip replays
+    // that 300ms animation, which reads as the header wiggling in place.
+    // A dead zone between "definitely scrolled" and "definitely at top"
+    // keeps the state — and the animation — from re-triggering inside it.
     function onScroll() {
-      setScrolled(window.scrollY > 40)
+      const y = window.scrollY
+      setScrolled((prev) => {
+        if (y > 56) return true
+        if (y < 24) return false
+        return prev
+      })
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
