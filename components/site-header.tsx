@@ -81,7 +81,7 @@ export function SiteHeader() {
   }
 
   const navLinkClass =
-    'nav-underline relative text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full'
+    'nav-underline relative shrink-0 whitespace-nowrap text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full'
 
   return (
     <header
