@@ -170,8 +170,8 @@ export function SiteHeader() {
           </nav>
 
           {/* Search + Language + Quote Basket + CTA */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <form onSubmit={submitSearch} role="search" className="relative hidden md:block">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <form onSubmit={submitSearch} role="search" className="relative hidden shrink-0 md:block">
               <Search
                 className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-muted-foreground ${
                   isRtl ? 'right-3' : 'left-3'
@@ -190,17 +190,17 @@ export function SiteHeader() {
               />
             </form>
 
-            <LanguageSwitcher className="hidden sm:inline-flex" />
+            <LanguageSwitcher className="hidden shrink-0 sm:inline-flex" />
 
             {/* Quote Basket Trigger Button */}
             <button
               type="button"
               onClick={openDrawer}
-              className="relative inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-secondary px-3.5 text-sm font-semibold text-foreground transition-all hover:border-accent hover:bg-background shadow-sm"
+              className="relative inline-flex h-10 shrink-0 items-center gap-2 rounded-lg border border-border bg-secondary px-3.5 text-sm font-semibold text-foreground transition-all hover:border-accent hover:bg-background shadow-sm"
               aria-label={`${t.nav.openQuoteBasket}, ${totalCount} ${t.nav.items}`}
             >
-              <ShoppingBagIcon className="size-4 text-accent" aria-hidden="true" />
-              <span className="hidden sm:inline">{t.nav.quoteBasket}</span>
+              <ShoppingBagIcon className="size-4 shrink-0 text-accent" aria-hidden="true" />
+              <span className="hidden whitespace-nowrap sm:inline">{t.nav.quoteBasket}</span>
               {totalCount > 0 ? (
                 /* `key` on the count makes the badge re-mount and pop each time
                    an item is added, so the basket visibly reacts. */
@@ -223,7 +223,7 @@ export function SiteHeader() {
 
             <Link
               href={href('/contact')}
-              className="hidden h-10 items-center rounded-lg btn-primary px-5 text-sm lg:inline-flex"
+              className="hidden h-10 shrink-0 items-center whitespace-nowrap rounded-lg btn-primary px-5 text-sm lg:inline-flex"
             >
               {t.common.getQuote}
             </Link>
