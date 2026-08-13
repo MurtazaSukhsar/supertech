@@ -22,7 +22,12 @@ export function StickyProductBar({ product }: { product: Product }) {
 
   return (
     <div
-      className={`fixed top-0 inset-x-0 z-40 border-b border-border bg-background/98 shadow-md backdrop-blur-md transition-all duration-300 ${
+      // Sits right below the real header height (published as
+      // --site-header-height by SiteHeader's ResizeObserver) instead of
+      // hard-coding top-0, which used to plant this bar directly on top of
+      // the sticky header — same z-index, same corner, fighting over the
+      // same pixels every time the header's own height changed on scroll.
+      className={`fixed inset-x-0 top-[var(--site-header-height,96px)] z-30 border-b border-border bg-background/98 shadow-md backdrop-blur-md transition-all duration-300 ${
         show
           ? 'translate-y-0 opacity-100'
           : '-translate-y-full opacity-0 pointer-events-none'

@@ -38,6 +38,7 @@ export function SiteHeader() {
   const [query, setQuery] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
   const router = useRouter()
   const pathname = usePathname()
 
@@ -71,6 +72,31 @@ export function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  /**
+   * Publish the header's real, live-measured height as a CSS variable.
+   *
+   * The header's height isn't a fixed number — it changes across
+   * breakpoints (logo scales from h-12 to h-28) and between scrolled /
+   * unscrolled states (h-10 to h-18, plus the brand bar collapsing from
+   * h-4/h-6 to h-1). Anything else on the page that needs to sit directly
+   * below the header (e.g. StickyProductBar) can't hard-code a top offset
+   * without drifting out of sync at some breakpoint or scroll state — it
+   * used to just overlap the header instead, which is the "wiggle" you
+   * saw scrolling a product page: two bars fighting for the same 0px.
+   * A ResizeObserver keeps --site-header-height accurate through every
+   * resize, font-load reflow, and scroll-driven size change automatically.
+   */
+  useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+    const setVar = () =>
+      document.documentElement.style.setProperty('--site-header-height', `${el.offsetHeight}px`)
+    setVar()
+    const observer = new ResizeObserver(setVar)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   function submitSearch(e: React.FormEvent) {
     e.preventDefault()
     const q = query.trim()
@@ -85,6 +111,7 @@ export function SiteHeader() {
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         scrolled
           ? 'bg-background/98 shadow-lg shadow-primary/5 backdrop-blur-lg'

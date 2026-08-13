@@ -122,13 +122,13 @@ export default async function ProductPage({
 
         <div className="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Gallery with Mask Wipe, Magnifier & Active Ring */}
-          <ScrollReveal>
+          <ScrollReveal className="min-w-0">
             <ProductGallery images={product.images} name={product.name} />
           </ScrollReveal>
 
           {/* Product details & specs */}
-          <ScrollReveal delay={100}>
-            <div className="flex flex-col">
+          <ScrollReveal delay={100} className="min-w-0">
+            <div className="flex min-w-0 flex-col">
               <div className="flex flex-wrap items-center gap-2.5">
                 <Link
                   href={href(`/categories/${product.category}`)}
