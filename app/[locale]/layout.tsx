@@ -133,18 +133,10 @@ export default async function LocaleLayout({
       className={`bg-background ${inter.variable} ${isRtl ? 'font-arabic' : ''}`}
     >
       <head>
-        {/* Arabic webfont is only requested on the Arabic pages, so the English
-            build stays free of external font requests. */}
-        {isRtl && (
-          <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
-              rel="stylesheet"
-            />
-          </>
-        )}
+        {/* Cairo is self-hosted from /public/fonts/cairo (see globals.css) and
+            declared with font-display: swap, so it's only fetched when
+            html.font-arabic is actually applied — no per-locale <head>
+            branching needed, and no external font requests either way. */}
       </head>
       <body className="font-sans antialiased">
         <script
