@@ -122,14 +122,15 @@ export function SiteHeader() {
     'nav-underline relative shrink-0 whitespace-nowrap text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full'
 
   return (
-    <header
-      ref={headerRef}
-      className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-        scrolled
-          ? 'bg-background/98 shadow-lg shadow-primary/5 backdrop-blur-lg'
-          : 'bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85'
-      }`}
-    >
+    <>
+      <header
+        ref={headerRef}
+        className={`fixed inset-x-0 top-0 z-40 w-full transition-all duration-300 ${
+          scrolled
+            ? 'bg-background/98 shadow-lg shadow-primary/5 backdrop-blur-lg'
+            : 'bg-background/95 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/85'
+        }`}
+      >
       {/* Top brand bar */}
       <div
         className={`w-full bg-primary transition-all duration-300 ${
@@ -392,6 +393,9 @@ export function SiteHeader() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+      </header>
+      {/* Spacer to reserve layout space for the fixed header without shifting document flow on scroll */}
+      <div className="h-[81px] sm:h-[105px] md:h-[137px] lg:h-[161px]" aria-hidden="true" />
+    </>
   )
 }
