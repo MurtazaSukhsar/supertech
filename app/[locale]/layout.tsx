@@ -75,6 +75,9 @@ export async function generateMetadata({
       description: t.meta.ogDescription,
       images: [siteImages.heroBackground],
     },
+    verification: {
+      google: 'QVhsIlUtLtnruxTRFBq3wSPRSR1GGItu1WNeG3A16pU',
+    },
     generator: 'v0.app',
   }
 }
