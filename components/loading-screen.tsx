@@ -5,8 +5,8 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { useI18n } from '@/components/i18n-provider'
 import { siteImages } from '@/lib/products'
 
-const MIN_DURATION = 900 // keep the brand moment on screen at least this long
-const MAX_DURATION = 7000 // hard fallback so a stuck asset never blocks the site
+const MIN_DURATION = 300 // keep the brand moment on screen at least this long
+const MAX_DURATION = 2500 // hard fallback so a stuck asset never blocks the site
 const FADE_DURATION = 600
 
 // Sampled straight from /images/logo.webp — no other colours are used here.
