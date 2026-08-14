@@ -61,32 +61,45 @@ _IMAGE_CACHE: dict[tuple[str, int], ImageReader | None] = {}
 
 def load_image(rel_path: str, max_px: int = 700) -> ImageReader | None:
     """
-    Load a /public-relative image for ReportLab, downsampled for print.
+    Load a image for ReportLab, downsampled for print.
+    Supports local files as well as remote HTTP/HTTPS URLs (like Cloudinary).
 
     Source images are WebP, which ReportLab cannot embed directly, so each is
     decoded with Pillow. Transparency is flattened onto white to match how the
     product cards render on the site.
-
-    Downsampling matters more than it looks: the masters are up to 1536px, but
-    a card image well is only ~75mm wide, which is ~600px at 200 DPI. Embedding
-    the masters as PNG produced a 45 MB file — unusable as an email attachment.
-    Resizing and encoding as JPEG brings that under 5 MB with no visible loss
-    at print size.
-
-    Results are cached because several products share artwork.
     """
     key = (rel_path, max_px)
     if key in _IMAGE_CACHE:
         return _IMAGE_CACHE[key]
 
-    path = PUBLIC / rel_path.lstrip("/")
-    if not path.exists():
-        print(f"  ! missing image: {rel_path}", file=sys.stderr)
-        _IMAGE_CACHE[key] = None
-        return None
+    import urllib.request
+    import urllib.error
+
+    img = None
+    if rel_path.startswith(("http://", "https://")):
+        try:
+            req = urllib.request.Request(rel_path, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req, timeout=15) as response:
+                img_data = response.read()
+                img = PILImage.open(io.BytesIO(img_data))
+        except Exception as exc:
+            print(f"  ! could not download image {rel_path}: {exc}", file=sys.stderr)
+            _IMAGE_CACHE[key] = None
+            return None
+    else:
+        path = PUBLIC / rel_path.lstrip("/")
+        if not path.exists():
+            print(f"  ! missing image: {rel_path}", file=sys.stderr)
+            _IMAGE_CACHE[key] = None
+            return None
+        try:
+            img = PILImage.open(path)
+        except Exception as exc:
+            print(f"  ! could not read {rel_path}: {exc}", file=sys.stderr)
+            _IMAGE_CACHE[key] = None
+            return None
 
     try:
-        img = PILImage.open(path)
         if img.mode in ("RGBA", "LA", "P"):
             img = img.convert("RGBA")
             flat = PILImage.new("RGB", img.size, (255, 255, 255))
@@ -107,7 +120,7 @@ def load_image(rel_path: str, max_px: int = 700) -> ImageReader | None:
         buf.seek(0)
         reader = ImageReader(buf)
     except Exception as exc:  # noqa: BLE001 - a bad image must not kill the build
-        print(f"  ! could not read {rel_path}: {exc}", file=sys.stderr)
+        print(f"  ! could not process image {rel_path}: {exc}", file=sys.stderr)
         reader = None
 
     _IMAGE_CACHE[key] = reader
