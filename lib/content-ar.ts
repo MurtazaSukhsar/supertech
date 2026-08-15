@@ -5,8 +5,12 @@ import blogArData from '@/data/blog-ar.json'
 /** See the note in `lib/content.ts` — refilled in place, never reassigned. */
 export const faqsAr: Faq[] = [...(faqsArData as unknown as Faq[])]
 
-export const blogPostsAr: BlogPost[] = blogArData as unknown as BlogPost[]
+export const blogPostsAr: BlogPost[] = [...(blogArData as unknown as BlogPost[])]
 
 export function replaceFaqsAr(next: Faq[]): void {
   if (next.length > 0) faqsAr.splice(0, faqsAr.length, ...next)
+}
+
+export function replaceBlogPostsAr(next: BlogPost[]): void {
+  if (next.length > 0) blogPostsAr.splice(0, blogPostsAr.length, ...next)
 }

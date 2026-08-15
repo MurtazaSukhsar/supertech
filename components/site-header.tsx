@@ -118,6 +118,19 @@ export function SiteHeader() {
     }
   }
 
+  // Clicking the logo or "Home" while already on the home page is a
+  // same-URL <Link>, so Next.js doesn't navigate and the page stays
+  // wherever it was scrolled. Scroll to top by hand in that one case;
+  // every other page still gets a normal navigation to "/" (which lands
+  // at the top naturally).
+  function scrollToTopIfHome(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (pathname !== href('/')) return
+    e.preventDefault()
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+    setMobileOpen(false)
+  }
+
   const navLinkClass =
     'nav-underline relative shrink-0 whitespace-nowrap text-sm font-semibold text-foreground transition-colors hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full'
 
@@ -142,7 +155,12 @@ export function SiteHeader() {
       {/* Main nav */}
       <div className="border-b border-border">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 px-4 sm:px-6 py-2 sm:py-3 md:px-8 lg:px-12">
-          <Link href={href('/')} className="flex shrink-0 items-center gap-3" aria-label={t.nav.homeAriaLabel}>
+          <Link
+            href={href('/')}
+            onClick={scrollToTopIfHome}
+            className="flex shrink-0 items-center gap-3"
+            aria-label={t.nav.homeAriaLabel}
+          >
             <Image
               src={siteImages.logo}
               alt={t.footer.logoAlt}
@@ -158,7 +176,7 @@ export function SiteHeader() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-7 lg:flex" aria-label={t.nav.mainNavigation}>
-            <Link href={href('/')} className={navLinkClass}>
+            <Link href={href('/')} onClick={scrollToTopIfHome} className={navLinkClass}>
               {t.nav.home}
             </Link>
             <div
@@ -326,6 +344,7 @@ export function SiteHeader() {
             <motion.div variants={staggerItem}>
               <Link
                 href={href('/')}
+                onClick={scrollToTopIfHome}
                 className="block border-b border-border py-3.5 text-sm font-semibold"
               >
                 {t.nav.home}

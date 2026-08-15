@@ -328,15 +328,146 @@ export async function saveFaqs(faqs: Faq[], locale = 'en'): Promise<void> {
 }
 
 /* ------------------------------------------------------------------ */
-/* Blog — still file-backed; the admin panel doesn't edit posts yet    */
+/* Blog                                                                */
 /* ------------------------------------------------------------------ */
 
+export type BlogPostArabic = {
+  title?: string
+  description?: string
+  category?: string
+  readTime?: string
+  body?: string[]
+}
+
+type BlogPostRow = {
+  slug: string
+  title: string
+  description: string
+  category: string
+  published_at: string
+  read_time: string
+  image: string
+  body: string[]
+  title_ar: string | null
+  description_ar: string | null
+  category_ar: string | null
+  read_time_ar: string | null
+  body_ar: string[] | null
+  sort_order: number
+}
+
+const toBlogPost = (row: BlogPostRow): BlogPost => ({
+  slug: row.slug,
+  title: row.title,
+  description: row.description,
+  category: row.category,
+  publishedAt: row.published_at,
+  readTime: row.read_time,
+  image: row.image,
+  body: row.body ?? [],
+})
+
+const toBlogPostLocalized = (row: BlogPostRow, locale: string): BlogPost =>
+  locale === 'ar'
+    ? {
+        slug: row.slug,
+        title: row.title_ar || row.title,
+        description: row.description_ar || row.description,
+        category: row.category_ar || row.category,
+        publishedAt: row.published_at,
+        readTime: row.read_time_ar || row.read_time,
+        image: row.image,
+        body: row.body_ar?.length ? row.body_ar : (row.body ?? []),
+      }
+    : toBlogPost(row)
+
+const toBlogPostArabic = (row: BlogPostRow): BlogPostArabic | undefined => {
+  if (!row.title_ar && !row.description_ar && !row.category_ar && !row.read_time_ar && !row.body_ar) {
+    return undefined
+  }
+  return {
+    title: row.title_ar ?? undefined,
+    description: row.description_ar ?? undefined,
+    category: row.category_ar ?? undefined,
+    readTime: row.read_time_ar ?? undefined,
+    body: row.body_ar ?? undefined,
+  }
+}
+
+async function fetchBlogRows(): Promise<BlogPostRow[]> {
+  return unwrap(
+    await adminClient()
+      .from('blog_posts')
+      .select('*')
+      .order('sort_order', { ascending: true })
+      .order('published_at', { ascending: false }),
+  ) as BlogPostRow[]
+}
+
+/** Public/localized read — what the site's rendering path sees (see lib/server/site-data.ts). */
 export async function getBlog(locale = 'en'): Promise<BlogPost[]> {
-  const [{ default: en }, { default: ar }] = await Promise.all([
-    import('@/data/blog.json'),
-    import('@/data/blog-ar.json'),
-  ])
-  return (locale === 'ar' ? ar : en) as unknown as BlogPost[]
+  const rows = await fetchBlogRows()
+  return rows.map((row) => toBlogPostLocalized(row, locale))
+}
+
+/** Admin read — English base copy, used by the blog manager list and edit form. */
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  const rows = await fetchBlogRows()
+  return rows.map(toBlogPost)
+}
+
+/** One post's Arabic overrides, for the edit form's translation section. */
+export async function getBlogPostTranslation(slug: string): Promise<BlogPostArabic | undefined> {
+  const row = unwrap(
+    await adminClient().from('blog_posts').select('*').eq('slug', slug).maybeSingle(),
+  ) as BlogPostRow | null
+  return row ? toBlogPostArabic(row) : undefined
+}
+
+export async function upsertBlogPost(
+  post: BlogPost,
+  originalSlug?: string,
+  arabic?: BlogPostArabic | null,
+): Promise<BlogPost[]> {
+  const client = adminClient()
+
+  // A renamed slug needs a delete-then-insert, same reasoning as products.
+  if (originalSlug && originalSlug !== post.slug) {
+    await client.from('blog_posts').delete().eq('slug', originalSlug)
+  }
+
+  unwrap(
+    await client
+      .from('blog_posts')
+      .upsert(
+        {
+          slug: post.slug,
+          title: post.title,
+          description: post.description,
+          category: post.category,
+          published_at: post.publishedAt,
+          read_time: post.readTime,
+          image: post.image,
+          body: post.body,
+          title_ar: arabic?.title?.trim() || null,
+          description_ar: arabic?.description?.trim() || null,
+          category_ar: arabic?.category?.trim() || null,
+          read_time_ar: arabic?.readTime?.trim() || null,
+          body_ar: arabic?.body?.filter((p) => p.trim()).length ? arabic.body : null,
+        },
+        { onConflict: 'slug' },
+      )
+      .select('slug'),
+  )
+
+  invalidate()
+  return getBlogPosts()
+}
+
+export async function deleteBlogPost(slug: string): Promise<BlogPost[]> {
+  unwrap(await adminClient().from('blog_posts').delete().eq('slug', slug).select('slug'))
+  invalidate()
+  return getBlogPosts()
 }
 
 /* ------------------------------------------------------------------ */

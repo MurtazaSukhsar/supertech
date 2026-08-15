@@ -17,7 +17,7 @@ export type BlogPost = {
   body: string[]
 }
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://supertechkuwait.com'
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://supertechint.com.kw'
 
 /**
  * Seeded from the committed JSON, then refilled in place once Supabase data
@@ -26,11 +26,15 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://supertechkuw
  */
 export const faqs: Faq[] = [...(faqsData as unknown as Faq[])]
 
-/** Blog posts stay file-backed — the admin panel doesn't edit them yet. */
-export const blogPosts: BlogPost[] = blogData as unknown as BlogPost[]
+/** Seeded from the committed JSON, then refilled in place once Supabase data arrives. */
+export const blogPosts: BlogPost[] = [...(blogData as unknown as BlogPost[])]
 
 export function replaceFaqs(next: Faq[]): void {
   if (next.length > 0) faqs.splice(0, faqs.length, ...next)
+}
+
+export function replaceBlogPosts(next: BlogPost[]): void {
+  if (next.length > 0) blogPosts.splice(0, blogPosts.length, ...next)
 }
 
 export function getBlogPost(slug: string): BlogPost | undefined {

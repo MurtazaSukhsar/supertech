@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "lib/content.ts",
+    "lib/content-ar.ts",
+    "lib/server/store.ts",
+    "lib/server/site-data.ts",
+    "components/admin/shell.tsx",
+    "app/admin/page.tsx",
+    "app/api/admin/blog/route.ts",
+    "app/admin/blog/page.tsx",
+    "app/admin/blog/new/page.tsx",
+    "app/admin/blog/[slug]/page.tsx",
+    "components/admin/blog-manager.tsx",
+    "components/admin/blog-form.tsx",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ]
+}

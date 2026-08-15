@@ -1,19 +1,32 @@
 import Link from 'next/link'
-import { FolderTree, HelpCircle, Images, Package, Plus, Settings, Type } from 'lucide-react'
+import {
+  FolderTree,
+  HelpCircle,
+  Images,
+  Newspaper,
+  Package,
+  Plus,
+  Settings,
+  Type,
+} from 'lucide-react'
 
 import { requireAdmin } from '@/lib/server/auth'
-import { getCategories, getFaqs, getProducts, getSite } from '@/lib/server/store'
+import { getBlogPosts, getCategories, getFaqs, getProducts, getSite } from '@/lib/server/store'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
   await requireAdmin()
 
-  const [products, categories, faqs, site] = await Promise.all([
+  // Blog posts are fetched best-effort: until the blog_posts table exists
+  // (see supabase/schema.sql) this would throw and take the whole dashboard
+  // down with it, when only the blog stat/shortcut should be affected.
+  const [products, categories, faqs, site, blogPosts] = await Promise.all([
     getProducts(),
     getCategories(),
     getFaqs('en'),
     getSite(),
+    getBlogPosts().catch(() => []),
   ])
 
   const featured = products.filter((p) => p.featured).length
@@ -24,10 +37,12 @@ export default async function AdminDashboard() {
     { label: 'Categories', value: categories.length, href: '/admin/categories', icon: FolderTree },
     { label: 'Featured', value: featured, href: '/admin/products?featured=1', icon: Package },
     { label: 'FAQs', value: faqs.length, href: '/admin/faqs', icon: HelpCircle },
+    { label: 'Blog posts', value: blogPosts.length, href: '/admin/blog', icon: Newspaper },
   ]
 
   const shortcuts = [
     { href: '/admin/products/new', label: 'Add a product', icon: Plus },
+    { href: '/admin/blog/new', label: 'Write a blog post', icon: Newspaper },
     { href: '/admin/content', label: 'Edit hero & page text', icon: Type },
     { href: '/admin/site', label: 'Contact details & images', icon: Settings },
     { href: '/admin/media', label: 'Manage images', icon: Images },
@@ -43,7 +58,7 @@ export default async function AdminDashboard() {
         </p>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         {stats.map(({ label, value, href, icon: Icon }) => (
           <Link
             key={label}

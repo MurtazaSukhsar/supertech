@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Image } from '@/components/site-image'
 import { Download, Mail, MapPin, Phone } from 'lucide-react'
 import { CATALOGUE_PATH } from '@/components/catalogue-download'
@@ -18,9 +19,21 @@ function InstagramIcon({ className }: { className?: string }) {
 
 export function SiteFooter() {
   const { t, locale, href } = useI18n()
+  const pathname = usePathname()
 
   const categoryName = (slug: string, fallback: string) =>
     locale === 'ar' ? (categoryTranslationsAr[slug]?.name ?? fallback) : fallback
+
+  // Clicking the logo while already on the home page is a same-URL <Link>,
+  // so Next.js doesn't navigate and the page stays wherever it was scrolled.
+  // Scroll to top by hand in that one case; every other page still gets a
+  // normal navigation to "/" (which naturally lands at the top).
+  function scrollToTopIfHome(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (pathname !== href('/')) return
+    e.preventDefault()
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+  }
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -28,7 +41,12 @@ export function SiteFooter() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand col */}
           <div className="flex flex-col gap-4">
-            <Link href={href('/')} className="inline-block" aria-label={t.nav.homeAriaLabel}>
+            <Link
+              href={href('/')}
+              onClick={scrollToTopIfHome}
+              className="inline-block"
+              aria-label={t.nav.homeAriaLabel}
+            >
               <div className="inline-flex rounded-xl bg-white p-3 sm:p-3.5 shadow-md">
                 <Image
                   src={siteImages.logo}
@@ -85,15 +103,6 @@ export function SiteFooter() {
                   className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
                 >
                   {t.nav.faq}
-                </Link>
-              </li>
-              {/* Sitewide link so the area pages are crawled from every page. */}
-              <li>
-                <Link
-                  href={href('/hardware-shop')}
-                  className="text-sm text-primary-foreground/70 transition-colors hover:text-accent"
-                >
-                  {t.locations.breadcrumb}
                 </Link>
               </li>
               <li>

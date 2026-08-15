@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Newspaper,
   Package,
   Settings,
   Type,
@@ -26,8 +27,14 @@ const NAV = [
   { href: '/admin/content', label: 'Page text', icon: Type },
   { href: '/admin/site', label: 'Site & contact', icon: Settings },
   { href: '/admin/faqs', label: 'FAQs', icon: HelpCircle },
+  { href: '/admin/blog', label: 'Blog', icon: Newspaper },
   { href: '/admin/media', label: 'Media', icon: Images },
 ]
+
+// The admin panel can live on its own domain (see ADMIN_HOST in proxy.ts),
+// so "View site" needs the public site's real URL rather than a same-origin
+// relative link.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? ''
 
 export function AdminShell({
   email,
@@ -85,7 +92,7 @@ export function AdminShell({
 
         <div className="mt-4 space-y-1 border-t border-white/10 p-3 lg:mt-auto">
           <Link
-            href="/en"
+            href={SITE_URL ? `${SITE_URL}/en` : '/en'}
             target="_blank"
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
           >

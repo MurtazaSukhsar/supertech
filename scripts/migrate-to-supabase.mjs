@@ -128,6 +128,8 @@ async function main() {
   const faqsEn = read('faqs.json')
   const faqsAr = read('faqs-ar.json')
   const ar = read('translations-ar.json')
+  const blogEn = read('blog.json')
+  const blogAr = fs.existsSync(path.join(root, 'data', 'blog-ar.json')) ? read('blog-ar.json') : []
 
   // --- Categories (first: products reference them) -------------------
   const categoryRows = []
@@ -217,6 +219,33 @@ async function main() {
       ...faqsEn.map((faq, i) => ({ ...faq, locale: 'en', sort_order: i })),
       ...faqsAr.map((faq, i) => ({ ...faq, locale: 'ar', sort_order: i })),
     ]),
+  )
+
+  // --- Blog posts ------------------------------------------------------
+  const blogArBySlug = new Map(blogAr.map((post) => [post.slug, post]))
+  const blogRows = []
+  for (const [index, post] of blogEn.entries()) {
+    const tr = blogArBySlug.get(post.slug)
+    blogRows.push({
+      slug: post.slug,
+      title: post.title,
+      description: post.description ?? '',
+      category: post.category ?? '',
+      published_at: post.publishedAt,
+      read_time: post.readTime ?? '',
+      image: withImages ? await uploadLocal(post.image) : (post.image ?? ''),
+      body: post.body ?? [],
+      title_ar: tr?.title ?? null,
+      description_ar: tr?.description ?? null,
+      category_ar: tr?.category ?? null,
+      read_time_ar: tr?.readTime ?? null,
+      body_ar: tr?.body ?? null,
+      sort_order: index,
+    })
+  }
+  check(
+    `blog posts (${blogRows.length})`,
+    await supabase.from('blog_posts').upsert(blogRows, { onConflict: 'slug' }),
   )
 
   // --- Shared Arabic labels -----------------------------------------

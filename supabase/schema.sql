@@ -113,6 +113,31 @@ create table if not exists public.translations (
 );
 
 -- ---------------------------------------------------------------------------
+-- Blog posts
+-- ---------------------------------------------------------------------------
+create table if not exists public.blog_posts (
+  slug            text primary key,
+  title           text not null,
+  description     text not null default '',
+  category        text not null default '',
+  published_at    date not null default current_date,
+  read_time       text not null default '',
+  image           text not null default '',
+  body            jsonb not null default '[]'::jsonb,
+  -- Arabic overrides; null falls back to the English column.
+  title_ar        text,
+  description_ar  text,
+  category_ar     text,
+  read_time_ar    text,
+  body_ar         jsonb,
+  sort_order      integer not null default 0,
+  created_at      timestamptz not null default now(),
+  updated_at      timestamptz not null default now()
+);
+
+create index if not exists blog_posts_published_idx on public.blog_posts (published_at desc);
+
+-- ---------------------------------------------------------------------------
 -- Row level security: public read, no public writes
 -- ---------------------------------------------------------------------------
 alter table public.categories        enable row level security;
@@ -121,13 +146,14 @@ alter table public.site_settings     enable row level security;
 alter table public.content_overrides enable row level security;
 alter table public.faqs              enable row level security;
 alter table public.translations      enable row level security;
+alter table public.blog_posts        enable row level security;
 
 do $$
 declare
   t text;
 begin
   foreach t in array array[
-    'categories', 'products', 'site_settings', 'content_overrides', 'faqs', 'translations'
+    'categories', 'products', 'site_settings', 'content_overrides', 'faqs', 'translations', 'blog_posts'
   ]
   loop
     execute format('drop policy if exists %I on public.%I', t || '_public_read', t);
@@ -154,7 +180,7 @@ do $$
 declare
   t text;
 begin
-  foreach t in array array['categories', 'products', 'site_settings', 'content_overrides']
+  foreach t in array array['categories', 'products', 'site_settings', 'content_overrides', 'blog_posts']
   loop
     execute format('drop trigger if exists %I on public.%I', t || '_touch', t);
     execute format(

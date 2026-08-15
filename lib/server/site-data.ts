@@ -1,6 +1,7 @@
 import { unstable_cache } from 'next/cache'
 
 import {
+  getBlog,
   getCategories,
   getContentOverrides,
   getFaqs,
@@ -14,8 +15,8 @@ import type { Category, Product } from '@/lib/products'
 import { primeRuntimeSiteData } from '@/lib/product-storage'
 import { CATALOG_TAG } from './cache'
 import { primeContentOverrides } from '@/lib/i18n'
-import { replaceFaqs, type Faq } from '@/lib/content'
-import { replaceFaqsAr } from '@/lib/content-ar'
+import { replaceFaqs, replaceBlogPosts, type BlogPost, type Faq } from '@/lib/content'
+import { replaceFaqsAr, replaceBlogPostsAr } from '@/lib/content-ar'
 
 /**
  * One cached read of everything the public site needs from Supabase.
@@ -34,18 +35,22 @@ export type SnapshotData = {
   content: Record<string, unknown>
   translationsAr: ArabicTranslations
   faqs: { en: Faq[]; ar: Faq[] }
+  blog: { en: BlogPost[]; ar: BlogPost[] }
 }
 
 async function load(): Promise<SnapshotData> {
-  const [products, categories, site, content, translationsAr, faqsEn, faqsAr] = await Promise.all([
-    getProducts(),
-    getCategories(),
-    getSite(),
-    getContentOverrides(),
-    getTranslationsAr(),
-    getFaqs('en'),
-    getFaqs('ar'),
-  ])
+  const [products, categories, site, content, translationsAr, faqsEn, faqsAr, blogEn, blogAr] =
+    await Promise.all([
+      getProducts(),
+      getCategories(),
+      getSite(),
+      getContentOverrides(),
+      getTranslationsAr(),
+      getFaqs('en'),
+      getFaqs('ar'),
+      getBlog('en'),
+      getBlog('ar'),
+    ])
   return {
     products,
     categories,
@@ -53,6 +58,7 @@ async function load(): Promise<SnapshotData> {
     content,
     translationsAr,
     faqs: { en: faqsEn, ar: faqsAr },
+    blog: { en: blogEn, ar: blogAr },
   }
 }
 
@@ -93,6 +99,8 @@ export async function primeSiteData(): Promise<SnapshotData> {
   primeContentOverrides(snapshot.content)
   replaceFaqs(snapshot.faqs.en)
   replaceFaqsAr(snapshot.faqs.ar)
+  replaceBlogPosts(snapshot.blog.en)
+  replaceBlogPostsAr(snapshot.blog.ar)
   return snapshot
 }
 
