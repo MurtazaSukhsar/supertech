@@ -2,15 +2,15 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { defaultLocale, locales } from '@/lib/i18n/config'
 
 const PUBLIC_FILE = /\.(.*)$/
+const MAIN_SITE_URL = 'https://supertechint.com.kw'
+const ADMIN_HOST = process.env.NEXT_PUBLIC_ADMIN_DOMAIN?.toLowerCase() || ''
 
 function detectLocale(request: NextRequest): string {
-  // 1. Explicit choice saved from the language switcher wins.
   const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
   if (cookieLocale && (locales as readonly string[]).includes(cookieLocale)) {
     return cookieLocale
   }
 
-  // 2. Otherwise fall back to the browser's Accept-Language header.
   const header = request.headers.get('accept-language')
   if (header) {
     const preferred = header
@@ -34,8 +34,8 @@ function detectLocale(request: NextRequest): string {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const hostname = request.nextUrl.hostname.toLowerCase()
 
-  // Skip Next internals, API routes, and anything that looks like a static file.
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
@@ -46,11 +46,17 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // The admin panel is single-language and lives outside the locale segments.
-  // The real check is `requireAdmin()` in each page, which verifies the JWT
-  // with Supabase; this is only a cheap bounce for visitors with no session
-  // cookie at all, so an unauthenticated hit never boots a page render.
-  if (pathname.startsWith('/admin')) {
+  const isAdminPath = pathname === '/admin' || pathname.startsWith('/admin/')
+  const isAdminHost = Boolean(ADMIN_HOST) && hostname === ADMIN_HOST
+
+  // Admin is only available on the dedicated admin domain.
+  // On the public site, /admin and every nested admin URL redirect home.
+  if (isAdminPath && !isAdminHost) {
+    return NextResponse.redirect(new URL('/', MAIN_SITE_URL))
+  }
+
+  // On the dedicated admin domain, keep the admin routes working normally.
+  if (isAdminPath && isAdminHost) {
     if (pathname === '/admin/login') return NextResponse.next()
 
     const hasSupabaseSession = request.cookies
@@ -63,6 +69,7 @@ export function proxy(request: NextRequest) {
       url.search = `?next=${encodeURIComponent(pathname)}`
       return NextResponse.redirect(url)
     }
+
     return NextResponse.next()
   }
 
