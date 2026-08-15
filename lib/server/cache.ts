@@ -16,7 +16,17 @@ export const CATALOG_TAG = 'catalog'
 
 function bustLocalCache(): void {
   try {
-    revalidateTag(CATALOG_TAG, 'max')
+    // Next.js 16 changed revalidateTag's recommended second argument:
+    // 'max' is LAZY — it only marks the tag stale and waits for a page to
+    // be "next visited" before it starts a background refetch, and even
+    // that visit still serves the old content while the refetch runs. That
+    // silently reproduced this exact bug (admin writes taking an
+    // unpredictable amount of time — sometimes several requests — to reach
+    // the public site). `{ expire: 0 }` is Next's own documented recipe for
+    // "a webhook/route handler needs this to take effect immediately,"
+    // which is exactly this case: an admin write must be visible on the
+    // very next request, not eventually.
+    revalidateTag(CATALOG_TAG, { expire: 0 })
     // Drops the rendered HTML too, so prerendered pages pick the change up
     // rather than serving the previous build's markup.
     revalidatePath('/', 'layout')

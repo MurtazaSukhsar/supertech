@@ -34,7 +34,9 @@ export async function POST(request: NextRequest) {
     `[diag] /api/revalidate hit — tag "${tag}", host "${request.headers.get('host')}", pid ${process.pid}`,
   )
 
-  revalidateTag(tag, 'max')
+  // See lib/server/cache.ts's bustLocalCache for why { expire: 0 } and not
+  // 'max' — 'max' is lazy in Next.js 16 and won't take effect immediately.
+  revalidateTag(tag, { expire: 0 })
   revalidatePath('/', 'layout')
 
   return NextResponse.json({ ok: true, tag, revalidatedAt: Date.now() })
