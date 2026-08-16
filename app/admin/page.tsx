@@ -95,18 +95,6 @@ export default async function AdminDashboard() {
           </Link>
         ))}
       </div>
-
-      <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600 shadow-sm">
-        <h2 className="mb-2 text-sm font-bold text-zinc-900">How saving works</h2>
-        <p>
-          Edits are written to the JSON files in the <code className="rounded bg-zinc-100 px-1">data/</code>{' '}
-          folder and uploaded images go to{' '}
-          <code className="rounded bg-zinc-100 px-1">public/images/products/</code>. While{' '}
-          <code className="rounded bg-zinc-100 px-1">npm run dev</code> is running, changes appear on
-          the site immediately. Commit the <code className="rounded bg-zinc-100 px-1">data/</code>{' '}
-          folder to git to keep a history of your edits.
-        </p>
-      </div>
     </div>
   )
 }
