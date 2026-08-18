@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -140,6 +141,25 @@ export default async function LocaleLayout({
             declared with font-display: swap, so it's only fetched when
             html.font-arabic is actually applied — no per-locale <head>
             branching needed, and no external font requests either way. */}
+
+        {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded via
+            next/script (strategy="afterInteractive") rather than a raw
+            <script> tag: Next.js injects it into <head> and fires it right
+            after the page becomes interactive, which is Google's own
+            recommended strategy for gtag.js in a Next.js app and avoids
+            blocking the initial render. */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XWX34YME25"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XWX34YME25');
+          `}
+        </Script>
       </head>
       <body className="font-sans antialiased">
         <script
