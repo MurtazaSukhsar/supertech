@@ -1,0 +1,36 @@
+# Cache headers for static assets under /public.
+#
+# Why this file exists: `next.config.mjs` already declares `headers()` for
+# `/images/*`, `/fonts/*` and `/videos/*`, which is the correct Next.js way
+# to do this — but it never takes effect on this host. Hostinger serves
+# files under /public directly through LiteSpeed rather than routing them
+# through the Node process (confirmed via `curl -I`: these responses have no
+# `x-powered-by: Next.js` header, unlike every page request, which does).
+# Next's `headers()` config only runs for requests Next's own handler
+# actually sees, so it's a no-op here. LiteSpeed is Apache-compatible and
+# reads .htaccess by default, so this reimplements the same policy at the
+# layer that's actually serving these files.
+#
+# If this ever gets removed (e.g. a migration off Hostinger/LiteSpeed to a
+# host that always routes /public through Node), the `headers()` block in
+# next.config.mjs is still there and will take over automatically.
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 day"
+  ExpiresByType image/jpeg "access plus 1 day"
+  ExpiresByType image/png "access plus 1 day"
+  ExpiresByType image/svg+xml "access plus 1 day"
+  ExpiresByType video/mp4 "access plus 1 day"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png|svg|mp4|webm)$">
+    Header set Cache-Control "public, max-age=86400, stale-while-revalidate=604800"
+  </FilesMatch>
+  <FilesMatch "\.(woff2?|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
