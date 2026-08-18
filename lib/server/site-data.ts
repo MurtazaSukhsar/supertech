@@ -39,13 +39,6 @@ export type SnapshotData = {
 }
 
 async function load(): Promise<SnapshotData> {
-  // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed
-  // fixed. This only logs on a Data Cache miss (i.e. when the cached
-  // snapshot is actually being regenerated). If you save a product on the
-  // admin domain and this line never appears in the PUBLIC domain's logs on
-  // the next request, that process never heard about the write — proof the
-  // two domains are on separate processes/caches.
-  console.log(`[diag] site-data load() executing (cache miss/regenerate) — pid ${process.pid}, ${new Date().toISOString()}`)
   const [products, categories, site, content, translationsAr, faqsEn, faqsAr, blogEn, blogAr] =
     await Promise.all([
       getProducts(),

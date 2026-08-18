@@ -65,12 +65,6 @@ let cachedAdmin: SupabaseClient | null = null
 export function adminClient(): SupabaseClient {
   if (cachedAdmin) return cachedAdmin
   const url = supabaseUrl()
-  // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed
-  // fixed. The URL is public/non-secret (it's NEXT_PUBLIC_ already); this
-  // just lets you compare the admin domain's server logs against the public
-  // domain's and confirm both processes are pointed at the same Supabase
-  // project. Never log SUPABASE_SERVICE_ROLE_KEY.
-  console.log('[diag] adminClient() init — Supabase project:', new URL(url).hostname, '— pid', process.pid)
   cachedAdmin = createClient(url, required('SUPABASE_SERVICE_ROLE_KEY'), {
     auth: { persistSession: false, autoRefreshToken: false },
   })

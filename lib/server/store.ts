@@ -100,13 +100,7 @@ export async function getProducts(): Promise<Product[]> {
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: false }),
   ) as ProductRow[]
-  const products = rows.map(toProduct)
-  // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed
-  // fixed. Confirms the row actually reached Postgres (this always reads
-  // live via adminClient(), it is never itself cached) and lets you see how
-  // many rows each process sees.
-  console.log(`[diag] getProducts() → ${products.length} rows — pid ${process.pid}`)
-  return products
+  return rows.map(toProduct)
 }
 
 /** Persist display order. Position in the array becomes `sort_order`. */

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 
 import { useI18n } from '@/components/i18n-provider'
 import { siteImages } from '@/lib/products'
+import { cldResize } from '@/lib/cloudinary-url'
 
 const MIN_DURATION = 300 // keep the brand moment on screen at least this long
 const MAX_DURATION = 2500 // hard fallback so a stuck asset never blocks the site
@@ -151,7 +152,7 @@ export function LoadingScreen() {
           {/* Plain <img> on purpose: skips the image optimizer hop so the mark paints instantly.
               multiply blending knocks out the JPEG's white box, so it reads as transparent. */}
           <img
-            src={siteImages.logo}
+            src={cldResize(siteImages.logo, 600)}
             alt={t.meta.siteName}
             className="st-loader__logo"
             decoding="async"

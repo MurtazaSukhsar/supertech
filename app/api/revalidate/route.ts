@@ -26,14 +26,6 @@ export async function POST(request: NextRequest) {
 
   const tag = request.nextUrl.searchParams.get('tag') || CATALOG_TAG
 
-  // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed fixed.
-  // Compare this host/pid against the one logged by the admin write that
-  // triggered it: if they differ, that's direct confirmation the two
-  // domains are separate processes.
-  console.log(
-    `[diag] /api/revalidate hit — tag "${tag}", host "${request.headers.get('host')}", pid ${process.pid}`,
-  )
-
   // See lib/server/cache.ts's bustLocalCache for why { expire: 0 } and not
   // 'max' — 'max' is lazy in Next.js 16 and won't take effect immediately.
   revalidateTag(tag, { expire: 0 })

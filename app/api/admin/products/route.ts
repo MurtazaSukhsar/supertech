@@ -64,11 +64,6 @@ export const POST = withAdmin(async (request) => {
 
   const products = await upsertProduct(product, originalId)
 
-  // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed fixed.
-  console.log(
-    `[diag] admin upsertProduct("${id}") ok — catalogue now has ${products.length} products — pid ${process.pid}`,
-  )
-
   // Arabic copy is optional — an empty submission clears the override.
   if (body.arabic) {
     const hasText = Boolean(body.arabic.name?.trim() || body.arabic.description?.trim())

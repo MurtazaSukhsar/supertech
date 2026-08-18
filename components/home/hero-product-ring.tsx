@@ -143,7 +143,10 @@ export function HeroProductRing() {
         }}
         // Fills its column edge to edge — the column itself is sized wide in
         // hero.tsx. Staying inside the container avoids clipping at 1280px.
-        className={`relative ml-auto aspect-square w-full max-w-[760px] touch-pan-y outline-none ${
+        // `container-type: size` turns on cqw/cqh units below, so each
+        // item's orbit offset can be expressed in `transform` (container %)
+        // instead of `left`/`top` (see the per-item comment).
+        className={`relative ml-auto aspect-square w-full max-w-[760px] touch-pan-y outline-none [container-type:size] ${
           dragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
       >
@@ -175,15 +178,23 @@ export function HeroProductRing() {
               onClick={onItemClick}
               aria-label={name ?? 'View product'}
               title={name}
-              className="absolute transition-[filter] duration-200 hover:brightness-110"
+              className="absolute left-1/2 top-1/2 transition-[filter] duration-200 hover:brightness-110"
               style={{
-                // left/top percentages resolve against the stage. Percentages inside
-                // transform: translate() would resolve against the item itself, which
-                // collapses the ring — so the orbit must be expressed here.
+                // `left`/`top` are pinned at the stage centre and never
+                // change — only `transform` animates every frame. That
+                // keeps the rotation on the compositor thread (no layout
+                // recalculation per frame) instead of triggering reflow on
+                // every tick, which is what a changing `left`/`top` does.
+                //
+                // The orbit offset (x, y — a percentage of the *stage*) is
+                // expressed with `cqw`/`cqh` (container query units, which
+                // resolve against the stage's own box thanks to
+                // `container-type: size` above) rather than `%` inside
+                // `transform`, because a percentage inside `translate()`
+                // resolves against the *item's own* box, not the stage —
+                // that's what collapses the ring if you try it directly.
                 width: `${ITEM_WIDTH}%`,
-                left: `${50 + x}%`,
-                top: `${50 + y}%`,
-                transform: `translate(-50%, -50%) scale(${scale})`,
+                transform: `translate(-50%, -50%) translate(${x}cqw, ${y}cqh) scale(${scale})`,
                 zIndex: Math.round(t * 100),
                 opacity,
                 filter: `blur(${blur}px) drop-shadow(0 18px 24px rgba(0,0,0,0.55)) drop-shadow(0 4px 7px rgba(0,0,0,0.42))`,

@@ -1,7 +1,5 @@
-import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
-import Script from 'next/script'
 
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -14,6 +12,7 @@ import { SmoothScroll } from '@/components/smooth-scroll'
 import { LoadingScreen } from '@/components/loading-screen'
 import { I18nProvider } from '@/components/i18n-provider'
 import { ScrollProgress } from '@/components/scroll-progress'
+import { DeferredAnalytics } from '@/components/deferred-analytics'
 import { siteUrl } from '@/lib/content'
 import {
   localBusinessSchema,
@@ -142,24 +141,9 @@ export default async function LocaleLayout({
             html.font-arabic is actually applied — no per-locale <head>
             branching needed, and no external font requests either way. */}
 
-        {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded via
-            next/script (strategy="afterInteractive") rather than a raw
-            <script> tag: Next.js injects it into <head> and fires it right
-            after the page becomes interactive, which is Google's own
-            recommended strategy for gtag.js in a Next.js app and avoids
-            blocking the initial render. */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XWX34YME25"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XWX34YME25');
-          `}
-        </Script>
+        {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded by
+            <DeferredAnalytics/> (rendered in <body>) on first interaction
+            rather than eagerly here: see that component for why. */}
       </head>
       <body className="font-sans antialiased">
         <script
@@ -180,7 +164,15 @@ export default async function LocaleLayout({
             <QuoteDrawer />
           </QuoteProvider>
         </I18nProvider>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {/* @vercel/analytics's <Analytics/> was removed here: it tries to
+            fetch /_vercel/insights/script.js, which only exists on Vercel's
+            own hosting. This app is deployed on Hostinger via a custom
+            server.js, so that request always 404s and logs a console error
+            on every single page load (Lighthouse's Best Practices audit
+            flags exactly this: "Browser errors were logged to the
+            console"). If the site ever moves to Vercel, or Web Analytics
+            gets enabled for this project, this can come back. */}
+        <DeferredAnalytics />
       </body>
     </html>
   )

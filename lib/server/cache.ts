@@ -77,9 +77,6 @@ function bustRemoteCache(): void {
     .then(async (res) => {
       if (!res.ok) {
         console.error('[cache] remote revalidate failed:', res.status, await res.text().catch(() => ''))
-      } else {
-        // TEMP DIAGNOSTIC — remove once the two-domain sync issue is confirmed fixed.
-        console.log('[diag] remote revalidate ok →', target)
       }
     })
     .catch((error) => {

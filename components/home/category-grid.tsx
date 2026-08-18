@@ -57,6 +57,7 @@ export function CategoryGrid() {
                         alt={cat.name}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        cldWidth={800}
                         priority={i < 4}
                         className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
                       />

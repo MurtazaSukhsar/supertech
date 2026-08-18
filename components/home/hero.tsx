@@ -27,6 +27,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
+        cldWidth={1920}
         className="ken-burns object-cover opacity-30 mix-blend-overlay"
         suppressHydrationWarning
       />
