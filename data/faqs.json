@@ -22,5 +22,33 @@
   {
     "question": "How fast can I get a response?",
     "answer": "Most quote requests are reviewed quickly during working hours. For urgent orders, WhatsApp or phone is usually the fastest way to reach the team."
+  },
+  {
+    "question": "Where is Super Tech located, and can I collect orders in person?",
+    "answer": "Our shop and warehouse are in Shuwaikh Industrial Area, Kuwait. Walk-in customers can browse in person and collect stocked items over the counter the same day, and we also hold orders for scheduled pickup when you call or message ahead."
+  },
+  {
+    "question": "Do you offer trade or company accounts for repeat orders?",
+    "answer": "Yes. Contractors, facilities teams, and businesses that order regularly can set up account terms with consolidated monthly invoicing instead of paying per delivery. Ask our team to set one up for your company."
+  },
+  {
+    "question": "Can you confirm exact brand, specification, or standard before I order?",
+    "answer": "Yes. For industrial, oil-sector, and specification-critical jobs, we confirm the exact brand, size, or standard in writing before dispatch so the material clears site inspection on arrival."
+  },
+  {
+    "question": "What areas of Kuwait do you deliver to?",
+    "answer": "We deliver across every governorate, including Kuwait City, Hawalli, Salmiya, Farwaniya, Ahmadi, Jahra, and Fahaheel, in addition to same-day collection and short-notice drops within Shuwaikh Industrial Area itself."
+  },
+  {
+    "question": "Do you sell genuine, brand-name products, or generic alternatives?",
+    "answer": "We stock genuine products from certified manufacturers and trusted brands. If you need a specific brand confirmed before ordering, tell us and we will verify availability and specification before you commit to the order."
+  },
+  {
+    "question": "Is there a minimum order quantity?",
+    "answer": "No. We supply everything from a single item for a mid-job replacement to full project-quantity orders of coils, rolls, and cylinders. Smaller mixed orders are welcome alongside bulk contractor supply."
+  },
+  {
+    "question": "How do I know if an item is in stock before I travel or order?",
+    "answer": "Send the product name or a photo of what you need over WhatsApp or the contact form, and our team will confirm stock, pricing, and lead time before you place the order."
   }
 ]

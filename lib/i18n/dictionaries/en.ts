@@ -204,6 +204,8 @@ export const en = {
       'Our approach is simple: stock genuine products from certified manufacturers, price them competitively for bulk buyers, and deliver them fast. From a single coil of copper pipe to full-project material packages, we handle orders of every scale with the same attention to detail.',
     para3:
       'With deep relationships across global brands and a logistics network covering all of Kuwait, Super Tech is the supply partner professionals rely on to keep their projects moving.',
+    para4:
+      'Our Shuwaikh Industrial Area location keeps us close to the workshops, fabricators, and contractors who need materials fastest, while our delivery network reaches every governorate — Kuwait City, Hawalli, Salmiya, Farwaniya, Ahmadi, Jahra, and Fahaheel — on scheduled runs. Trade and company account customers get consolidated invoicing and priority handling on repeat orders, and our team can confirm exact brand, size, and specification in writing before dispatch for jobs where that matters most.',
     cta: 'Work With Us',
   },
 
@@ -238,6 +240,7 @@ export const en = {
     pagination: 'Pagination',
     previousPage: 'Previous page',
     nextPage: 'Next page',
+    browseAllProducts: 'Browse all products',
     dragToScroll: 'Swipe or drag to explore related products',
     carouselLabel: 'Product showcase. Drag or use arrow keys to bring the next product to the front.',
     swipeMore: 'Swipe to see more',
@@ -266,6 +269,7 @@ export const en = {
     titleSuffix: 'in Kuwait',
     requestBulkPricing:
       'In stock at our Shuwaikh Industrial hardware shop. Request bulk pricing and delivery anywhere in Kuwait.',
+    guidesTitle: 'Buying Guides for This Category',
   },
 
   catalogue: {
@@ -293,6 +297,7 @@ export const en = {
     governorateLabel: 'Governorate',
     whatWeSupply: 'What This Area Orders Most',
     deliveryTitle: 'Delivery & Collection',
+    orderingTitle: 'How to Order',
     highlightsTitle: 'Why Buyers Here Choose Super Tech',
     categoriesTitle: 'Product Categories Available',
     categoriesSubtitle: 'Every category below is stocked and delivered to this area.',
@@ -332,6 +337,8 @@ export const en = {
     sideDesc:
       'Send product names, specs, quantities, and delivery location for a fast quote.',
     sideCta: 'Contact Sales',
+    relatedCategoriesTitle: 'Related Categories',
+    relatedProductsTitle: 'Products Mentioned in This Guide',
     notFound: 'Blog Post Not Found',
     publishedOn: 'Published on',
     readTime: 'read',

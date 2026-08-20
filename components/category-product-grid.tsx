@@ -1,13 +1,15 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ChevronLeft, ChevronRight, SlidersHorizontal, X, Check } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal, X, Check } from 'lucide-react'
 import { type Product } from '@/lib/products'
 import { ProductCard } from '@/components/product-card'
 import { getCategories } from '@/lib/catalog'
 import { useI18n } from '@/components/i18n-provider'
 import { gridItemVariants } from '@/lib/motion'
+import { localePath } from '@/lib/i18n/config'
 
 const PAGE_SIZE = 12
 
@@ -311,6 +313,46 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
               <ChevronRight className="rtl-flip size-4" aria-hidden="true" />
             </button>
           </nav>
+        )}
+
+        {/*
+          Filtering/pagination above is client-side state, not a real URL, so
+          only the current page's cards exist as <a> tags in the server-
+          rendered HTML — anything past page 1 has no crawlable link pointing
+          to it from here. A closed <details> block sidesteps that: its
+          content lives in the actual HTML (unlike display:none), so Google
+          indexes and follows every link inside it even while collapsed —
+          this isn't hidden-for-bots content, it's a real "browse everything"
+          fallback for people without JS too. Ensures every product in
+          `products` always has at least one real inbound link, regardless of
+          what page/filter/sort the visible grid happens to be on.
+        */}
+        {products.length > 0 && (
+          <details className="group mt-12 rounded-2xl border border-border bg-card p-6">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-bold text-foreground [&::-webkit-details-marker]:hidden">
+              {t.products.browseAllProducts}
+              <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" aria-hidden="true" />
+            </summary>
+            <ul className="mt-5 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3 md:grid-cols-4">
+              {[...products]
+                .sort((a, b) =>
+                  new Intl.Collator(locale === 'ar' ? 'ar' : 'en', { numeric: true }).compare(
+                    a.name,
+                    b.name,
+                  ),
+                )
+                .map((product) => (
+                  <li key={product.id} className="truncate text-sm text-muted-foreground">
+                    <Link
+                      href={localePath(locale, `/products/${product.id}`)}
+                      className="hover:text-accent hover:underline"
+                    >
+                      {product.name}
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </details>
         )}
       </div>
     </div>

@@ -82,6 +82,7 @@ export default async function AboutPage({
                 <p>{t.about.para1}</p>
                 <p>{t.about.para2}</p>
                 <p>{t.about.para3}</p>
+                <p>{t.about.para4}</p>
               </div>
               <Link
                 href={href('/contact')}

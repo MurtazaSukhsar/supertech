@@ -8,6 +8,7 @@ import { CtaBanner } from '@/components/home/cta-banner'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { blogPosts, siteUrl } from '@/lib/content'
 import { getBlogPostLocalized } from '@/lib/content-i18n'
+import { getCategoryLocalized, getProductLocalized } from '@/lib/catalog'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, locales, type Locale } from '@/lib/i18n/config'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
@@ -63,6 +64,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound()
 
   const href = (path: string) => localePath(locale, path)
+
+  const relatedCategories = (post.relatedCategories ?? [])
+    .map((slug) => getCategoryLocalized(slug, locale))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c))
+  const relatedProducts = (post.relatedProducts ?? [])
+    .map((id) => getProductLocalized(id, locale))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -136,6 +144,53 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   ))}
                 </div>
               </ScrollReveal>
+
+              {/* Real crawlable links from the article into the catalogue — not
+                  just a "related reading" courtesy, this is what turns a blog
+                  post into an internal-linking asset rather than a dead end. */}
+              {(relatedProducts.length > 0 || relatedCategories.length > 0) && (
+                <ScrollReveal delay={140}>
+                  <div className="mt-12 max-w-prose border-t border-border pt-8">
+                    {relatedProducts.length > 0 && (
+                      <div>
+                        <h2 className="text-sm font-extrabold uppercase tracking-wider text-foreground">
+                          {t.blog.relatedProductsTitle}
+                        </h2>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {relatedProducts.map((product) => (
+                            <Link
+                              key={product.id}
+                              href={href(`/products/${product.id}`)}
+                              className="rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:border-accent hover:text-accent"
+                            >
+                              {product.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {relatedCategories.length > 0 && (
+                      <div className={relatedProducts.length > 0 ? 'mt-8' : ''}>
+                        <h2 className="text-sm font-extrabold uppercase tracking-wider text-foreground">
+                          {t.blog.relatedCategoriesTitle}
+                        </h2>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {relatedCategories.map((category) => (
+                            <Link
+                              key={category.slug}
+                              href={href(`/categories/${category.slug}`)}
+                              className="rounded-full bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
+                            >
+                              {category.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ScrollReveal>
+              )}
 
               <Link
                 href={href('/blog')}

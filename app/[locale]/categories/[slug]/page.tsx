@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { categories } from '@/lib/products'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CategoryIcon } from '@/components/category-icon'
 import { CategoryProductGrid } from '@/components/category-product-grid'
 import { getCategoryLocalized, getProductsByCategoryLocalized } from '@/lib/catalog'
+import { getBlogPosts } from '@/lib/content-i18n'
 import { description as metaDescription, title as metaTitle } from '@/lib/seo/meta'
 import { getDictionary } from '@/lib/i18n'
-import { locales, type Locale } from '@/lib/i18n/config'
+import { localePath, locales, type Locale } from '@/lib/i18n/config'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export function generateStaticParams() {
@@ -31,10 +33,11 @@ export async function generateMetadata({
     `${category.name} ${t.categories.titleSuffix}`,
     t.meta.titleTemplate,
   )
+  const leadParagraph = category.description.split('\n\n')[0]
 
   return {
     title,
-    description: metaDescription(category.description, t.categories.requestBulkPricing),
+    description: metaDescription(leadParagraph, t.categories.requestBulkPricing),
     alternates: {
       canonical: `/${locale}/categories/${category.slug}`,
       languages: {
@@ -45,7 +48,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title,
-      description: category.description,
+      description: leadParagraph,
       images: [category.image],
     },
   }
@@ -63,6 +66,10 @@ export default async function CategoryPage({
   if (!category) notFound()
 
   const products = getProductsByCategoryLocalized(slug, locale as Locale)
+  const href = (path: string) => localePath(locale as Locale, path)
+  const guides = getBlogPosts(locale as Locale).filter((post) =>
+    (post.relatedCategories ?? []).includes(category.slug),
+  )
 
   return (
     <>
@@ -77,9 +84,11 @@ export default async function CategoryPage({
               <h1 className="text-balance text-3xl font-extrabold uppercase tracking-tight text-primary-foreground md:text-4xl lg:text-5xl">
                 {category.name}
               </h1>
-              <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-primary-foreground/70 md:text-base">
-                {category.description}
-              </p>
+              <div className="mt-4 flex max-w-2xl flex-col gap-3 text-pretty text-sm leading-relaxed text-primary-foreground/70 md:text-base">
+                {category.description.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
               {category.subcategories && category.subcategories.length > 0 && (
                 <div className="mt-6 flex flex-wrap gap-2">
                   {category.subcategories.map((sub) => (
@@ -104,6 +113,29 @@ export default async function CategoryPage({
           />
         </div>
         <CategoryProductGrid products={products} />
+
+        {/* Cross-links the catalogue into the blog rather than leaving the
+            two sections isolated from each other — every guide below was
+            tagged with this category slug on the blog side. */}
+        {guides.length > 0 && (
+          <section className="mt-16 border-t border-border pt-10">
+            <h2 className="section-heading">{t.categories.guidesTitle}</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {guides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={href(`/blog/${guide.slug}`)}
+                  className="card-premium flex flex-col gap-2 p-5"
+                >
+                  <span className="text-sm font-bold text-foreground hover:text-primary">
+                    {guide.title}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{guide.readTime}</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </>
   )

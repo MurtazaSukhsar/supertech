@@ -3,7 +3,7 @@
     "slug": "clamps",
     "name": "Clamps & Supports",
     "shortName": "Clamps",
-    "description": "Various clamps and supports for piping, ductwork, and electrical conduits.",
+    "description": "Various clamps and supports for piping, ductwork, and electrical conduits.\n\nKuwait's HVAC installers, electricians, and plumbers rely on our clamps and supports to keep pipework, ductwork, and conduit runs properly fixed and code-compliant across residential towers, commercial fit-outs, and industrial sites. Our range spans galvanized GI universal clamps, pipe supports, and structural framing sections including slotted unistrut channel, so a single order can cover both the fixing hardware and the structural backbone it attaches to. Every clamp we stock is rated for the load and corrosion resistance that Kuwait's climate and site conditions demand, and our team can help match clamp size to pipe or duct diameter before you order.",
     "icon": "paperclip",
     "image": "/images/products/gi-universal-clamp.webp",
     "subcategories": [
@@ -15,7 +15,7 @@
     "slug": "air-conditioning",
     "name": "Air-Conditioning Materials",
     "shortName": "A/C Materials",
-    "description": "Copper pipes, insulation, refrigerants, dampers, access valves, flexible ducts, and materials for professional HVAC installation.",
+    "description": "Copper pipes, insulation, refrigerants, dampers, access valves, flexible ducts, and materials for professional HVAC installation.\n\nAs Kuwait's cooling season runs most of the year, our air-conditioning materials are among our fastest-moving stock — copper pipes and coils, brass fittings and valves, access valves, flexible ducts, and refrigeration components for split units, ducted systems, and commercial chillers alike. We supply both new-installation materials and the spares that keep existing systems running: insulation, duct sealants and tapes, and vibration-dampening mounts that reduce noise and wear. Contractors ordering for tower and villa projects can get full-coil and bulk-cylinder quantities, while maintenance teams can order smaller mixed quantities for service calls without hitting a minimum.",
     "icon": "wind",
     "image": "/images/products/copper-coil.webp",
     "subcategories": [
@@ -34,7 +34,7 @@
     "slug": "hardware",
     "name": "Hardware Supplies",
     "shortName": "Hardware",
-    "description": "Galvanized fasteners, conduit couplings, electrical sockets, jute hemp, test plugs, clips, and plumbing hardware.",
+    "description": "Galvanized fasteners, conduit couplings, electrical sockets, jute hemp, test plugs, clips, and plumbing hardware.\n\nOur hardware supplies cover the fasteners and fittings that hold Kuwait's construction and MEP projects together — galvanized nuts, bolts, washers, drop-in anchors, conduit couplings, electrical sockets, and general plumbing hardware. Because so much of this stock is used outdoors or in humid plant rooms, we prioritize galvanized and corrosion-resistant finishes that hold up to Kuwait's climate rather than generic mild-steel alternatives. Whether you need a handful of fixings for a repair or box quantities for a full fit-out, our team can confirm size, thread, and material grade before you order.",
     "icon": "wrench",
     "image": "/images/products/galvanized-fasteners.webp",
     "subcategories": [
@@ -45,7 +45,7 @@
     "slug": "tools",
     "name": "Hand & Power Tools",
     "shortName": "Tools",
-    "description": "Professional-grade hand tools and power tools from trusted brands built for daily jobsite performance.",
+    "description": "Professional-grade hand tools and power tools from trusted brands built for daily jobsite performance.\n\nFrom cordless drills to precision hand tools, our tools range is built for daily jobsite use rather than occasional DIY — the kind of equipment Kuwait's contractors, technicians, and maintenance crews put through real hours every week. We stock trusted power-tool brands alongside the hand tools every technician carries: adjustable wrenches, pliers, and general fixing tools. Consumables like drill bits, blades, and replacement parts are kept in stock too, so a worn accessory does not stop a job halfway through.",
     "icon": "drill",
     "image": "/images/products/cordless-drill.webp",
     "subcategories": [
@@ -57,7 +57,7 @@
     "slug": "construction",
     "name": "Construction Materials",
     "shortName": "Construction",
-    "description": "Slotted unistrut channels, UPVC pipe fittings, drop-in anchors, paint brushes, wrapping tapes, and solvent thinners.",
+    "description": "Slotted unistrut channels, UPVC pipe fittings, drop-in anchors, paint brushes, wrapping tapes, and solvent thinners.\n\nOur construction materials support everything from structural framing to surface finishing on Kuwait's residential, commercial, and industrial projects — slotted unistrut channel, UPVC pipe fittings, concrete drop-in anchors, paint brushes and rollers, wrapping tapes, and solvent thinners. Contractors building out new sites or renovating existing ones can source structural, protective, and finishing materials from a single supplier rather than coordinating multiple vendors. We hold project-quantity stock for larger jobs and can confirm delivery scheduling around your site's material timeline.",
     "icon": "building",
     "image": "/images/products/slotted-channel.webp",
     "subcategories": [
@@ -72,7 +72,7 @@
     "slug": "plumbing",
     "name": "Plumbing Supplies",
     "shortName": "Plumbing",
-    "description": "UPVC pressure & drainage fittings, test plugs, gauge cock valves, jute hemp, thread sealants, and plumbing materials.",
+    "description": "UPVC pressure & drainage fittings, test plugs, gauge cock valves, jute hemp, thread sealants, and plumbing materials.\n\nOur plumbing supplies keep Kuwait's drainage and water systems built to standard, from UPVC pressure and drainage fittings to gauge cock valves, test plugs, jute hemp, and thread sealants used on every joint that needs to hold pressure without leaking. Residential maintenance teams order smaller mixed quantities for repairs and apartment turnovers, while contractors on new-build and commercial projects order fitting sets and valve batches by the project. All fittings are sized to standard UPVC and threaded-pipe dimensions used across Kuwait's plumbing trade, so what you order matches what is already installed.",
     "icon": "droplets",
     "image": "/images/products/upvc-fitting.webp",
     "subcategories": [
@@ -86,7 +86,7 @@
     "slug": "electric",
     "name": "Electrical Supplies",
     "shortName": "Electrical",
-    "description": "Galvanized conduit couplings, industrial plugs & sockets, spring conduit clips, cable containment, and electrical hardware.",
+    "description": "Galvanized conduit couplings, industrial plugs & sockets, spring conduit clips, cable containment, and electrical hardware.\n\nOur electrical supplies range covers the conduit, containment, and connection hardware that keeps wiring protected and code-compliant on Kuwait sites — galvanized conduit couplings, industrial plugs and sockets, spring conduit clips, and cable containment fittings for commercial, industrial, and residential electrical work. Electricians and MEP contractors can order conduit runs, coupling sets, and socket batches together rather than sourcing separately, and our team can confirm IP rating and material grade for outdoor or plant-room installations before you commit to an order.",
     "icon": "zap",
     "image": "/images/products/industrial-socket.webp",
     "subcategories": [
@@ -98,7 +98,7 @@
     "slug": "duct-accessories",
     "name": "Duct Accessories",
     "shortName": "Duct Accessories",
-    "description": "Flexible ducts, volume control dampers, duct sealants, adhesives, acoustic insulation, vibration hangers, and ductwork hardware.",
+    "description": "Flexible ducts, volume control dampers, duct sealants, adhesives, acoustic insulation, vibration hangers, and ductwork hardware.\n\nDuctwork specialists across Kuwait use our duct accessories to seal, insulate, and support flexible and rigid duct runs — volume control dampers, duct sealants and adhesives, acoustic insulation, and vibration-dampening hangers that keep systems quiet and efficient. We stock both the flexible duct itself and the tapes, sealants, and hardware needed to install and finish it properly, so a single order can cover a full duct run from material to fixing. Whether you are fitting out a new commercial space or servicing existing ductwork, our stock supports both new installation and ongoing maintenance work.",
     "icon": "fan",
     "image": "/images/products/insulated-flexible-duct.webp",
     "subcategories": [

@@ -175,6 +175,15 @@ export default async function AreaPage({
               </section>
             </ScrollReveal>
 
+            <ScrollReveal delay={120}>
+              <section>
+                <h2 className="section-heading">{t.locations.orderingTitle}</h2>
+                <p className="mt-4 max-w-prose text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {content.ordering}
+                </p>
+              </section>
+            </ScrollReveal>
+
             <ScrollReveal delay={160}>
               <section>
                 <h2 className="section-heading">{t.locations.highlightsTitle}</h2>

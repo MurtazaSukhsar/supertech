@@ -38,10 +38,11 @@ export async function generateMetadata({
   if (!product) return {}
 
   const title = metaTitle(`${product.name} ${t.products.inKuwait}`, t.meta.titleTemplate)
+  const leadParagraph = product.description.split('\n\n')[0]
 
   return {
     title,
-    description: metaDescription(product.description, t.products.metaSuffix),
+    description: metaDescription(leadParagraph, t.products.metaSuffix),
     alternates: {
       canonical: `/${locale}/products/${product.id}`,
       languages: {
@@ -52,7 +53,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title,
-      description: product.description,
+      description: leadParagraph,
       images: product.images,
     },
   }
@@ -150,9 +151,11 @@ export default async function ProductPage({
               <h1 className="mt-5 text-balance text-3xl font-extrabold uppercase tracking-tight text-foreground md:text-4xl">
                 {product.name}
               </h1>
-              <p className="mt-5 text-pretty leading-relaxed text-muted-foreground max-w-prose">
-                {product.description}
-              </p>
+              <div className="mt-5 flex flex-col gap-4 text-pretty leading-relaxed text-muted-foreground max-w-prose">
+                {product.description.split('\n\n').map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+              </div>
 
               {/* Interactive Size Selector, Quantity Stepper & Add to Quote Basket */}
               <ProductDetailActions product={product} />

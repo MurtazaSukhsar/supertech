@@ -15,6 +15,10 @@ export type BlogPost = {
   readTime: string
   image: string
   body: string[]
+  /** Category slugs this post links to — surfaced as real crawlable links on the post page. */
+  relatedCategories?: string[]
+  /** Product ids this post links to — same purpose, one level more specific. */
+  relatedProducts?: string[]
 }
 
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://supertechint.com.kw'

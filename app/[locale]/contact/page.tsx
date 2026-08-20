@@ -9,11 +9,14 @@ import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>
+  searchParams: Promise<{ product?: string }>
 }): Promise<Metadata> {
   await primeSiteDataSafely()
   const { locale } = await params
+  const { product } = await searchParams
   const t = getDictionary(locale)
 
   return {
@@ -23,6 +26,16 @@ export async function generateMetadata({
       canonical: `/${locale}/contact`,
       languages: { en: '/en/contact', ar: '/ar/contact', 'x-default': '/en/contact' },
     },
+    // Every product page links here as /contact?product=<name> to prefill the
+    // form. The canonical tag above already points every such variant back
+    // at the plain /contact URL, but that only tells Google which version to
+    // *show* — it can still crawl and index each ?product= URL as its own
+    // thin/duplicate page in the meantime (which is exactly what showed up
+    // as ~167 duplicate-title/duplicate-content pages in the SEO audit).
+    // noindex is the direct instruction: don't index this variant at all.
+    // `follow` is kept so link equity still flows through to whatever the
+    // page links to.
+    ...(product ? { robots: { index: false, follow: true } } : {}),
   }
 }
 
