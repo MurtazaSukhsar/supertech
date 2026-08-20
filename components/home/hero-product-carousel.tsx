@@ -230,6 +230,21 @@ export function HeroProductCarousel() {
             <Link
               key={item.file}
               href={itemHref}
+              /**
+               * next/link prefetches every link that enters the viewport, and
+               * each prefetch is a full React Server Component render on the
+               * origin. This carousel renders one Link per ITEM, so the
+               * homepage fired ~20 concurrent `?_rsc=` renders the moment it
+               * hydrated. The Hostinger Node process could not absorb that
+               * burst and answered with 503s and ERR_CONNECTION_TIMED_OUT —
+               * which is what made production feel slow or broken.
+               *
+               * Prefetching a rotating showcase was never worth much anyway:
+               * a visitor opens at most one of these, so ~19 of those 20
+               * renders were wasted server work. Navigation is unchanged, it
+               * just fetches on click instead of speculatively.
+               */
+              prefetch={false}
               onClick={(e) => onItemClick(e, offset)}
               aria-label={name ?? dict.products.viewProduct}
               title={name}

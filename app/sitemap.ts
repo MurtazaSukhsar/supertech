@@ -1,9 +1,52 @@
 import type { MetadataRoute } from 'next'
 import { blogPosts, siteUrl } from '@/lib/content'
-import { getAllProducts, getCategories } from '@/lib/products'
+import {
+  getAllProducts,
+  getCategories,
+  categories as seedCategories,
+  products as seedProducts,
+} from '@/lib/products'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
 import { areas } from '@/lib/seo/locations'
 import { defaultLocale, locales } from '@/lib/i18n/config'
+
+/**
+ * Merge the live (Supabase) catalogue with the committed JSON seed, keeping the
+ * live record whenever both describe the same id.
+ *
+ * Why the sitemap needs this and the rest of the app does not
+ * ----------------------------------------------------------
+ * `getProductSource()` in lib/products.ts resolves to
+ * `getRuntimeProducts() ?? products` — the live catalogue *replaces* the seed
+ * outright rather than merging with it. For rendering that is correct: you want
+ * to show exactly what the database says.
+ *
+ * But the product and blog *pages* are statically generated from the seed:
+ * `generateStaticParams()` in app/[locale]/products/[id]/page.tsx maps over the
+ * imported `products` JSON, not over the runtime catalogue. So every seed entry
+ * has a real, crawlable, indexable page — whether or not Supabase still lists
+ * it.
+ *
+ * That mismatch was silently shrinking the sitemap. The deployed sitemap.xml
+ * listed roughly 46 products while the site actually served 82: every product
+ * that existed in the JSON but not in the live table had a page Google could
+ * crawl and no sitemap entry pointing at it. Taking the union fixes that from
+ * both directions — live-only records (which are served dynamically) and
+ * seed-only records (which are prerendered) both get listed exactly once.
+ */
+function mergeById<T>(live: T[], seed: T[], id: (item: T) => string): T[] {
+  const seen = new Set<string>()
+  const merged: T[] = []
+
+  for (const item of [...live, ...seed]) {
+    const key = id(item)
+    if (seen.has(key)) continue
+    seen.add(key)
+    merged.push(item)
+  }
+
+  return merged
+}
 
 /**
  * Every URL is emitted once per locale, and each entry carries `alternates` so
@@ -15,8 +58,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // of the catalogue — otherwise new products would never get listed.
   await primeSiteDataSafely()
 
-  const categories = getCategories()
-  const products = getAllProducts()
+  const categories = mergeById(getCategories(), seedCategories, (c) => c.slug)
+  const products = mergeById(getAllProducts(), seedProducts, (p) => p.id)
   const now = new Date()
 
   function languages(path: string) {

@@ -49,6 +49,15 @@ export function ProductCard({ product }: { product: Product }) {
       <TiltCard className="group h-full flex flex-col overflow-hidden outline-none">
         <Link
           href={href(`/products/${product.id}`)}
+          /**
+           * Product cards render in grids — 12 per page on the catalogue and
+           * category pages, plus the featured rail on the homepage. With
+           * next/link's default viewport prefetching, every card visible on
+           * screen triggers its own server render, so scrolling a grid
+           * hammered the origin with `?_rsc=` requests until it returned 503s.
+           * Fetch on click instead.
+           */
+          prefetch={false}
           className="relative flex flex-1 flex-col justify-between"
           aria-label={`${t.products.viewProduct}: ${product.name}`}
         >

@@ -345,6 +345,16 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
                   <li key={product.id} className="truncate text-sm text-muted-foreground">
                     <Link
                       href={localePath(locale, `/products/${product.id}`)}
+                      /**
+                       * This is the crawlable "browse all products" fallback,
+                       * so it lists the entire catalogue in one <details>.
+                       * Left prefetching, expanding it would queue a server
+                       * render for all ~82 links at once and flatten the
+                       * origin. The links stay fully crawlable — that is the
+                       * whole point of this block — they just are not
+                       * speculatively fetched.
+                       */
+                      prefetch={false}
                       className="hover:text-accent hover:underline"
                     >
                       {product.name}

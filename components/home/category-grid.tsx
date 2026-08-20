@@ -48,6 +48,15 @@ export function CategoryGrid() {
                 <TiltCard className="group h-full overflow-hidden border border-border shadow-md transition-all duration-300 hover:shadow-2xl">
                   <Link
                     href={href(`/categories/${cat.slug}`)}
+                    /**
+                     * Eight category tiles, all above the fold on the
+                     * homepage — eight more speculative server renders piled
+                     * onto the same burst the hero carousel was already
+                     * causing. Category pages render the full product grid,
+                     * so these are among the most expensive renders on the
+                     * site to trigger speculatively.
+                     */
+                    prefetch={false}
                     className="relative flex h-full flex-col overflow-hidden"
                   >
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
