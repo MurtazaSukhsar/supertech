@@ -21,13 +21,24 @@ export function Hero() {
   return (
     <section className="relative isolate overflow-hidden bg-primary py-16 sm:py-20 md:py-28 lg:py-32">
       {/* Full-Bleed Jobsite & Warehouse Background Image */}
+      {/*
+        cldWidth was 1920. Because `images.unoptimized` is on, Next emits no
+        srcSet — so that single width was the one every device downloaded,
+        including a 360px-wide phone, and on mobile this full-bleed image is
+        usually the LCP element. Dropping to 1280 cuts a large chunk of the
+        bytes on the critical path.
+
+        There is no visible cost: this image renders at `opacity-30` with
+        `mix-blend-overlay` underneath a near-opaque brand gradient, so it is
+        heavily obscured decoration rather than detail anyone reads.
+      */}
       <Image
         src={siteImages.heroBackground}
         alt={t.home.heroImageAlt}
         fill
         priority
         sizes="100vw"
-        cldWidth={1920}
+        cldWidth={1280}
         className="ken-burns object-cover opacity-30 mix-blend-overlay"
         suppressHydrationWarning
       />
@@ -89,9 +100,21 @@ export function Hero() {
         </div>
 
           {/* Rotate-to-reveal product carousel. Shown on every size; on small
-              screens it sits above the copy so it isn't buried below the CTAs. */}
+              screens it sits above the copy so it isn't buried below the CTAs.
+
+              The inner wrapper reserves the carousel's exact box on the server.
+              HeroProductCarousel is `ssr: false`, so the server emits nothing
+              for it — and because it sits `order-first` on mobile, it used to
+              drop a ~420px-tall element in ABOVE the headline once hydration
+              finished, shoving the entire hero down the page. That is a large
+              Cumulative Layout Shift on exactly the viewport Lighthouse scores
+              hardest. These classes mirror the carousel's own root element
+              (aspect + max-width at every breakpoint), so the space is already
+              held before the client component ever mounts and nothing moves. */}
           <div className="order-first w-full lg:order-none">
-            <HeroProductCarousel />
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-[420px] sm:aspect-square sm:max-w-[500px] lg:ms-auto lg:me-0 lg:max-w-[760px]">
+              <HeroProductCarousel />
+            </div>
           </div>
         </div>
       </div>

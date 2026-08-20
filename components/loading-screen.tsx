@@ -1,14 +1,31 @@
 'use client'
 
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { useI18n } from '@/components/i18n-provider'
 import { siteImages } from '@/lib/products'
 import { cldResize } from '@/lib/cloudinary-url'
 
-const MIN_DURATION = 300 // keep the brand moment on screen at least this long
-const MAX_DURATION = 2500 // hard fallback so a stuck asset never blocks the site
-const FADE_DURATION = 600
+/**
+ * How long the brand mark stays up before it starts fading, and how long the
+ * fade itself takes. Total time from hydration to the loader being gone is
+ * HOLD + FADE.
+ *
+ * These used to be 300ms min / 2500ms max, with the max reachable whenever an
+ * eagerly-loaded image hadn't decoded yet — the loader polled `document.images`
+ * every 100ms and refused to leave until every non-lazy image was complete. On
+ * a throttled mobile connection that reliably meant the full 2.5s of white
+ * screen, which is measured directly by Speed Index (how quickly the viewport
+ * reaches its final state) and is most of what a visitor experiences as "slow".
+ *
+ * Waiting on images was never necessary: the hero is server-rendered and the
+ * images below it are lazy anyway, so there is nothing to protect the visitor
+ * from seeing. The loader is now purely a timed brand moment, decoupled from
+ * network conditions — it takes the same short time on a fast desktop and a
+ * throttled phone.
+ */
+const HOLD_DURATION = 550
+const FADE_DURATION = 400
 
 // Sampled straight from /images/logo.webp — no other colours are used here.
 const NAVY = '#00267C'
@@ -16,125 +33,63 @@ const RED = '#EE0009'
 
 export function LoadingScreen() {
   const { t } = useI18n()
-  const [progress, setProgress] = useState(0)
   const [done, setDone] = useState(false)
   const [hidden, setHidden] = useState(false)
-  const stageRef = useRef<HTMLDivElement>(null)
+  const barRef = useRef<HTMLSpanElement>(null)
+  const pctRef = useRef<HTMLParagraphElement>(null)
 
-  const finish = useCallback(() => setDone(true), [])
-
-  /* ---------- asset tracking ---------- */
+  /* ---------- timed progress sweep ---------- */
   useEffect(() => {
-    const start = Date.now()
-    let timerId: ReturnType<typeof setTimeout> | null = null
-    let settled = false
-
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-
-    /** Ratio of eagerly-loaded <img> elements that have finished decoding. */
-    const imageProgress = () => {
-      const imgs = Array.from(document.images).filter(
-        (img) => img.loading !== 'lazy' && img.getAttribute('loading') !== 'lazy'
-      )
-      if (imgs.length === 0) return (document.readyState === 'complete' || document.readyState === 'interactive') ? 1 : 0.5
-      return imgs.filter((img) => img.complete && img.naturalWidth > 0).length / imgs.length
-    }
-
-    const settle = () => {
-      if (settled) return
-      settled = true
-      setProgress(1)
-      window.setTimeout(finish, Math.max(0, MIN_DURATION - (Date.now() - start)))
-    }
-
-    const tick = () => {
-      const elapsed = Date.now() - start
-      const assets = imageProgress()
-      const fontsReady = (document as Document & { fonts?: FontFaceSet }).fonts?.status === 'loaded'
-      const pageReady = document.readyState === 'complete' || document.readyState === 'interactive'
-
-      const timeFloor = Math.min(0.9, elapsed / MAX_DURATION)
-      const value = Math.max(timeFloor, assets * (pageReady ? 1 : 0.9))
-      setProgress((p) => Math.max(p, Math.min(value, 0.99)))
-
-      if ((pageReady && assets >= 1 && fontsReady !== false) || elapsed >= MAX_DURATION) {
-        settle()
-        return
-      }
-      timerId = setTimeout(tick, 100)
-    }
-
-    timerId = setTimeout(tick, 100)
-    window.addEventListener('load', tick)
-
-    return () => {
-      if (timerId) clearTimeout(timerId)
-      window.removeEventListener('load', tick)
-      document.body.style.overflow = prevOverflow
-    }
-  }, [finish])
-
-  /* ---------- interactive 3D tilt (mouse / touch / device tilt) ---------- */
-  useEffect(() => {
-    const el = stageRef.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
+    const start = performance.now()
     let raf = 0
-    let tx = 0
-    let ty = 0
-    let cx = 0
-    let cy = 0
 
-    const apply = () => {
-      cx += (tx - cx) * 0.09
-      cy += (ty - cy) * 0.09
-      el.style.setProperty('--rx', `${(-cy * 16).toFixed(2)}deg`)
-      el.style.setProperty('--ry', `${(cx * 22).toFixed(2)}deg`)
-      el.style.setProperty('--px', `${(cx * 18).toFixed(2)}px`)
-      el.style.setProperty('--py', `${(cy * 18).toFixed(2)}px`)
-      raf = window.requestAnimationFrame(apply)
-    }
-    raf = window.requestAnimationFrame(apply)
+    /**
+     * The bar and the percentage are written straight to the DOM through refs
+     * rather than through React state. Driving them with `setProgress` meant a
+     * full React re-render on every animation frame for the whole life of the
+     * loader — main-thread work landing in exactly the window Lighthouse
+     * measures Total Blocking Time in, and competing with the app's own
+     * hydration. Two refs and one rAF loop that stops on its own cost
+     * essentially nothing.
+     */
+    const step = (now: number) => {
+      const p = Math.min(1, (now - start) / HOLD_DURATION)
 
-    const fromPoint = (x: number, y: number) => {
-      tx = (x / window.innerWidth) * 2 - 1
-      ty = (y / window.innerHeight) * 2 - 1
-    }
-    const onMove = (e: PointerEvent) => fromPoint(e.clientX, e.clientY)
-    const onTouch = (e: TouchEvent) => {
-      const t = e.touches[0]
-      if (t) fromPoint(t.clientX, t.clientY)
-    }
-    const onOrient = (e: DeviceOrientationEvent) => {
-      tx = Math.max(-1, Math.min(1, (e.gamma ?? 0) / 35))
-      ty = Math.max(-1, Math.min(1, ((e.beta ?? 0) - 40) / 35))
-    }
-    const onLeave = () => {
-      tx = 0
-      ty = 0
+      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`
+      if (pctRef.current) pctRef.current.textContent = `${Math.round(p * 100)}%`
+
+      if (p < 1) {
+        raf = requestAnimationFrame(step)
+      } else {
+        setDone(true)
+      }
     }
 
-    window.addEventListener('pointermove', onMove, { passive: true })
-    window.addEventListener('touchmove', onTouch, { passive: true })
-    window.addEventListener('deviceorientation', onOrient)
-    window.addEventListener('pointerleave', onLeave)
-
-    return () => {
-      window.cancelAnimationFrame(raf)
-      window.removeEventListener('pointermove', onMove)
-      window.removeEventListener('touchmove', onTouch)
-      window.removeEventListener('deviceorientation', onOrient)
-      window.removeEventListener('pointerleave', onLeave)
-    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
   }, [])
+
+  /*
+   * The pointer/touch/deviceorientation tilt effect that used to live here is
+   * gone. It attached four global listeners (two of them firing on every
+   * pointer and touch move) and ran an unbounded requestAnimationFrame loop
+   * that never stopped until the loader unmounted, all to tilt a logo that is
+   * on screen for well under a second. It was pure Total Blocking Time.
+   *
+   * The `--rx / --ry / --px / --py` custom properties it drove are still
+   * declared in the CSS below with 0 defaults, so the layout and the "breathe"
+   * animation are unchanged — the mark simply sits still now.
+   *
+   * The body scroll lock (`document.body.style.overflow = 'hidden'`) is gone
+   * too: with a sub-second loader there is nothing to lock the page against,
+   * and leaving `overflow` alone means no forced style recalculation on the
+   * body at the busiest moment of the page's life.
+   */
 
   useEffect(() => {
     if (!done) return
-    document.body.style.overflow = ''
-    const t = window.setTimeout(() => setHidden(true), FADE_DURATION)
-    return () => window.clearTimeout(t)
+    const timer = window.setTimeout(() => setHidden(true), FADE_DURATION)
+    return () => window.clearTimeout(timer)
   }, [done])
 
   if (hidden) return null
@@ -147,7 +102,7 @@ export function LoadingScreen() {
       aria-live="polite"
       aria-label={t.footer.loaderAria}
     >
-      <div className="st-loader__stage" ref={stageRef}>
+      <div className="st-loader__stage">
         <div className="st-loader__tilt">
           {/* Plain <img> on purpose: skips the image optimizer hop so the mark paints instantly.
               multiply blending knocks out the JPEG's white box, so it reads as transparent. */}
@@ -156,6 +111,7 @@ export function LoadingScreen() {
             alt={t.meta.siteName}
             className="st-loader__logo"
             decoding="async"
+            fetchPriority="high"
           />
         </div>
 
@@ -165,9 +121,9 @@ export function LoadingScreen() {
         <p className="st-loader__tag">{t.footer.loaderTag}</p>
 
         <div className="st-loader__bar" aria-hidden="true">
-          <span style={{ transform: `scaleX(${progress})` }} />
+          <span ref={barRef} />
         </div>
-        <p className="st-loader__pct">{Math.round(progress * 100)}%</p>
+        <p className="st-loader__pct" ref={pctRef}>0%</p>
       </div>
 
       <style>{`
@@ -270,7 +226,9 @@ export function LoadingScreen() {
           transform: scaleX(0);
           border-radius: 999px;
           background: linear-gradient(90deg, var(--navy), var(--red));
-          transition: transform 260ms ease-out;
+          /* No CSS transition here on purpose: the rAF loop above now writes
+             transform every frame, so a 260ms ease would be restarted on
+             each write and the bar would visibly lag behind the percentage. */
         }
         .st-loader__pct {
           margin: 12px 0 0;
