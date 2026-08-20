@@ -6,11 +6,12 @@ import { ArrowLeft, CalendarDays } from 'lucide-react'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { CtaBanner } from '@/components/home/cta-banner'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { blogPosts, siteUrl } from '@/lib/content'
+import { absoluteImageUrl, blogPosts, siteUrl } from '@/lib/content'
 import { getBlogPostLocalized } from '@/lib/content-i18n'
 import { getCategoryLocalized, getProductLocalized } from '@/lib/catalog'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, locales, type Locale } from '@/lib/i18n/config'
+import { description as metaDescription } from '@/lib/seo/meta'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
 
 type BlogPostPageProps = {
@@ -33,9 +34,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
   }
 
+  // Defensive clamp, same as the product/category pages — post.description
+  // is already written to fit, but this guarantees a future longer post
+  // still ships a valid meta description instead of a truncated-by-Google one.
+  const description = metaDescription(post.description)
+
   return {
     title: post.title,
-    description: post.description,
+    description,
     alternates: {
       canonical: `/${locale}/blog/${post.slug}`,
       languages: {
@@ -46,7 +52,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     openGraph: {
       title: post.title,
-      description: post.description,
+      description,
       type: 'article',
       publishedTime: post.publishedAt,
       images: [post.image],
@@ -77,7 +83,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     '@type': 'Article',
     headline: post.title,
     description: post.description,
-    image: `${siteUrl}${post.image}`,
+    image: absoluteImageUrl(post.image),
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     inLanguage: locale,

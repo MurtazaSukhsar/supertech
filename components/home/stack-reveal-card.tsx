@@ -76,6 +76,7 @@ export function StackRevealCard({ index, product, advance, flyDistance, priority
             alt={product.name}
             fill
             sizes="(max-width: 640px) 90vw, 540px"
+            cldWidth={640}
             priority={priority}
             className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
           />

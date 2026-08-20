@@ -17,6 +17,13 @@ import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { v2 as cloudinary } from 'cloudinary'
 
+// Node < 22 doesn't have native WebSockets. Polyfill a dummy class so the Supabase client
+// constructor doesn't crash, since this migration script only uses REST and never connects
+// to realtime WebSockets.
+if (typeof globalThis.WebSocket === 'undefined') {
+  globalThis.WebSocket = class {}
+}
+
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 
 /* ------------------------------------------------------------------ */
@@ -24,12 +31,18 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 /* ------------------------------------------------------------------ */
 
 function loadEnv() {
-  const file = path.join(root, '.env.local')
-  if (!fs.existsSync(file)) return
-  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
-    const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-    if (match && !process.env[match[1]]) {
-      process.env[match[1]] = match[2].replace(/^["']|["']$/g, '')
+  const files = ['.env', '.env.local']
+  for (const name of files) {
+    const file = path.join(root, name)
+    if (!fs.existsSync(file)) continue
+    for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
+      const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
+      if (match) {
+        const val = match[2].replace(/^["']|["']$/g, '').trim()
+        if (val && !process.env[match[1]]) {
+          process.env[match[1]] = val
+        }
+      }
     }
   }
 }
@@ -38,7 +51,7 @@ loadEnv()
 function need(name) {
   const value = process.env[name]
   if (!value) {
-    console.error(`\nMissing ${name} in .env.local — see docs/SUPABASE-SETUP.md\n`)
+    console.error(`\nMissing ${name} in .env or .env.local — see docs/SUPABASE-SETUP.md\n`)
     process.exit(1)
   }
   return value

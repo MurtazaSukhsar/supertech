@@ -162,6 +162,7 @@ export function QuoteDrawer() {
                         alt=""
                         fill
                         sizes="56px"
+                        cldWidth={120}
                         className="object-contain p-1"
                       />
                     </div>

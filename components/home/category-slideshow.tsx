@@ -38,6 +38,7 @@ export function CategorySlideshow() {
                 alt={prod.name}
                 fill
                 sizes="224px"
+                cldWidth={256}
                 className="object-contain p-2 transition-transform duration-500 group-hover:scale-110"
               />
             </div>

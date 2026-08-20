@@ -24,6 +24,20 @@ export type BlogPost = {
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://supertechint.com.kw'
 
 /**
+ * JSON-LD `image` fields need an absolute URL, but product/blog images can
+ * now be either a site-relative path (`/images/products/...`) or an
+ * already-absolute Cloudinary URL, depending on when that item was migrated.
+ * Blindly prepending `siteUrl` to an already-absolute URL produces a
+ * malformed string like `https://site.comhttps://res.cloudinary.com/...` —
+ * exactly the "Invalid URL in field 'image'" error Google Search Console
+ * flags for structured data. This only prepends when the path isn't already
+ * a full URL.
+ */
+export function absoluteImageUrl(path: string): string {
+  return /^https?:\/\//.test(path) ? path : `${siteUrl}${path}`
+}
+
+/**
  * Seeded from the committed JSON, then refilled in place once Supabase data
  * arrives. Mutating rather than reassigning matters: every module that
  * imported this array holds the original reference.

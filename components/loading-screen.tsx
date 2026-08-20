@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 
@@ -26,7 +26,7 @@ export function LoadingScreen() {
   /* ---------- asset tracking ---------- */
   useEffect(() => {
     const start = Date.now()
-    let raf = 0
+    let timerId: ReturnType<typeof setTimeout> | null = null
     let settled = false
 
     const prevOverflow = document.body.style.overflow
@@ -37,7 +37,7 @@ export function LoadingScreen() {
       const imgs = Array.from(document.images).filter(
         (img) => img.loading !== 'lazy' && img.getAttribute('loading') !== 'lazy'
       )
-      if (imgs.length === 0) return document.readyState === 'complete' ? 1 : 0.5
+      if (imgs.length === 0) return (document.readyState === 'complete' || document.readyState === 'interactive') ? 1 : 0.5
       return imgs.filter((img) => img.complete && img.naturalWidth > 0).length / imgs.length
     }
 
@@ -52,7 +52,7 @@ export function LoadingScreen() {
       const elapsed = Date.now() - start
       const assets = imageProgress()
       const fontsReady = (document as Document & { fonts?: FontFaceSet }).fonts?.status === 'loaded'
-      const pageReady = document.readyState === 'complete'
+      const pageReady = document.readyState === 'complete' || document.readyState === 'interactive'
 
       const timeFloor = Math.min(0.9, elapsed / MAX_DURATION)
       const value = Math.max(timeFloor, assets * (pageReady ? 1 : 0.9))
@@ -62,14 +62,14 @@ export function LoadingScreen() {
         settle()
         return
       }
-      raf = window.requestAnimationFrame(tick)
+      timerId = setTimeout(tick, 100)
     }
 
-    raf = window.requestAnimationFrame(tick)
+    timerId = setTimeout(tick, 100)
     window.addEventListener('load', tick)
 
     return () => {
-      window.cancelAnimationFrame(raf)
+      if (timerId) clearTimeout(timerId)
       window.removeEventListener('load', tick)
       document.body.style.overflow = prevOverflow
     }
@@ -282,8 +282,8 @@ export function LoadingScreen() {
         }
 
         @keyframes st-breathe {
-          0%, 100% { filter: saturate(1); transform: translate3d(var(--px), var(--py), 70px) scale(1.02); }
-          50%      { filter: saturate(1.12); transform: translate3d(var(--px), var(--py), 70px) scale(1.06); }
+          0%, 100% { transform: translate3d(var(--px), var(--py), 70px) scale(1.02); }
+          50%      { transform: translate3d(var(--px), var(--py), 70px) scale(1.06); }
         }
         @keyframes st-drift {
           from { transform: translate3d(-3%, -2%, 0) scale(1); }

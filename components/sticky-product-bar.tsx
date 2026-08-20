@@ -52,6 +52,7 @@ export function StickyProductBar({ product }: { product: Product }) {
               alt=""
               fill
               sizes="44px"
+              cldWidth={100}
               className="object-contain p-1"
             />
           </div>

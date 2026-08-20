@@ -42,6 +42,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
+          cldWidth={800}
           className={`object-contain p-4 transition-transform duration-500 ease-out scale-100 ${
             isCrossFading ? 'opacity-30' : 'opacity-100'
           }`}
@@ -67,6 +68,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
                   alt={`${name} thumbnail ${i + 1}`}
                   fill
                   sizes="120px"
+                  cldWidth={200}
                   className="object-contain p-2"
                 />
 

@@ -11,7 +11,7 @@ import { InStockBadge } from '@/components/in-stock-badge'
 import { StickyProductBar } from '@/components/sticky-product-bar'
 import { RelatedProductsRail } from '@/components/related-products-rail'
 import { ProductDetailActions } from '@/components/product-detail-actions'
-import { siteUrl } from '@/lib/content'
+import { absoluteImageUrl } from '@/lib/content'
 import {
   getCategoryLocalized,
   getProductLocalized,
@@ -89,14 +89,16 @@ export default async function ProductPage({
         }
       : undefined,
     category: category?.name ?? product.category,
-    image: product.images.map((image) => `${siteUrl}${image}`),
+    image: product.images.map((image) => absoluteImageUrl(image)),
     inLanguage: locale,
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-      priceCurrency: 'KWD',
-      url: `${siteUrl}/${locale}/products/${product.id}`,
-    },
+    // No `offers` block: this is a wholesale/quote-based catalogue with no
+    // published per-unit price, and Google requires a real `price` inside
+    // `offers` for it to validate — Search Console flags a fabricated or
+    // missing price as an "invalid item" for Product snippets / Merchant
+    // listings either way. Declaring a price we don't actually charge would
+    // also just be inaccurate. If real per-product pricing is published
+    // later, add `offers: { '@type': 'Offer', price, priceCurrency: 'KWD',
+    // availability: 'https://schema.org/InStock', url: ... }` back in.
   }
 
   return (
