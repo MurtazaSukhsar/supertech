@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 import { pageVariants } from '@/lib/motion'
@@ -24,25 +24,43 @@ import { pageVariants } from '@/lib/motion'
  * should never be gated behind one.
  *
  * `hasMountedOnClient` distinguishes "first paint of this tab" from "a
- * subsequent client-side navigation". It's guarded by `typeof window` so
- * the server-rendered HTML (shared across every visitor's first request)
- * never mutates it — SSR always takes the no-animation branch, which also
- * means the initial HTML never ships hidden content, and hydration matches
- * exactly. Only once this module has already run once *in the browser* does
- * a later `<Template>` remount (i.e. an actual Link navigation) apply the
- * fade.
+ * subsequent client-side navigation", and has to live at module scope
+ * (rather than component state) because it must survive `<Template>`
+ * itself unmounting and remounting on every route change.
+ *
+ * The previous version read that flag *during render* (`typeof window ===
+ * 'undefined' || !hasMountedOnClient`) to decide which branch to return.
+ * That guarantees the server always takes the no-animation branch, but
+ * nothing guarantees the client's very first render of a given `<Template>`
+ * instance takes the *same* branch the server did — a Fast Refresh reload,
+ * a bfcache restore, or simply a second `<Template>` mount reusing an
+ * already-warm module in the same tab can see `hasMountedOnClient` as
+ * already `true` on a render React expects to match the server's HTML
+ * exactly, producing a hydration mismatch (the wrapping `motion.div` shows
+ * up where the server emitted the child directly).
+ *
+ * Moving the flip into `useLayoutEffect` removes that race structurally:
+ * every render — server, and the client's first render of any given
+ * mount — starts from the same `shouldAnimate = false` state, so the
+ * markup is always identical at hydration time. Only *after* that render
+ * has committed does the effect (browser-only, and never runs during SSR)
+ * check the module flag and switch a later paint to the animated branch.
+ * `useLayoutEffect` rather than `useEffect` so that flip happens before the
+ * browser paints, avoiding a one-frame flash of unanimated content on
+ * every subsequent navigation.
  */
 let hasMountedOnClient = false
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const shouldReduce = useReducedMotion()
-  const isFirstMountThisTab = useRef(
-    typeof window === 'undefined' || !hasMountedOnClient,
-  ).current
+  const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  if (typeof window !== 'undefined') hasMountedOnClient = true
+  useLayoutEffect(() => {
+    if (hasMountedOnClient) setShouldAnimate(true)
+    hasMountedOnClient = true
+  }, [])
 
-  if (shouldReduce || isFirstMountThisTab) return <>{children}</>
+  if (shouldReduce || !shouldAnimate) return <>{children}</>
 
   return (
     <motion.div initial="hidden" animate="visible" variants={pageVariants}>
