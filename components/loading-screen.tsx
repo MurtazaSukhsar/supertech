@@ -24,8 +24,8 @@ import { cldResize } from '@/lib/cloudinary-url'
  * network conditions — it takes the same short time on a fast desktop and a
  * throttled phone.
  */
-const HOLD_DURATION = 550
-const FADE_DURATION = 400
+const HOLD_DURATION = 350
+const FADE_DURATION = 300
 
 // Sampled straight from /images/logo.webp — no other colours are used here.
 const NAVY = '#00267C'
@@ -188,6 +188,9 @@ export function LoadingScreen() {
           mix-blend-mode: multiply;
           transform: translate3d(var(--px), var(--py), 70px) scale(1.02);
           animation: st-breathe 3.4s ease-in-out infinite;
+          /* GPU-composite the breathe animation — one of Lighthouse's 11
+             non-composited animation elements. */
+          will-change: transform;
         }
 
         .st-loader__name {

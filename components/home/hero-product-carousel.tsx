@@ -271,7 +271,7 @@ export function HeroProductCarousel() {
                 height={480}
                 sizes="(max-width: 640px) 60vw, (max-width: 1024px) 280px, 420px"
                 draggable={false}
-                priority={i < 3}
+                priority={i === 0}
                 className="pointer-events-none h-auto w-full object-contain"
               />
             </Link>

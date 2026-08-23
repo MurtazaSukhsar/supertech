@@ -4,10 +4,10 @@ import { notFound } from 'next/navigation'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { WhatsAppButton } from '@/components/whatsapp-button'
-import { Chatbot } from '@/components/chatbot'
+import { ChatbotDeferred } from '@/components/chatbot-deferred'
 import { MobileQuoteButton } from '@/components/mobile-quote-button'
 import { QuoteProvider } from '@/context/quote-context'
-import { QuoteDrawer } from '@/components/quote-drawer'
+import { QuoteDrawerDeferred } from '@/components/quote-drawer-deferred'
 import { SmoothScroll } from '@/components/smooth-scroll'
 import { LoadingScreen } from '@/components/loading-screen'
 import { I18nProvider } from '@/components/i18n-provider'
@@ -141,6 +141,28 @@ export default async function LocaleLayout({
             html.font-arabic is actually applied — no per-locale <head>
             branching needed, and no external font requests either way. */}
 
+        {/* Preload the hero background so the browser discovers it at HTML
+            parse time rather than waiting for the 'use client' Hero component
+            to hydrate. This is the primary LCP fix: the image is the largest
+            element in the viewport but was previously only requested after
+            the JS bundle loaded and React ran. The snapshot may have a live
+            Cloudinary URL (mutated into siteImages by primeSiteDataSafely);
+            fall back to the seed path if the DB hasn't responded yet. */}
+        {snapshot?.site?.images?.heroBackground
+          ? <link
+              rel="preload"
+              as="image"
+              href={snapshot.site.images.heroBackground}
+              fetchPriority="high"
+            />
+          : <link
+              rel="preload"
+              as="image"
+              href="/images/hero-warehouse.webp"
+              fetchPriority="high"
+            />
+        }
+
         {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded by
             <DeferredAnalytics/> (rendered in <body>) on first interaction
             rather than eagerly here: see that component for why. */}
@@ -159,9 +181,9 @@ export default async function LocaleLayout({
             <main>{children}</main>
             <SiteFooter />
             <WhatsAppButton />
-            <Chatbot />
+            <ChatbotDeferred />
             <MobileQuoteButton />
-            <QuoteDrawer />
+            <QuoteDrawerDeferred />
           </QuoteProvider>
         </I18nProvider>
         {/* @vercel/analytics's <Analytics/> was removed here: it tries to

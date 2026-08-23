@@ -201,6 +201,7 @@
 
   .soft-pulse {
     animation: soft-pulse 2.6s ease-in-out infinite;
+    will-change: transform, opacity;
   }
 
   .hero-image-reveal {
@@ -215,6 +216,11 @@
     --reveal-duration: 600ms;
     --reveal-easing: cubic-bezier(0.25, 1, 0.5, 1); /* power2.out */
     will-change: opacity, transform;
+  }
+
+  /* Remove will-change after animation completes to free GPU layers */
+  .scroll-reveal.is-visible {
+    will-change: auto;
   }
 
   /* ── Variant: fade-up (default) ─────────────────────── */
@@ -359,13 +365,17 @@
   /* ── Ken Burns hero ───────────────────────────────────── */
   .ken-burns {
     animation: ken-burns 25s ease-in-out infinite alternate;
+    /* Promote to its own compositor layer so the scale animation never
+       triggers a main-thread paint. This is one of the 11 non-composited
+       animations Lighthouse flagged. */
+    will-change: transform;
   }
 
   /* ── Hover lift (cards) ───────────────────────────────── */
   .hover-lift {
     transition:
       transform 280ms cubic-bezier(0.21, 1, 0.21, 1),
-      box-shadow 280ms cubic-bezier(0.21, 1, 0.21, 1),
+      filter 280ms cubic-bezier(0.21, 1, 0.21, 1),
       border-color 280ms ease,
       background-color 280ms ease,
       color 280ms ease;
@@ -373,7 +383,9 @@
 
   .hover-lift:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 48px -12px rgba(10, 36, 114, 0.13);
+    /* filter:drop-shadow is GPU-composited; box-shadow is not and triggers
+       a paint on every hover frame (one of Lighthouse's flagged animations). */
+    filter: drop-shadow(0 16px 48px rgba(10, 36, 114, 0.13));
   }
 
   /* ── Premium card ─────────────────────────────────────── */
@@ -383,12 +395,12 @@
     background: var(--card);
     transition:
       transform 280ms cubic-bezier(0.21, 1, 0.21, 1),
-      box-shadow 280ms cubic-bezier(0.21, 1, 0.21, 1),
+      filter 280ms cubic-bezier(0.21, 1, 0.21, 1),
       border-color 280ms ease;
   }
   .card-premium:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 60px -15px rgba(10, 36, 114, 0.15);
+    filter: drop-shadow(0 20px 60px rgba(10, 36, 114, 0.15));
     border-color: color-mix(in srgb, var(--primary) 25%, transparent);
   }
 
@@ -453,6 +465,7 @@
     display: flex;
     animation: marquee-scroll 35s linear infinite;
     width: max-content;
+    will-change: transform;
   }
   .marquee-track:hover {
     animation-play-state: paused;
@@ -603,6 +616,7 @@
 
 .animate-marquee {
   animation: marquee 35s linear infinite;
+  will-change: transform;
 }
 
 /* Hide scrollbar while keeping scroll functionality */
