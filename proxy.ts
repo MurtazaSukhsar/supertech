@@ -41,29 +41,18 @@ function isAdminHostname(hostname: string): boolean {
 }
 
 function detectLocale(request: NextRequest): string {
-  // 1. Explicit choice saved from the language switcher wins.
+  // Only an explicit choice saved from the language switcher wins. We
+  // deliberately do NOT also sniff the `Accept-Language` header: guessing a
+  // visitor's language and redirecting a locale-less URL on that guess is
+  // exactly what Google's internationalization guidance warns against —
+  // crawlers don't send a consistent Accept-Language, so the same URL can
+  // resolve to different locales depending on who (or what) requests it.
+  // Everyone with no saved preference — including every crawler — gets the
+  // one fixed default locale, and hreflang (already on every page) is what
+  // does the actual language targeting in search results.
   const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value
   if (cookieLocale && (locales as readonly string[]).includes(cookieLocale)) {
     return cookieLocale
-  }
-
-  // 2. Otherwise fall back to the browser's Accept-Language header.
-  const header = request.headers.get('accept-language')
-  if (header) {
-    const preferred = header
-      .split(',')
-      .map((part) => {
-        const [tag, q] = part.trim().split(';q=')
-        return { tag: tag.toLowerCase(), q: q ? Number(q) : 1 }
-      })
-      .sort((a, b) => b.q - a.q)
-
-    for (const { tag } of preferred) {
-      const base = tag.split('-')[0]
-      if ((locales as readonly string[]).includes(base)) {
-        return base
-      }
-    }
   }
 
   return defaultLocale
@@ -121,7 +110,12 @@ function handlePublicRouting(request: NextRequest, pathname: string) {
   const url = request.nextUrl.clone()
   url.pathname = `/${locale}${pathname === '/' ? '' : pathname}`
 
-  return NextResponse.redirect(url)
+  // Permanent (308): this is a fixed URL-structure decision (locale-less
+  // path -> locale-prefixed path), not a temporary redirect, and a fixed
+  // target now that detectLocale no longer varies by request headers. A
+  // permanent status lets Google consolidate the locale-less URL's signals
+  // into the locale-prefixed one instead of re-checking it indefinitely.
+  return NextResponse.redirect(url, 308)
 }
 
 export function proxy(request: NextRequest) {

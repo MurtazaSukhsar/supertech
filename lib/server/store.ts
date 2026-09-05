@@ -41,6 +41,7 @@ type ProductRow = {
   description_ar: string | null
   specs_ar: Record<string, string> | null
   sort_order: number
+  updated_at: string
 }
 
 type CategoryRow = {
@@ -55,6 +56,7 @@ type CategoryRow = {
   short_name_ar: string | null
   description_ar: string | null
   sort_order: number
+  updated_at: string
 }
 
 /** Throw with Supabase's message so the admin UI can show something useful. */
@@ -76,6 +78,7 @@ const toProduct = (row: ProductRow): Product => ({
   description: row.description,
   specs: row.specs ?? {},
   featured: row.featured,
+  updatedAt: row.updated_at,
 })
 
 const toCategory = (row: CategoryRow): Category => ({
@@ -86,6 +89,7 @@ const toCategory = (row: CategoryRow): Category => ({
   icon: row.icon,
   image: row.image,
   subcategories: row.subcategories ?? [],
+  updatedAt: row.updated_at,
 })
 
 /* ------------------------------------------------------------------ */

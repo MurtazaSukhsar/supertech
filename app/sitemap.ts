@@ -101,7 +101,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ].flatMap((route) => entry(route, now, 'weekly', route === '' ? 1 : 0.8))
 
   const categoryRoutes = categories.flatMap((category) =>
-    entry(`/categories/${category.slug}`, now, 'weekly', 0.85),
+    entry(
+      `/categories/${category.slug}`,
+      category.updatedAt ? new Date(category.updatedAt) : now,
+      'weekly',
+      0.85,
+    ),
   )
 
   /**
@@ -113,7 +118,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   )
 
   const productRoutes = products.flatMap((product) =>
-    entry(`/products/${product.id}`, now, 'monthly', product.featured ? 0.8 : 0.65),
+    entry(
+      `/products/${product.id}`,
+      // Real Supabase `updated_at` when the record came from the live
+      // catalogue; falls back to build/request time only for seed-only
+      // entries that have never been edited through the admin panel, so
+      // Google isn't told every product changed on every sitemap fetch.
+      product.updatedAt ? new Date(product.updatedAt) : now,
+      'monthly',
+      product.featured ? 0.8 : 0.65,
+    ),
   )
 
   const blogRoutes = blogPosts.flatMap((post) =>

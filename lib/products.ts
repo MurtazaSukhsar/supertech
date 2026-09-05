@@ -10,6 +10,8 @@ export type Category = {
   icon: string
   image: string
   subcategories: string[]
+  /** Real last-modified timestamp from Supabase (`updated_at`), when known. */
+  updatedAt?: string
 }
 
 export type Product = {
@@ -22,6 +24,8 @@ export type Product = {
   description: string
   specs: Record<string, string>
   featured?: boolean
+  /** Real last-modified timestamp from Supabase (`updated_at`), when known. */
+  updatedAt?: string
 }
 
 export type SiteImages = {
