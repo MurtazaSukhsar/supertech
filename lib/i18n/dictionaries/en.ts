@@ -29,6 +29,11 @@ export const en = {
       'HVAC materials supplier Kuwait',
       'building materials Shuwaikh',
       'tools shop Kuwait City',
+      'MEP supplies Kuwait',
+      'MEP contractor supplier Kuwait',
+      'HVAC contractor materials Kuwait',
+      'wholesale AC parts Kuwait',
+      'bulk construction materials Kuwait',
     ],
     ogDescription:
       'Hardware shop in Shuwaikh Industrial, Kuwait — AC materials, tools, plumbing, electrical and construction supplies for walk-in customers and contractors.',

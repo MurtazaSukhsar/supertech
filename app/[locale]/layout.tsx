@@ -163,9 +163,9 @@ export default async function LocaleLayout({
             />
         }
 
-        {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded by
-            <DeferredAnalytics/> (rendered in <body>) on first interaction
-            rather than eagerly here: see that component for why. */}
+        {/* Google tag (gtag.js) — GA4 property G-XWX34YME25. Loaded
+            eagerly by <DeferredAnalytics/> (rendered in <body>): see that
+            component for why it no longer defers to first interaction. */}
       </head>
       <body className="font-sans antialiased">
         <script

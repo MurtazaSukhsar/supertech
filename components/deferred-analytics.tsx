@@ -3,57 +3,45 @@
 import { useEffect } from 'react'
 
 const GA_ID = 'G-XWX34YME25'
-const INTERACTION_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'scroll'] as const
-const IDLE_FALLBACK_MS = 4000
 
 /**
- * Loads Google Analytics (gtag.js) after the first user interaction, or
- * after a short idle fallback if the visitor never interacts.
+ * Loads Google Analytics (gtag.js) on mount, following Google's documented
+ * bootstrap order exactly: define dataLayer + gtag and queue the 'js' and
+ * 'config' commands FIRST, then inject the script tag. gtag.js only
+ * processes commands that are already sitting in dataLayer by the time it
+ * finishes initializing — queue them after the script loads (as a previous
+ * version of this file did, inside script.onload) and the config call can
+ * be silently dropped, because gtag.js has already taken over dataLayer.push
+ * by then and the ordering guarantee is gone.
  *
- * Why this exists: gtag.js alone is ~164 KiB, of which Lighthouse measures
- * ~68 KiB as unused JavaScript on first load — none of it is needed before
- * the page has painted. It previously loaded via next/script
- * (strategy="afterInteractive"), which still competes with the app's own
- * hydration for main-thread time right when TBT is measured. Deferring to
- * first interaction — with a short idle fallback so a visitor who never
- * interacts (reads the hero, leaves) is still counted — keeps every
- * pageview tracked while keeping it off the critical rendering path.
+ * This previously deferred loading until first interaction or a 4s idle
+ * timeout, purely to shave ~68 KiB of unused JS off Lighthouse's first-load
+ * measurement. That traded away correctness for a performance number:
+ * Google's own tag-detection checker (Analytics admin > Data Streams > Test
+ * your website) renders the page and checks almost immediately — it never
+ * interacts or waits 4s — so it reported "Your Google tag wasn't detected
+ * on your website" even though the code was live. Real visitors who bounce
+ * in under 4 seconds without scrolling would have been missed the same way.
+ * Loading eagerly (still async, still off the main render path) trades a
+ * few KiB of deferred JS for actually-correct analytics — the right
+ * tradeoff for a lead-gen B2B site that needs accurate traffic data.
  */
 export function DeferredAnalytics() {
   useEffect(() => {
-    let loaded = false
-    let fallback: ReturnType<typeof setTimeout> | null = null
-
-    const load = () => {
-      if (loaded) return
-      loaded = true
-      if (fallback) clearTimeout(fallback)
-      INTERACTION_EVENTS.forEach((evt) => window.removeEventListener(evt, load))
-
-      const script = document.createElement('script')
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-      script.async = true
-      script.onload = () => {
-        const w = window as unknown as { dataLayer: unknown[]; gtag: (...args: unknown[]) => void }
-        w.dataLayer = w.dataLayer || []
-        w.gtag = function gtag(...args: unknown[]) {
-          w.dataLayer.push(args)
-        }
-        w.gtag('js', new Date())
-        w.gtag('config', GA_ID)
-      }
-      document.head.appendChild(script)
+    const w = window as unknown as { dataLayer: unknown[]; gtag: (...args: unknown[]) => void }
+    w.dataLayer = w.dataLayer || []
+    w.gtag = function gtag(...args: unknown[]) {
+      w.dataLayer.push(args)
     }
+    // Queue these BEFORE the script loads — gtag.js reads whatever is
+    // already in dataLayer when it initializes.
+    w.gtag('js', new Date())
+    w.gtag('config', GA_ID)
 
-    INTERACTION_EVENTS.forEach((evt) =>
-      window.addEventListener(evt, load, { once: true, passive: true }),
-    )
-    fallback = setTimeout(load, IDLE_FALLBACK_MS)
-
-    return () => {
-      INTERACTION_EVENTS.forEach((evt) => window.removeEventListener(evt, load))
-      if (fallback) clearTimeout(fallback)
-    }
+    const script = document.createElement('script')
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
+    script.async = true
+    document.head.appendChild(script)
   }, [])
 
   return null
