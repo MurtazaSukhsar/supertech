@@ -117,7 +117,7 @@ export const en = {
 
   home: {
     heroBadge: 'Kuwait’s Premier MEP & HVAC Material Supplier',
-    heroTitle: 'Suppliers of All Air-Conditioning Materials, Hardware & Tools',
+    heroTitle: 'Suppliers of All Air-Conditioning Materials, Hardware & Tools in Kuwait',
     heroSubtitle:
       'From copper pipes, insulation rolls, and flexible duct connectors to industrial power tools, unistrut channels, and plumbing valves. Certified quality and competitive wholesale rates across Kuwait.',
     heroBadgeCertified: '100% Certified Originals',
@@ -192,6 +192,31 @@ export const en = {
     ctaTitle: 'Need Bulk Supply? Contact Us Today',
     ctaSubtitle:
       'Competitive project pricing, dedicated support, and delivery anywhere in Kuwait.',
+
+    /**
+     * Short "at a glance" summary block rendered right after the hero -- a
+     * direct, plain-language answer to "what is this business and who is
+     * it for" for readers and AI assistants that only scan the top of the
+     * page, plus a definition of "AC materials" with a citation to an
+     * authoritative HVAC standards body.
+     */
+    overviewEyebrow: 'At a Glance',
+    overviewTitle: "Kuwait's Hardware Shop for AC Materials & Tools",
+    overviewSummary:
+      'Super Tech is a hardware shop and construction materials supplier in Shuwaikh Industrial Area, Kuwait, supplying air-conditioning materials, copper pipe, hand and power tools, and plumbing and electrical supplies to walk-in customers, contractors and bulk buyers, with delivery across Kuwait.',
+    overviewStandardsIntro:
+      '“AC materials” covers items like refrigerant lines, insulation, duct accessories and controls -- components typically specified against international HVAC standards such as',
+    overviewStandardsLinkText: "ASHRAE's guidelines",
+    overviewStepsTitle: 'How to Order',
+    overviewStep1Title: 'Tell Us What You Need',
+    overviewStep1Desc:
+      'Send your material list by WhatsApp, phone, or the contact form -- a rough list is fine to start.',
+    overviewStep2Title: 'Get Pricing & Availability',
+    overviewStep2Desc:
+      'We confirm stock, pricing and lead time the same day, with bulk rates for contractors.',
+    overviewStep3Title: 'Collect or Get It Delivered',
+    overviewStep3Desc:
+      'Pick up from our Shuwaikh Industrial shop or have it delivered anywhere in Kuwait.',
   },
 
   about: {

@@ -7,6 +7,7 @@ import { FaqAccordion } from '@/components/faq-accordion'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { siteUrl } from '@/lib/content'
 import { getFaqs } from '@/lib/content-i18n'
+import { faqPageSchema } from '@/lib/seo/schema'
 import { contactInfo } from '@/lib/products'
 import { getDictionary } from '@/lib/i18n'
 import { localePath, type Locale } from '@/lib/i18n/config'
@@ -42,19 +43,7 @@ export default async function FaqPage({
   const faqs = getFaqs(locale as Locale)
   const href = (path: string) => localePath(locale as Locale, path)
 
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    inLanguage: locale,
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  }
+  const faqSchema = faqPageSchema(locale as Locale, faqs)
 
   return (
     <>

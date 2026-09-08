@@ -224,3 +224,71 @@ export function breadcrumbSchema(
 export function schemaGraph(nodes: object[]) {
   return JSON.stringify(nodes.length === 1 ? nodes[0] : nodes)
 }
+
+/**
+ * Per-page WebPage node. Anchors on-page "page schema" and "freshness"
+ * signals to the shop and organization nodes rather than existing as an
+ * orphan entity, and gives on-page SEO scanners the WebPage entity type
+ * they look for on top of the site-wide LocalBusiness/Organization/WebSite
+ * graph emitted in the locale layout.
+ */
+export function webPageSchema(
+  locale: Locale,
+  opts: { url: string; name: string; description: string },
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${opts.url}#webpage`,
+    url: opts.url,
+    name: opts.name,
+    description: opts.description,
+    inLanguage: locale,
+    isPartOf: { '@id': websiteId },
+    about: { '@id': localBusinessId },
+    publisher: { '@id': organizationId },
+  }
+}
+
+/**
+ * FAQPage node. Pass exactly the Q&A pairs rendered as visible text on the
+ * page -- Google's structured-data guidelines require FAQPage markup to
+ * match what a visitor actually sees, so callers should slice their FAQ
+ * source the same way the visible component does rather than passing the
+ * full list.
+ */
+export function faqPageSchema(locale: Locale, faqs: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: locale,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
+}
+
+/**
+ * HowTo node for a short ordered process shown on a page (e.g. the
+ * homepage's "how to order" steps). Same rule as faqPageSchema: the steps
+ * passed in must match the visible step cards exactly.
+ */
+export function howToSchema(locale: Locale, name: string, steps: { name: string; text: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    inLanguage: locale,
+    name,
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  }
+}

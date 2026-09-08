@@ -28,6 +28,7 @@ export function SeoContent() {
                   <Link
                     href={href(`/blog/${post.slug}`)}
                     className="card-premium group block p-6"
+                    aria-label={`${t.common.readGuide}: ${post.title}`}
                   >
                     <p className="eyebrow text-[0.65rem]">{post.category}</p>
                     <h3 className="mt-2 font-sans text-base font-bold leading-snug text-foreground group-hover:text-primary">

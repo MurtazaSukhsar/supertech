@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Hero } from '@/components/home/hero'
+import { Overview } from '@/components/home/overview'
 import { CategorySlideshow } from '@/components/home/category-slideshow'
 import { TrustBadges } from '@/components/home/trust-badges'
 import { CategoryGrid } from '@/components/home/category-grid'
@@ -10,7 +11,11 @@ import { Testimonials } from '@/components/home/testimonials'
 import { SeoContent } from '@/components/home/seo-content'
 import { CtaBanner } from '@/components/home/cta-banner'
 import { getDictionary } from '@/lib/i18n'
+import type { Locale } from '@/lib/i18n/config'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
+import { siteUrl } from '@/lib/content'
+import { getFaqs } from '@/lib/content-i18n'
+import { faqPageSchema, howToSchema, schemaGraph, webPageSchema } from '@/lib/seo/schema'
 
 export async function generateMetadata({
   params,
@@ -33,14 +38,45 @@ export async function generateMetadata({
   }
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
   // The homepage renders client components that read the catalogue
   // synchronously, so the data has to be in place before this returns.
   await primeSiteDataSafely()
+  const { locale: rawLocale } = await params
+  const locale = rawLocale as Locale
+  const t = getDictionary(locale)
+
+  // Same first-3 slice <SeoContent> renders below, so the FAQPage markup
+  // matches what a visitor actually sees on this page rather than the full
+  // FAQ list (which only exists on /faq).
+  const faqs = getFaqs(locale).slice(0, 3)
+
+  const pageSchema = schemaGraph([
+    webPageSchema(locale, {
+      url: `${siteUrl}/${locale}`,
+      name: t.meta.titleDefault,
+      description: t.meta.description,
+    }),
+    faqPageSchema(locale, faqs),
+    howToSchema(locale, t.home.overviewStepsTitle, [
+      { name: t.home.overviewStep1Title, text: t.home.overviewStep1Desc },
+      { name: t.home.overviewStep2Title, text: t.home.overviewStep2Desc },
+      { name: t.home.overviewStep3Title, text: t.home.overviewStep3Desc },
+    ]),
+  ])
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: pageSchema }}
+      />
       <Hero />
+      <Overview />
       <CategorySlideshow />
       <TrustBadges />
       <CategoryGrid />
