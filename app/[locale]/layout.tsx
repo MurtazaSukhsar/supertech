@@ -73,7 +73,20 @@ export async function generateMetadata({
       siteName: t.meta.siteName,
       title: t.meta.titleDefault,
       description: t.meta.ogDescription,
-      images: [siteImages.heroBackground],
+      images: [
+        {
+          url: '/images/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: t.meta.titleDefault,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t.meta.titleDefault,
+      description: t.meta.ogDescription,
+      images: ['/images/og-image.jpg'],
     },
     verification: {
       google: 'QVhsIlUtLtnruxTRFBq3wSPRSR1GGItu1WNeG3A16pU',

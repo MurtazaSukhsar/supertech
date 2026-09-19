@@ -6,10 +6,10 @@ export const en = {
      * "Kuwait"), not with the legal company name. Brand goes last so the
      * keyword survives Google's ~60-character title truncation.
      */
-    titleDefault: 'Hardware Shop in Kuwait | AC Materials & Tools | Super Tech',
+    titleDefault: 'Hardware Shop in Kuwait | AC & Tools | Super Tech',
     titleTemplate: '%s | Super Tech Kuwait',
     description:
-      'Hardware shop in Shuwaikh Industrial, Kuwait. AC materials, copper pipe, hand & power tools, plumbing and electrical supplies. Call +965 6506 1752.',
+      'Hardware shop in Shuwaikh, Kuwait. AC materials, copper pipes, tools, plumbing & electrical supplies. Call +965 6506 1752.',
     keywords: [
       'hardware shop Kuwait',
       'hardware store Kuwait',
@@ -36,7 +36,7 @@ export const en = {
       'bulk construction materials Kuwait',
     ],
     ogDescription:
-      'Hardware shop in Shuwaikh Industrial, Kuwait — AC materials, tools, plumbing, electrical and construction supplies for walk-in customers and contractors.',
+      'Hardware shop in Shuwaikh, Kuwait — AC materials, tools, plumbing & electrical supplies for walk-ins & contractors.',
     schemaDescription:
       'Super Tech is a hardware shop and construction materials supplier in Shuwaikh Industrial Area, Kuwait. We stock air-conditioning materials, copper pipes, insulation, refrigerants, duct accessories, hand and power tools, clamps, plumbing and electrical supplies for walk-in customers, contractors and bulk buyers across Kuwait.',
     streetAddress: 'Shuwaikh Industrial Area',
