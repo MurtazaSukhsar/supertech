@@ -1,4 +1,4 @@
-import type { BlogPost, Faq } from '@/lib/content'
+import { withSeedLinks, type BlogPost, type Faq } from '@/lib/content'
 import faqsArData from '@/data/faqs-ar.json'
 import blogArData from '@/data/blog-ar.json'
 
@@ -12,5 +12,5 @@ export function replaceFaqsAr(next: Faq[]): void {
 }
 
 export function replaceBlogPostsAr(next: BlogPost[]): void {
-  if (next.length > 0) blogPostsAr.splice(0, blogPostsAr.length, ...next)
+  if (next.length > 0) blogPostsAr.splice(0, blogPostsAr.length, ...withSeedLinks(next))
 }

@@ -51,8 +51,31 @@ export function replaceFaqs(next: Faq[]): void {
   if (next.length > 0) faqs.splice(0, faqs.length, ...next)
 }
 
+/**
+ * The Supabase `blog_posts` table has no columns for related categories or
+ * products, so rows arriving from it would silently drop the internal links a
+ * post declares in the committed JSON. Re-attach them by slug.
+ */
+const seedLinks = new Map(
+  (blogData as unknown as BlogPost[]).map((post) => [
+    post.slug,
+    { relatedCategories: post.relatedCategories, relatedProducts: post.relatedProducts },
+  ]),
+)
+
+export function withSeedLinks(posts: BlogPost[]): BlogPost[] {
+  return posts.map((post) => {
+    const links = seedLinks.get(post.slug)
+    return {
+      ...post,
+      relatedCategories: post.relatedCategories ?? links?.relatedCategories,
+      relatedProducts: post.relatedProducts ?? links?.relatedProducts,
+    }
+  })
+}
+
 export function replaceBlogPosts(next: BlogPost[]): void {
-  if (next.length > 0) blogPosts.splice(0, blogPosts.length, ...next)
+  if (next.length > 0) blogPosts.splice(0, blogPosts.length, ...withSeedLinks(next))
 }
 
 export function getBlogPost(slug: string): BlogPost | undefined {

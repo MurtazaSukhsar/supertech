@@ -36,6 +36,8 @@ declare module 'lucide-react' {
   export const Box: LucideIcon
   export const Paperclip: LucideIcon
   export const Building: LucideIcon
+  export const DatabaseZap: LucideIcon
+  export const Newspaper: LucideIcon
   export const ArrowLeft: LucideIcon
   export const ArrowRight: LucideIcon
   export const BadgeCheck: LucideIcon
