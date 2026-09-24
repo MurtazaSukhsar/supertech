@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Hero } from '@/components/home/hero'
-import { Overview } from '@/components/home/overview'
 import { CategorySlideshow } from '@/components/home/category-slideshow'
 import { TrustBadges } from '@/components/home/trust-badges'
 import { CategoryGrid } from '@/components/home/category-grid'
@@ -15,7 +14,7 @@ import type { Locale } from '@/lib/i18n/config'
 import { primeSiteDataSafely } from '@/lib/server/site-data'
 import { siteUrl } from '@/lib/content'
 import { getFaqs } from '@/lib/content-i18n'
-import { faqPageSchema, howToSchema, schemaGraph, webPageSchema } from '@/lib/seo/schema'
+import { faqPageSchema, schemaGraph, webPageSchema } from '@/lib/seo/schema'
 
 export async function generateMetadata({
   params,
@@ -62,11 +61,6 @@ export default async function HomePage({
       description: t.meta.description,
     }),
     faqPageSchema(locale, faqs),
-    howToSchema(locale, t.home.overviewStepsTitle, [
-      { name: t.home.overviewStep1Title, text: t.home.overviewStep1Desc },
-      { name: t.home.overviewStep2Title, text: t.home.overviewStep2Desc },
-      { name: t.home.overviewStep3Title, text: t.home.overviewStep3Desc },
-    ]),
   ])
 
   return (
@@ -76,7 +70,6 @@ export default async function HomePage({
         dangerouslySetInnerHTML={{ __html: pageSchema }}
       />
       <Hero />
-      <Overview />
       <CategorySlideshow />
       <TrustBadges />
       <CategoryGrid />

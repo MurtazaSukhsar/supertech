@@ -103,6 +103,7 @@ export const ar: Dictionary = {
     logoAlt: 'شعار سوبر تك',
     loaderTag: 'الدولية لمواد الإنشاءات',
     loaderAria: 'جارٍ تحميل موقع سوبر تك الدولية',
+    developedBy: 'تم التطوير والصيانة بواسطة',
   },
 
   home: {

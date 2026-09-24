@@ -113,6 +113,7 @@ export const en = {
     logoAlt: 'Super Tech logo',
     loaderTag: 'Int’l. Construction Materials Co.',
     loaderAria: 'Loading Super Tech International',
+    developedBy: 'Developed and maintained by',
   },
 
   home: {
