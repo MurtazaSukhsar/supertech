@@ -180,13 +180,13 @@ export function SiteFooter() {
           <p className="text-center text-xs text-primary-foreground/50">
             © {new Date().getFullYear()} {t.common.companyName} {t.footer.rightsReserved}
           </p>
-          <p className="text-center text-xs text-primary-foreground/50">
+          <p className="text-center text-sm font-medium text-primary-foreground/70">
             {t.footer.developedBy}{' '}
             <a
               href="https://farwingstechsolutions.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary-foreground/70 transition-colors hover:text-accent"
+              className="text-primary-foreground transition-colors hover:text-accent"
             >
               Farwings
             </a>
